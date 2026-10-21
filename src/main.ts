@@ -538,17 +538,31 @@ function findSpawn(x: number, z: number) {
       const g = groundAt(px, pz, 40);
       if (g === null || g > 0.8 || g < -0.3) continue;      // telhado / fora do modelo
       let free = true;
-      for (const d of dirs) { sideRay.set(new THREE.Vector3(px, g + 0.6, pz), d); sideRay.far = 0.7; if (sideRay.intersectObjects(colliders, false).length) { free = false; break; } }
+      for (const d of dirs) { sideRay.set(new THREE.Vector3(px, g + 0.6, pz), d); sideRay.far = 2.0; if (sideRay.intersectObjects(colliders, false).length) { free = false; break; } }
       if (free) return { x: px, z: pz, g };
     }
   }
   return { x, z, g: 0.15 };
 }
+/** Direcao de visada inicial: para o ponto de interesse se estiver livre; senao, a direcao mais aberta. */
+function bestHeading(px: number, g: number, pz: number, fx: number, fz: number) {
+  let best = new THREE.Vector3(1, 0, 0), bestScore = -1;
+  const toF = new THREE.Vector3(fx - px, 0, fz - pz); const hasF = toF.length() > 3; toF.normalize();
+  for (let k = 0; k < 16; k++) {
+    const d = new THREE.Vector3(Math.cos(k * 0.3927), 0, Math.sin(k * 0.3927));
+    sideRay.set(new THREE.Vector3(px, g + 1.5, pz), d); sideRay.far = 40;
+    const h = sideRay.intersectObjects(colliders, false)[0];
+    const free = h ? h.distance : 40;
+    const score = free * (hasF ? 1 + Math.max(0, d.dot(toF)) * 1.5 : 1);
+    if (score > bestScore) { bestScore = score; best = d; }
+  }
+  return best;
+}
 function enterWalk(x: number, y: number) {
   mode = 'walk';
   const t = b2t(x, y); const s = findSpawn(t.x, t.z);
   feetY = s.g;
-  const d = new THREE.Vector3(); camera.getWorldDirection(d); d.y = 0; if (d.lengthSq() < 1e-4) d.set(1, 0, 0); d.normalize();
+  const d = bestHeading(s.x, s.g, s.z, t.x, t.z);
   camera.position.set(s.x, feetY + EYE, s.z); camera.lookAt(s.x + d.x, feetY + EYE, s.z + d.z);
   camera.near = 0.1; camera.updateProjectionMatrix();
   $('#walkhint').classList.toggle('hidden', isTouch);
