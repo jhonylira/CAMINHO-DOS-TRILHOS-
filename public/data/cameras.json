@@ -1,0 +1,947 @@
+[
+ {
+  "name": "ESTACAO",
+  "type": "ORTHO",
+  "position": [
+   60.0,
+   85.0,
+   4.0
+  ],
+  "forward": [
+   0.388,
+   -0.732,
+   -0.56
+  ],
+  "up": [
+   0.417,
+   0.681,
+   -0.602
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 135.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "PREFEITURA",
+  "type": "ORTHO",
+  "position": [
+   -230.0,
+   85.15,
+   47.224
+  ],
+  "forward": [
+   0.388,
+   -0.732,
+   -0.56
+  ],
+  "up": [
+   0.417,
+   0.681,
+   -0.602
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 110.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "CENTRAL",
+  "type": "PERSP",
+  "position": [
+   -480.0,
+   85.15,
+   153.922
+  ],
+  "forward": [
+   0.388,
+   -0.732,
+   -0.56
+  ],
+  "up": [
+   0.417,
+   0.681,
+   -0.602
+  ],
+  "lens": 55.0,
+  "sensor": 30.0,
+  "fov_h": 30.51023740611555,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "OESTE",
+  "type": "ORTHO",
+  "position": [
+   -901.0,
+   85.15,
+   290.508
+  ],
+  "forward": [
+   0.388,
+   -0.732,
+   -0.56
+  ],
+  "up": [
+   0.417,
+   0.681,
+   -0.602
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 110.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R09_ESTACAO_PROGRAMA",
+  "type": "ORTHO",
+  "position": [
+   60.0,
+   80.0,
+   4.0
+  ],
+  "forward": [
+   0.4,
+   -0.711,
+   -0.578
+  ],
+  "up": [
+   0.405,
+   0.703,
+   -0.585
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 78.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R09_PREFEITURA",
+  "type": "ORTHO",
+  "position": [
+   -229.921,
+   80.0,
+   47.109
+  ],
+  "forward": [
+   0.4,
+   -0.711,
+   -0.578
+  ],
+  "up": [
+   0.405,
+   0.703,
+   -0.585
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 80.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R09_CENTRAL",
+  "type": "ORTHO",
+  "position": [
+   -479.921,
+   80.0,
+   153.807
+  ],
+  "forward": [
+   0.4,
+   -0.711,
+   -0.578
+  ],
+  "up": [
+   0.405,
+   0.703,
+   -0.585
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 80.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R09_HOTEL",
+  "type": "ORTHO",
+  "position": [
+   -900.921,
+   80.0,
+   290.393
+  ],
+  "forward": [
+   0.4,
+   -0.711,
+   -0.578
+  ],
+  "up": [
+   0.405,
+   0.703,
+   -0.585
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 80.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R09_ESTACAO_DETALHE",
+  "type": "ORTHO",
+  "position": [
+   120.0,
+   26.0,
+   -23.0
+  ],
+  "forward": [
+   0.482,
+   -0.482,
+   -0.732
+  ],
+  "up": [
+   0.265,
+   0.876,
+   -0.402
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 38.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R09_MEMORIAL_DETALHE",
+  "type": "ORTHO",
+  "position": [
+   31.0,
+   28.0,
+   -44.0
+  ],
+  "forward": [
+   0.509,
+   -0.597,
+   -0.62
+  ],
+  "up": [
+   0.379,
+   0.802,
+   -0.462
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 26.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R10_VARIANTE_PEDESTRE_QUIOSQUE",
+  "type": "PERSP",
+  "position": [
+   153.0,
+   1.85,
+   -61.5
+  ],
+  "forward": [
+   0.852,
+   -0.046,
+   0.522
+  ],
+  "up": [
+   0.039,
+   0.999,
+   0.024
+  ],
+  "lens": 38.0,
+  "sensor": 36.0,
+  "fov_h": 50.69235188389338,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R10_VARIANTE_CAFE_APROXIMACAO",
+  "type": "PERSP",
+  "position": [
+   79.0,
+   1.85,
+   -57.0
+  ],
+  "forward": [
+   0.831,
+   -0.037,
+   -0.554
+  ],
+  "up": [
+   0.031,
+   0.999,
+   -0.02
+  ],
+  "lens": 36.0,
+  "sensor": 36.0,
+  "fov_h": 53.13010235415598,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R15_MODELO_A_F39A",
+  "type": "PERSP",
+  "position": [
+   66.017,
+   2.0,
+   -58.803
+  ],
+  "forward": [
+   -0.228,
+   -0.051,
+   -0.972
+  ],
+  "up": [
+   -0.012,
+   0.999,
+   -0.049
+  ],
+  "lens": 42.0,
+  "sensor": 36.0,
+  "fov_h": 46.39718102729637,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R15_MODELO_B_C934",
+  "type": "PERSP",
+  "position": [
+   153.613,
+   2.0,
+   -62.84
+  ],
+  "forward": [
+   0.683,
+   -0.051,
+   0.729
+  ],
+  "up": [
+   0.035,
+   0.999,
+   0.037
+  ],
+  "lens": 42.0,
+  "sensor": 36.0,
+  "fov_h": 46.39718102729637,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R03_DETALHE_ANEXO_7BF3",
+  "type": "PERSP",
+  "position": [
+   78.427,
+   6.0,
+   -52.04
+  ],
+  "forward": [
+   0.607,
+   -0.272,
+   -0.747
+  ],
+  "up": [
+   0.172,
+   0.962,
+   -0.211
+  ],
+  "lens": 45.0,
+  "sensor": 36.0,
+  "fov_h": 43.60281897270362,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R03_DETALHE_ANEXO_7C28",
+  "type": "PERSP",
+  "position": [
+   140.113,
+   6.0,
+   -58.271
+  ],
+  "forward": [
+   -0.747,
+   -0.272,
+   -0.607
+  ],
+  "up": [
+   -0.211,
+   0.962,
+   -0.172
+  ],
+  "lens": 45.0,
+  "sensor": 36.0,
+  "fov_h": 43.60281897270362,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R03_DETALHE_GRELHA",
+  "type": "PERSP",
+  "position": [
+   -741.507,
+   2.4,
+   163.092
+  ],
+  "forward": [
+   0.511,
+   -0.575,
+   -0.639
+  ],
+  "up": [
+   0.359,
+   0.818,
+   -0.449
+  ],
+  "lens": 48.0,
+  "sensor": 36.0,
+  "fov_h": 41.11209043916693,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R03_DETALHE_LUMINARIA",
+  "type": "ORTHO",
+  "position": [
+   192.432,
+   1.8,
+   -66.398
+  ],
+  "forward": [
+   -0.871,
+   0.082,
+   0.484
+  ],
+  "up": [
+   0.072,
+   0.997,
+   -0.04
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 10.5,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R05_DETALHE_BANCO_1",
+  "type": "PERSP",
+  "position": [
+   63.084,
+   2.6,
+   -52.907
+  ],
+  "forward": [
+   -0.428,
+   -0.363,
+   -0.827
+  ],
+  "up": [
+   -0.167,
+   0.932,
+   -0.323
+  ],
+  "lens": 48.0,
+  "sensor": 36.0,
+  "fov_h": 41.11209043916693,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R05_DETALHE_BANCO_2",
+  "type": "PERSP",
+  "position": [
+   74.643,
+   2.6,
+   -52.403
+  ],
+  "forward": [
+   0.435,
+   -0.363,
+   0.824
+  ],
+  "up": [
+   0.17,
+   0.932,
+   0.321
+  ],
+  "lens": 48.0,
+  "sensor": 36.0,
+  "fov_h": 41.11209043916693,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R05_DETALHE_BANCO_3",
+  "type": "PERSP",
+  "position": [
+   95.181,
+   2.6,
+   -46.177
+  ],
+  "forward": [
+   -0.91,
+   -0.363,
+   -0.199
+  ],
+  "up": [
+   -0.355,
+   0.932,
+   -0.077
+  ],
+  "lens": 48.0,
+  "sensor": 36.0,
+  "fov_h": 41.11209043916693,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R06_12_CANTEIRO_GOTA",
+  "type": "ORTHO",
+  "position": [
+   207.835,
+   8.25,
+   -51.706
+  ],
+  "forward": [
+   -0.424,
+   -0.566,
+   -0.707
+  ],
+  "up": [
+   -0.291,
+   0.825,
+   -0.485
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 26.881467819213867,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R06_13_CANTEIROS_CURVOS",
+  "type": "ORTHO",
+  "position": [
+   159.847,
+   8.25,
+   -57.558
+  ],
+  "forward": [
+   -0.424,
+   -0.566,
+   -0.707
+  ],
+  "up": [
+   -0.291,
+   0.825,
+   -0.485
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 65.256103515625,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R07_14_NOVAS_FLOREIRAS",
+  "type": "ORTHO",
+  "position": [
+   -33.0,
+   20.0,
+   -19.0
+  ],
+  "forward": [
+   -0.144,
+   -0.716,
+   -0.683
+  ],
+  "up": [
+   -0.147,
+   0.698,
+   -0.7
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 180.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R07_15_BERCO_ESTACIONAMENTO",
+  "type": "ORTHO",
+  "position": [
+   129.0,
+   7.0,
+   -37.0
+  ],
+  "forward": [
+   -0.398,
+   -0.472,
+   -0.787
+  ],
+  "up": [
+   -0.213,
+   0.881,
+   -0.421
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 17.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R07_16_ARVORE_MOVIMENTADA",
+  "type": "ORTHO",
+  "position": [
+   99.0,
+   8.0,
+   -35.0
+  ],
+  "forward": [
+   -0.447,
+   -0.541,
+   -0.713
+  ],
+  "up": [
+   -0.287,
+   0.841,
+   -0.458
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 16.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R13_SUPERIOR_IMPLANTACAO",
+  "type": "ORTHO",
+  "position": [
+   -310.0,
+   1500.0,
+   70.0
+  ],
+  "forward": [
+   0.0,
+   -1.0,
+   -0.0
+  ],
+  "up": [
+   0.0,
+   0.0,
+   -1.0
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 1300.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_01_OESTE",
+  "type": "ORTHO",
+  "position": [
+   -900.921,
+   80.0,
+   290.393
+  ],
+  "forward": [
+   0.4,
+   -0.711,
+   -0.578
+  ],
+  "up": [
+   0.405,
+   0.703,
+   -0.585
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 80.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_02_CENTRAL",
+  "type": "ORTHO",
+  "position": [
+   -479.921,
+   80.0,
+   153.807
+  ],
+  "forward": [
+   0.4,
+   -0.711,
+   -0.578
+  ],
+  "up": [
+   0.405,
+   0.703,
+   -0.585
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 80.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_03_ESTACAO",
+  "type": "ORTHO",
+  "position": [
+   60.0,
+   80.0,
+   4.0
+  ],
+  "forward": [
+   0.4,
+   -0.711,
+   -0.578
+  ],
+  "up": [
+   0.405,
+   0.703,
+   -0.585
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 78.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_04_OESTE_PEDESTRE",
+  "type": "PERSP",
+  "position": [
+   -709.15,
+   2.25,
+   151.55
+  ],
+  "forward": [
+   0.934,
+   -0.02,
+   -0.356
+  ],
+  "up": [
+   0.018,
+   1.0,
+   -0.007
+  ],
+  "lens": 28.0,
+  "sensor": 36.0,
+  "fov_h": 65.4704525442152,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_05_CENTRAL_OBLIQUA",
+  "type": "PERSP",
+  "position": [
+   -382.0,
+   45.0,
+   112.0
+  ],
+  "forward": [
+   0.462,
+   -0.56,
+   -0.687
+  ],
+  "up": [
+   0.313,
+   0.828,
+   -0.465
+  ],
+  "lens": 42.0,
+  "sensor": 36.0,
+  "fov_h": 46.39718102729637,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_DETALHE_FLOREIRA_A",
+  "type": "PERSP",
+  "position": [
+   60.446,
+   10.204,
+   -49.363
+  ],
+  "forward": [
+   0.275,
+   -0.622,
+   -0.733
+  ],
+  "up": [
+   0.219,
+   0.783,
+   -0.583
+  ],
+  "lens": 45.0,
+  "sensor": 36.0,
+  "fov_h": 43.60281897270362,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_DETALHE_FLOREIRA_B",
+  "type": "PERSP",
+  "position": [
+   106.922,
+   15.513,
+   -59.236
+  ],
+  "forward": [
+   0.274,
+   -0.626,
+   -0.73
+  ],
+  "up": [
+   0.22,
+   0.78,
+   -0.586
+  ],
+  "lens": 45.0,
+  "sensor": 36.0,
+  "fov_h": 43.60281897270362,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "EP_DETALHE_FLOREIRA_C",
+  "type": "PERSP",
+  "position": [
+   46.682,
+   15.765,
+   -56.464
+  ],
+  "forward": [
+   0.274,
+   -0.626,
+   -0.73
+  ],
+  "up": [
+   0.22,
+   0.779,
+   -0.587
+  ],
+  "lens": 45.0,
+  "sensor": 36.0,
+  "fov_h": 43.60281897270362,
+  "ortho_scale": null,
+  "res": [
+   3840,
+   2560
+  ]
+ }
+]

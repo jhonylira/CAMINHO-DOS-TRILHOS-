@@ -1,0 +1,1230 @@
+{
+ "source": {
+  "file": "CAMINHO_DOS_TRILHOS_EP_R00d_R07.blend",
+  "path": "C:\\Users\\projetos2\\Documents\\caminho dos trilhos\\estudo_ep_r00d\\CAMINHO_DOS_TRILHOS_EP_R00d_R07.blend",
+  "sha256": "5a76f0309c3e7ca43129979db18df985a0353290e0c9e4501e8b192d042f7e74",
+  "exported_at": "2026-10-21 16:56:52",
+  "note": "Arquivo fonte aberto somente para leitura; nenhuma gravacao realizada."
+ },
+ "frame": {
+  "origin_utm": "E 700080 / N 7070350 (origem local do CAD, metros)",
+  "blender_to_three": "three(x, y, z) = blender(x, z, -y)",
+  "units": "metros"
+ },
+ "stats": {
+  "renderable_objects": 10714,
+  "triangles": 811456,
+  "glb_nodes": 52,
+  "glb_bytes": 45691036
+ },
+ "layers": [
+  {
+   "id": "viario",
+   "label": "Sistema viario e sinalizacao",
+   "order": 1,
+   "min": [
+    -896.76,
+    -269.05,
+    -0.12
+   ],
+   "max": [
+    279.14,
+    114.35,
+    3.84
+   ],
+   "objects": 17
+  },
+  {
+   "id": "passeios",
+   "label": "Passeios, pracas e guias",
+   "order": 2,
+   "min": [
+    -903.02,
+    -281.17,
+    -0.12
+   ],
+   "max": [
+    280.03,
+    116.18,
+    0.45
+   ],
+   "objects": 370
+  },
+  {
+   "id": "canteiros",
+   "label": "Canteiros e vegetacao baixa",
+   "order": 3,
+   "min": [
+    -897.98,
+    -250.67,
+    -0.17
+   ],
+   "max": [
+    207.27,
+    90.19,
+    0.35
+   ],
+   "objects": 92
+  },
+  {
+   "id": "ciclovia",
+   "label": "Faixas especiais / ciclovia (tracado identificado)",
+   "order": 4,
+   "min": [
+    -895.3,
+    -253.17,
+    0.03
+   ],
+   "max": [
+    220.92,
+    77.28,
+    0.15
+   ],
+   "objects": 14
+  },
+  {
+   "id": "ferrovia",
+   "label": "Patrimonio ferroviario - trilhos e lastro",
+   "order": 5,
+   "min": [
+    -895.62,
+    -248.23,
+    -0.12
+   ],
+   "max": [
+    217.06,
+    69.55,
+    0.15
+   ],
+   "objects": 6
+  },
+  {
+   "id": "floreiras",
+   "label": "Floreiras, muretas e grelhas de arvores",
+   "order": 6,
+   "min": [
+    -855.03,
+    -224.63,
+    -0.1
+   ],
+   "max": [
+    207.52,
+    90.19,
+    0.85
+   ],
+   "objects": 86
+  },
+  {
+   "id": "mobiliario",
+   "label": "Mobiliario urbano",
+   "order": 7,
+   "min": [
+    59.38,
+    46.39,
+    0.18
+   ],
+   "max": [
+    199.53,
+    71.17,
+    0.98
+   ],
+   "objects": 181
+  },
+  {
+   "id": "iluminacao",
+   "label": "Iluminacao publica",
+   "order": 8,
+   "min": [
+    -554.96,
+    -100.51,
+    0.15
+   ],
+   "max": [
+    204.87,
+    85.5,
+    5.15
+   ],
+   "objects": 395
+  },
+  {
+   "id": "quiosques",
+   "label": "Quiosques panoramicos",
+   "order": 9,
+   "min": [
+    60.04,
+    51.45,
+    0.09
+   ],
+   "max": [
+    177.01,
+    73.58,
+    3.05
+   ],
+   "objects": 413
+  },
+  {
+   "id": "conceitual",
+   "label": "Arquitetura conceitual (R10)",
+   "order": 10,
+   "min": [
+    50.13,
+    67.03,
+    0.53
+   ],
+   "max": [
+    53.02,
+    77.18,
+    2.15
+   ],
+   "objects": 7
+  },
+  {
+   "id": "cafes",
+   "label": "Anexos de vidro - cafes e bistro",
+   "order": 11,
+   "min": [
+    85.01,
+    60.79,
+    -0.1
+   ],
+   "max": [
+    131.37,
+    70.41,
+    4.52
+   ],
+   "objects": 182
+  },
+  {
+   "id": "estacao",
+   "label": "Estacao ferroviaria historica",
+   "order": 12,
+   "min": [
+    85.0,
+    59.06,
+    0.0
+   ],
+   "max": [
+    131.37,
+    72.15,
+    7.0
+   ],
+   "objects": 314
+  },
+  {
+   "id": "vegetacao",
+   "label": "Arborizacao (proxies CAD)",
+   "order": 13,
+   "min": [
+    -856.91,
+    -226.49,
+    -0.05
+   ],
+   "max": [
+    184.29,
+    91.18,
+    6.5
+   ],
+   "objects": 140
+  },
+  {
+   "id": "entorno",
+   "label": "Entorno volumetrico simplificado",
+   "order": 14,
+   "min": [
+    -1300.0,
+    -680.0,
+    -0.9
+   ],
+   "max": [
+    700.0,
+    520.0,
+    9.0
+   ],
+   "objects": 8497
+  },
+  {
+   "id": "outros",
+   "label": "Outros elementos do modelo",
+   "order": 15,
+   "min": [
+    55.36,
+    32.36,
+    0.03
+   ],
+   "max": [
+    205.1,
+    53.07,
+    0.15
+   ],
+   "objects": 1
+  }
+ ],
+ "materials": {
+  "ENTORNO": {
+   "name": "ENTORNO",
+   "color": [
+    0.8148465752601624,
+    0.8148465752601624,
+    0.7681511640548706
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "Brick Wall": {
+   "name": "Brick Wall",
+   "color": [
+    0.800000011920929,
+    0.800000011920929,
+    0.800000011920929
+   ],
+   "roughness": 0.4000000059604645,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": true
+  },
+  "WOOD": {
+   "name": "WOOD",
+   "color": [
+    0.3967552185058594,
+    0.25015828013420105,
+    0.12477181851863861
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R13_TELHA_CERAMICA": {
+   "name": "R13_TELHA_CERAMICA",
+   "color": [
+    0.4793201684951782,
+    0.1384316086769104,
+    0.05951123684644699
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R09_GRAFITE": {
+   "name": "R09_GRAFITE",
+   "color": [
+    0.005605391692370176,
+    0.005605391692370176,
+    0.005605391692370176
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R09_OCRE": {
+   "name": "R09_OCRE",
+   "color": [
+    0.4793201684951782,
+    0.1384316086769104,
+    0.05951123684644699
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R10_METAL_SUAVE": {
+   "name": "R10_METAL_SUAVE",
+   "color": [
+    0.09989872574806213,
+    0.12743768095970154,
+    0.11443537473678589
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R10_MADEIRA_SUAVE": {
+   "name": "R10_MADEIRA_SUAVE",
+   "color": [
+    0.3967552185058594,
+    0.25015828013420105,
+    0.12477181851863861
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R10_CORTEN_CONCEITUAL": {
+   "name": "R10_CORTEN_CONCEITUAL",
+   "color": [
+    0.366252601146698,
+    0.177888423204422,
+    0.109461709856987
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R10_FULGET_TERROSO_PLACAS": {
+   "name": "R10_FULGET_TERROSO_PLACAS",
+   "color": [
+    0.577580451965332,
+    0.42869049310684204,
+    0.33716362714767456
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R10_BRANCO_QUENTE": {
+   "name": "R10_BRANCO_QUENTE",
+   "color": [
+    0.68668532371521,
+    0.672443151473999,
+    0.6307571530342102
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R15_FECHAMENTO_NEUTRO": {
+   "name": "R15_FECHAMENTO_NEUTRO",
+   "color": [
+    0.8148465752601624,
+    0.8148465752601624,
+    0.7681511640548706
+   ],
+   "roughness": 0.7799999713897705,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R15_METAL_SALVIA_GRAFITE": {
+   "name": "R15_METAL_SALVIA_GRAFITE",
+   "color": [
+    0.09989872574806213,
+    0.12743768095970154,
+    0.11443537473678589
+   ],
+   "roughness": 0.7799999713897705,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R15_MADEIRA_RIPADO_SUAVE": {
+   "name": "R15_MADEIRA_RIPADO_SUAVE",
+   "color": [
+    0.3967552185058594,
+    0.25015828013420105,
+    0.12477181851863861
+   ],
+   "roughness": 0.7799999713897705,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R15_BALCAO_CLARO": {
+   "name": "R15_BALCAO_CLARO",
+   "color": [
+    0.68668532371521,
+    0.672443151473999,
+    0.6307571530342102
+   ],
+   "roughness": 0.7799999713897705,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R15_TOLDO_LISTRADO_SALVIA_CREME": {
+   "name": "R15_TOLDO_LISTRADO_SALVIA_CREME",
+   "color": [
+    0.2462013214826584,
+    0.3915724754333496,
+    0.177888423204422
+   ],
+   "roughness": 0.7799999713897705,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": true
+  },
+  "R15_MURETA_DIVISA": {
+   "name": "R15_MURETA_DIVISA",
+   "color": [
+    0.47999998927116394,
+    0.49000000953674316,
+    0.46000000834465027
+   ],
+   "roughness": 0.8500000238418579,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R15_GRADIL_DIVISA": {
+   "name": "R15_GRADIL_DIVISA",
+   "color": [
+    0.07999999821186066,
+    0.10999999940395355,
+    0.10000000149011612
+   ],
+   "roughness": 0.8500000238418579,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R15_SOLO_LOTE_VIZINHO_PRIVADO": {
+   "name": "R15_SOLO_LOTE_VIZINHO_PRIVADO",
+   "color": [
+    0.23999999463558197,
+    0.2199999988079071,
+    0.1599999964237213
+   ],
+   "roughness": 0.8500000238418579,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_CONCRETO_FULGET_CINZA": {
+   "name": "EP_CONCRETO_FULGET_CINZA",
+   "color": [
+    0.6299999952316284,
+    0.6399999856948853,
+    0.6100000143051147
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_LASTRO": {
+   "name": "EP_LASTRO",
+   "color": [
+    0.25999999046325684,
+    0.27000001072883606,
+    0.25
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_FAIXA_ESPECIAL_CIMENTICIO": {
+   "name": "EP_FAIXA_ESPECIAL_CIMENTICIO",
+   "color": [
+    0.49000000953674316,
+    0.15000000596046448,
+    0.11999999731779099
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_ASFALTO": {
+   "name": "EP_ASFALTO",
+   "color": [
+    0.12999999523162842,
+    0.15000000596046448,
+    0.1599999964237213
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "Cracked asphalt": {
+   "name": "Cracked asphalt",
+   "color": [
+    0.800000011920929,
+    0.800000011920929,
+    0.800000011920929
+   ],
+   "roughness": 0.4000000059604645,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": true
+  },
+  "EP_PERMANENCIA_FULGET_TERROSO": {
+   "name": "EP_PERMANENCIA_FULGET_TERROSO",
+   "color": [
+    0.5400000214576721,
+    0.3799999952316284,
+    0.25999999046325684
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_CANTEIRO": {
+   "name": "EP_CANTEIRO",
+   "color": [
+    0.27000001072883606,
+    0.3700000047683716,
+    0.1599999964237213
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_VEGETACAO_BAIXA": {
+   "name": "EP_VEGETACAO_BAIXA",
+   "color": [
+    0.30000001192092896,
+    0.4300000071525574,
+    0.20000000298023224
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_GUIA_CONCRETO": {
+   "name": "EP_GUIA_CONCRETO",
+   "color": [
+    0.5400000214576721,
+    0.550000011920929,
+    0.5199999809265137
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_R02_CONCRETO_BRANCO_FLOREIRA": {
+   "name": "EP_R02_CONCRETO_BRANCO_FLOREIRA",
+   "color": [
+    0.8299999833106995,
+    0.8399999737739563,
+    0.800000011920929
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_R02_SOLO_ORGANICO_ESCUR0": {
+   "name": "EP_R02_SOLO_ORGANICO_ESCUR0",
+   "color": [
+    0.20000000298023224,
+    0.1599999964237213,
+    0.10000000149011612
+   ],
+   "roughness": 0.949999988079071,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_R02_VEGETACAO_BAIXA_MASSA": {
+   "name": "EP_R02_VEGETACAO_BAIXA_MASSA",
+   "color": [
+    0.28999999165534973,
+    0.4000000059604645,
+    0.14000000059604645
+   ],
+   "roughness": 0.949999988079071,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R03_VIDRO_INCOLOR_ANEXO": {
+   "name": "R03_VIDRO_INCOLOR_ANEXO",
+   "color": [
+    0.6299999952316284,
+    0.800000011920929,
+    0.8100000023841858
+   ],
+   "roughness": 0.11999999731779099,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_TRONCO": {
+   "name": "EP_TRONCO",
+   "color": [
+    0.25,
+    0.1599999964237213,
+    0.07999999821186066
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_COPA_PROXY": {
+   "name": "EP_COPA_PROXY",
+   "color": [
+    0.2199999988079071,
+    0.3700000047683716,
+    0.12999999523162842
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_MADEIRA_BANCO": {
+   "name": "EP_MADEIRA_BANCO",
+   "color": [
+    0.4300000071525574,
+    0.2800000011920929,
+    0.12999999523162842
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "EP_METAL": {
+   "name": "EP_METAL",
+   "color": [
+    0.09000000357627869,
+    0.11999999731779099,
+    0.10999999940395355
+   ],
+   "roughness": 0.8199999928474426,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R03_PERFIL_METAL_ANEXOS_POSTES": {
+   "name": "R03_PERFIL_METAL_ANEXOS_POSTES",
+   "color": [
+    0.06499999761581421,
+    0.07800000160932541,
+    0.07400000095367432
+   ],
+   "roughness": 0.3799999952316284,
+   "metallic": 0.5,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R03_DIFUSOR_LED": {
+   "name": "R03_DIFUSOR_LED",
+   "color": [
+    0.8199999928474426,
+    0.8500000238418579,
+    0.800000011920929
+   ],
+   "roughness": 0.3499999940395355,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R03_TIJOLINHO_BASE_CAFE_BISTRO": {
+   "name": "R03_TIJOLINHO_BASE_CAFE_BISTRO",
+   "color": [
+    0.41999998688697815,
+    0.1899999976158142,
+    0.11999999731779099
+   ],
+   "roughness": 0.8700000047683716,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": true
+  },
+  "R03_METAL_GRELHA_GRAFITE": {
+   "name": "R03_METAL_GRELHA_GRAFITE",
+   "color": [
+    0.06499999761581421,
+    0.07500000298023224,
+    0.0729999989271164
+   ],
+   "roughness": 0.6200000047683716,
+   "metallic": 0.6499999761581421,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R03_SOLO_AERADO": {
+   "name": "R03_SOLO_AERADO",
+   "color": [
+    0.18000000715255737,
+    0.12999999523162842,
+    0.07999999821186066
+   ],
+   "roughness": 0.949999988079071,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R06_CONCRETO_CLARO_FOSCO_MICROAGREGADO": {
+   "name": "R06_CONCRETO_CLARO_FOSCO_MICROAGREGADO",
+   "color": [
+    0.7200000286102295,
+    0.699999988079071,
+    0.6499999761581421
+   ],
+   "roughness": 0.7599999904632568,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  }
+ },
+ "bounds_all": {
+  "min": [
+   -1300.0,
+   -680.0,
+   -0.9
+  ],
+  "max": [
+   700.0,
+   520.0,
+   9.0
+  ]
+ },
+ "bounds_project": {
+  "min": [
+   -903.02,
+   -281.17,
+   -0.17
+  ],
+  "max": [
+   280.03,
+   116.18,
+   7.0
+  ]
+ },
+ "key_elements": {
+  "estacao": {
+   "min": [
+    85.00466918945312,
+    59.06320571899414,
+    0.0
+   ],
+   "max": [
+    131.37002563476562,
+    72.15521240234375,
+    7.000000476837158
+   ],
+   "count": 314
+  },
+  "cafes": {
+   "min": [
+    85.00902557373047,
+    60.78722381591797,
+    -0.10000001639127731
+   ],
+   "max": [
+    131.36566162109375,
+    70.41117858886719,
+    4.519698143005371
+   ],
+   "count": 182
+  },
+  "quiosques": {
+   "min": [
+    60.044639587402344,
+    51.453887939453125,
+    0.08999999612569809
+   ],
+   "max": [
+    177.00912475585938,
+    73.57579803466797,
+    3.049999952316284
+   ],
+   "count": 413
+  },
+  "conceitual": {
+   "min": [
+    50.1314811706543,
+    67.03043365478516,
+    0.5299999713897705
+   ],
+   "max": [
+    53.02151870727539,
+    77.17854309082031,
+    2.1500000953674316
+   ],
+   "count": 7
+  },
+  "ferrovia": {
+   "min": [
+    -895.6228637695312,
+    -248.2338409423828,
+    -0.11999999731779099
+   ],
+   "max": [
+    217.0588836669922,
+    69.54689025878906,
+    0.15031090378761292
+   ],
+   "count": 6
+  },
+  "floreiras_R06": {
+   "min": [
+    132.64500427246094,
+    57.41019821166992,
+    -0.10000000149011612
+   ],
+   "max": [
+    207.51759338378906,
+    70.69650268554688,
+    0.44999998807907104
+   ],
+   "count": 12
+  },
+  "floreiras_R07": {
+   "min": [
+    -109.91200256347656,
+    30.234699249267578,
+    -0.11999999731779099
+   ],
+   "max": [
+    126.21900177001953,
+    50.90570068359375,
+    0.15000000596046448
+   ],
+   "count": 15
+  },
+  "bancos_R05": {
+   "min": [
+    59.24580001831055,
+    46.248600006103516,
+    -0.10000000149011612
+   ],
+   "max": [
+    90.6488037109375,
+    58.512298583984375,
+    0.9800000190734863
+   ],
+   "count": 82
+  },
+  "grelhas_R04": {
+   "min": [
+    -855.0266723632812,
+    -224.6300506591797,
+    0.12200000137090683
+   ],
+   "max": [
+    92.9157943725586,
+    83.9418716430664,
+    0.15000000596046448
+   ],
+   "count": 21
+  },
+  "ciclovia": {
+   "min": [
+    -895.2978515625,
+    -253.1708984375,
+    0.029999999329447746
+   ],
+   "max": [
+    220.91888427734375,
+    77.28189849853516,
+    0.15000000596046448
+   ],
+   "count": 14
+  }
+ },
+ "plan": {
+  "xmin": -933.02,
+  "ymin": -311.17,
+  "xmax": 310.03,
+  "ymax": 146.18,
+  "width_px": 4096,
+  "height_px": 1507,
+  "meters_per_px": 0.30347900390625,
+  "layers": [],
+  "note": "Planta ortografica gerada do mesmo modelo R07, mesma origem local (E 700080 / N 7070350). u=(x-xmin)/(xmax-xmin)*width_px ; v=(ymax-y)/(ymax-ymin)*height_px (coordenadas Blender).",
+  "composite": "plan/00_completa.png"
+ }
+}

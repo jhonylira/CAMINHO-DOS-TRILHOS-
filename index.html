@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Caminho dos Trilhos · Experiência Urbana 2D + 3D</title>
+  <meta name="description" content="Requalificação urbana do corredor ferroviário de Guaramirim/SC — apresentação interativa em tempo real." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23a0643c'/%3E%3Cpath d='M6 22h20M6 18h20M10 12v14M16 12v14M22 12v14' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="c3d" aria-label="Visualização 3D do projeto"></canvas>
+  <div id="labels" aria-hidden="false"></div>
+
+  <header id="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">▤</span>
+      <div><strong>Caminho dos Trilhos</strong><small>Guaramirim/SC · estudo preliminar · modelo R07</small></div>
+    </div>
+    <nav id="modes" aria-label="Modos de visualização">
+      <button data-mode="orbit" class="active" title="Masterplan 3D (1)">Masterplan 3D</button>
+      <button data-mode="plan" title="Implantação 2D (2)">Implantação 2D</button>
+      <button data-mode="walk" title="Caminhar em 1ª pessoa (3)">Caminhar</button>
+      <button data-mode="tour" title="Apresentação guiada (4)">Apresentação</button>
+    </nav>
+    <div class="tools">
+      <button id="btnHome" title="Vista geral (H)">⌂ Vista geral</button>
+      <button id="btnSettings" title="Configurações" aria-expanded="false">⚙</button>
+      <button id="btnFull" title="Tela cheia (F)">⛶</button>
+    </div>
+  </header>
+
+  <section id="settings" class="panel hidden" aria-label="Configurações">
+    <h3>Visualização</h3>
+    <label>Qualidade gráfica
+      <select id="quality"><option value="leve">Leve</option><option value="padrao" selected>Padrão</option><option value="alta">Alta</option></select>
+    </label>
+    <label>Hora do dia <span id="hourLbl"></span>
+      <input id="hour" type="range" min="6.5" max="18" step="0.25" value="9.5" />
+    </label>
+    <small class="muted">Sol calculado para Guaramirim (−26,47°, −48,99°) em 15/dez · ilustrativo, não é estudo de insolação.</small>
+    <label class="chk"><input type="checkbox" id="tTrees" checked /> Árvores humanizadas (posição e copa CAD)</label>
+    <label class="chk"><input type="checkbox" id="tPeople" checked /> Pessoas <em>(ilustrativo)</em></label>
+    <label class="chk"><input type="checkbox" id="tHotspots" checked /> Pontos de interesse</label>
+  </section>
+
+  <aside id="layers" class="panel" aria-label="Camadas">
+    <button class="collapse" id="layersToggle" aria-expanded="true">Camadas ▾</button>
+    <div id="layerList"></div>
+  </aside>
+
+  <aside id="info" class="panel hidden" aria-live="polite">
+    <button class="close" id="infoClose" aria-label="Fechar">×</button>
+    <div id="infoBody"></div>
+  </aside>
+
+  <div id="minimap" class="panel" title="Clique para levar a câmera ao ponto">
+    <canvas id="mini"></canvas>
+    <span class="north">N ↑</span>
+  </div>
+
+  <div id="planbar" class="panel hidden">
+    <button data-pv="proposta" class="active">Proposta (modelo R07)</button>
+    <button data-pv="comparar">Comparar ⟷</button>
+    <button data-pv="existente">Existente (ortofoto 5 cm)</button>
+    <span id="scalebar"><i></i><b>50 m</b></span>
+  </div>
+  <div id="splitter" class="hidden" aria-label="Arraste para comparar"><span>Existente ◂ ▸ Proposta</span></div>
+
+  <div id="tourbar" class="panel hidden">
+    <button id="tPrev" title="Anterior (←)">◂</button>
+    <button id="tPlay" title="Reproduzir/pausar (espaço)">❚❚</button>
+    <button id="tNext" title="Próxima (→)">▸</button>
+    <div id="tDots"></div>
+    <button id="tExit" title="Sair da apresentação">Sair</button>
+  </div>
+
+  <div id="walkhint" class="hidden">
+    <div class="card">
+      <h3>Caminhada em escala humana</h3>
+      <p><b>Clique</b> para começar · <b>W A S D</b> mover · <b>mouse</b> olhar · <b>Shift</b> acelerar · <b>ESC</b> liberar o mouse</p>
+      <p class="muted">Tablet: arraste à esquerda para andar e à direita para olhar · Controle Xbox suportado</p>
+    </div>
+  </div>
+  <div id="touchpad" class="hidden"><div id="stick"><i></i></div></div>
+
+  <div id="status"></div>
+
+  <div id="loader">
+    <div class="lcard">
+      <h1>Caminho dos Trilhos</h1>
+      <p>Requalificação urbana do corredor ferroviário · Guaramirim/SC</p>
+      <div class="bar"><i id="lbar"></i></div>
+      <small id="lmsg">Carregando modelo 3D do projeto (R07)…</small>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

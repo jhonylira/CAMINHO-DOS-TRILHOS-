@@ -1,0 +1,50 @@
+[
+ {
+  "id": "01_OESTE",
+  "file": "renders/01_OESTE.webp",
+  "camera": "EP_01_OESTE",
+  "source": "estudo_ep_r00d\\bases_blender_R07\\01_OESTE.png",
+  "sha256": "6746466fa44121626be3b1e48ef87cf0da4ff39c65b417f6529e9f4651f21656",
+  "label": "Imagem pre-renderizada no Blender (evidencia tecnica R07) - nao e tempo real nem imagem IA"
+ },
+ {
+  "id": "02_CENTRAL",
+  "file": "renders/02_CENTRAL.webp",
+  "camera": "EP_02_CENTRAL",
+  "source": "estudo_ep_r00d\\bases_blender_R07\\02_CENTRAL.png",
+  "sha256": "eb06d1273d5479cd2610ab37eb51b0adaa5dad1bef58eb09c7f860585e963841",
+  "label": "Imagem pre-renderizada no Blender (evidencia tecnica R07) - nao e tempo real nem imagem IA"
+ },
+ {
+  "id": "03_ESTACAO",
+  "file": "renders/03_ESTACAO.webp",
+  "camera": "EP_03_ESTACAO",
+  "source": "estudo_ep_r00d\\bases_blender_R07\\03_ESTACAO.png",
+  "sha256": "ad0593eb27ede4be47563e3ec322d792690c37cf03149bdeddd258c226752ec5",
+  "label": "Imagem pre-renderizada no Blender (evidencia tecnica R07) - nao e tempo real nem imagem IA"
+ },
+ {
+  "id": "14_NOVAS_FLOREIRAS",
+  "file": "renders/14_NOVAS_FLOREIRAS.webp",
+  "camera": "R07_14_NOVAS_FLOREIRAS",
+  "source": "estudo_ep_r00d\\bases_blender_R07\\14_NOVAS_FLOREIRAS.png",
+  "sha256": "1e15755bd49e49f386c675f2dce15026eda906108ee363d92995144ebb69125b",
+  "label": "Imagem pre-renderizada no Blender (evidencia tecnica R07) - nao e tempo real nem imagem IA"
+ },
+ {
+  "id": "15_BERCO_ESTACIONAMENTO",
+  "file": "renders/15_BERCO_ESTACIONAMENTO.webp",
+  "camera": "R07_15_BERCO_ESTACIONAMENTO",
+  "source": "estudo_ep_r00d\\bases_blender_R07\\15_BERCO_ESTACIONAMENTO.png",
+  "sha256": "0bf3c77d59446fd567988d049591de02d73778b774d180019fa90bbcccbd9ce6",
+  "label": "Imagem pre-renderizada no Blender (evidencia tecnica R07) - nao e tempo real nem imagem IA"
+ },
+ {
+  "id": "16_ARVORE_MOVIMENTADA",
+  "file": "renders/16_ARVORE_MOVIMENTADA.webp",
+  "camera": "R07_16_ARVORE_MOVIMENTADA",
+  "source": "estudo_ep_r00d\\bases_blender_R07\\16_ARVORE_MOVIMENTADA.png",
+  "sha256": "8bda2ce0cd794f206d93539480e47880bd44fe63b55db4cdf02548014f6d3ab1",
+  "label": "Imagem pre-renderizada no Blender (evidencia tecnica R07) - nao e tempo real nem imagem IA"
+ }
+]

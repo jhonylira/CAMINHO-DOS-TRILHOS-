@@ -1,0 +1,25 @@
+{
+  "name": "caminho-dos-trilhos-experiencia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Caminho dos Trilhos - experiencia urbana interativa 2D + 3D (Three.js)",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "exportar": "powershell -ExecutionPolicy Bypass -File pipeline/exportar.ps1",
+    "testar": "node tests/e2e.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "three": "^0.186.1",
+    "three-mesh-bvh": "^0.9.16"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0",
+    "playwright": "^1.64.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}
