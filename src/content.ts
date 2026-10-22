@@ -13,7 +13,8 @@ export interface Scene {
   chips?: [string, 'ok' | 'ep' | 'pend'][];
   sources: string[];
   cam: { pos: V3; target: V3 };
-  hotspot?: { label: string; at: V3 };
+  /** Tag do trecho: ancorada no EIXO DA FERROVIA pela estaca s (m a partir da ponta oeste). 'at' e calculado ao carregar. */
+  hotspot?: { label: string; s: number; at?: V3 };
 }
 
 export const SCENES: Scene[] = [
@@ -38,10 +39,10 @@ export const SCENES: Scene[] = [
     html: `<p>Faixa ferroviária gramada, passeios em concreto fulget cinza-claro, faixa especial em cimentício vermelho e arborização em canteiros e grelhas.</p>
       <ul><li>Níveis do estudo: via 0,00 · passeio +0,15 m · canteiros −0,05 m.</li>
       <li>Faixa livre de vegetação de <b>3 m para cada lado</b> do eixo ferroviário. A copa inteira fica fora da faixa (decisão do autor, 15/10/2026).</li></ul>`,
-    chips: [['Faixa livre 3 m conferida (copa mín. 3,43 m)', 'ok']],
+    chips: [['Copa mín. 3,43 m: parecer R06; reconferência atual pendente', 'pend']],
     sources: ['AGENTS.md — arborização / faixa livre', 'estudo_ep_r00d/FISCAL_R06.md (distância mínima de copa 3,4318 m)', 'modelo_integral/LEIA_ME.md (níveis)'],
     cam: { pos: [-382, -112, 45], target: [-345.2, -56.8, 0.2] }, // autor: EP_05_CENTRAL_OBLIQUA
-    hotspot: { label: 'Corredor central', at: [-480, -150, 2] },
+    hotspot: { label: 'Corredor central', s: 428 },
   },
   {
     id: 'estacao', kicker: 'Cena 3 · Patrimônio ferroviário', title: 'Estação ferroviária histórica',
@@ -50,7 +51,7 @@ export const SCENES: Scene[] = [
     chips: [['Implantação da estação preservada', 'ok'], ['Altura da base de tijolo: hipótese EP', 'ep'], ['Patamar +0,50 m e rampas: pendente', 'pend']],
     sources: ['AGENTS.md — revisões autorais de 19 e 20/10/2026', 'estudo_ep_r00d/FISCAL_R06.md — ressalvas mantidas', 'modelo_integral/LEIA_ME.md (alturas e fachada estimadas por fotografias)'],
     cam: { pos: [58, 18, 30], target: [108, 65, 2] },
-    hotspot: { label: 'Estação e cafés', at: [108, 65.5, 9] },
+    hotspot: { label: 'Estação e cafés', s: 1055 },
   },
   {
     id: 'mobilidade', kicker: 'Cena 4 · Circulação e estacionamento', title: 'Floreiras chanfradas no estacionamento',
@@ -59,7 +60,7 @@ export const SCENES: Scene[] = [
     chips: [['Troncos CAD preservados', 'ok'], ['Dimensões não cotadas: hipótese EP', 'ep']],
     sources: ['AGENTS.md — novas floreiras no estacionamento (21/10/2026)', 'estudo_ep_r00d/modelar_R07.py (vista 14_NOVAS_FLOREIRAS)'],
     cam: { pos: [-20, -8, 38], target: [-37, 38, 0] },
-    hotspot: { label: 'Estacionamento', at: [-37, 38, 3] },
+    hotspot: { label: 'Estacionamento', s: 908 },
   },
   {
     id: 'caminhar', kicker: 'Cena 5 · Caminhabilidade', title: 'Percurso de pedestres e ciclistas',
@@ -69,7 +70,7 @@ export const SCENES: Scene[] = [
     chips: [['Módulo único de grelha', 'ok'], ['Extensão dos braços: hipótese EP', 'ep']],
     sources: ['AGENTS.md — revisões de 20/10/2026 (grelhas e luminárias)', 'estudo_ep_r00d/FISCAL_R06.md', 'pranchas_intervencoes/R05/MEMORIAL_QUANTITATIVOS_R05.md'],
     cam: { pos: [-709.15, -151.55, 2.25], target: [-681.25, -140.75, 1.65] }, // autor: EP_04_OESTE_PEDESTRE
-    hotspot: { label: 'Trecho oeste', at: [-700, -150, 2] },
+    hotspot: { label: 'Trecho oeste', s: 214 },
   },
   {
     id: 'convivencia', kicker: 'Cena 6 · Convivência e paisagismo', title: 'Praça da estação: permanência',
@@ -78,7 +79,7 @@ export const SCENES: Scene[] = [
     chips: [['Contorno externo dos canteiros preservado', 'ok'], ['Dimensões de conforto: hipótese EP', 'ep']],
     sources: ['AGENTS.md — complementações de 19 e 21/10/2026', 'estudo_ep_r00d/FISCAL_R06.md (muretas R06, bancos R05)'],
     cam: { pos: [79, 57, 1.85], target: [99.75, 70.75, 0.85] }, // autor: R10_VARIANTE_CAFE_APROXIMACAO
-    hotspot: { label: 'Praça e bancos', at: [72, 52, 3] },
+    hotspot: { label: 'Praça e bancos', s: 1018 },
   },
   {
     id: 'consolidado', kicker: 'Cena 7 · Visão consolidada', title: 'Conjunto das intervenções',

@@ -1,0 +1,21 @@
+{
+  "como_anexar": "Para anexar imagens cinematograficas: copie o arquivo (WebP/JPG, ~1920 px) para public/galeria/ e acrescente um item na lista do trecho. tipo: 'blender' (render do modelo), 'tempo_real' (captura do explorador), 'autor' (imagem enviada pelo autor). Imagens transformadas por IA so entram apos aprovacao do fiscal independente (AGENTS.md).",
+  "trechos": {
+    "caminhar": [
+      { "src": "renders/01_OESTE.webp", "legenda": "Trecho oeste — percurso de pedestres", "tipo": "blender", "fonte": "Câmera EP_01_OESTE · bases_blender_R07" }
+    ],
+    "corredor": [
+      { "src": "renders/02_CENTRAL.webp", "legenda": "Corredor verde central", "tipo": "blender", "fonte": "Câmera EP_02_CENTRAL · bases_blender_R07" }
+    ],
+    "mobilidade": [
+      { "src": "renders/14_NOVAS_FLOREIRAS.webp", "legenda": "Floreiras chanfradas no estacionamento", "tipo": "blender", "fonte": "Câmera R07_14_NOVAS_FLOREIRAS · bases_blender_R07" },
+      { "src": "renders/15_BERCO_ESTACIONAMENTO.webp", "legenda": "Berço de árvore no estacionamento", "tipo": "blender", "fonte": "Câmera R07_15_BERCO_ESTACIONAMENTO · bases_blender_R07" }
+    ],
+    "convivencia": [
+      { "src": "renders/16_ARVORE_MOVIMENTADA.webp", "legenda": "Praça junto à estação", "tipo": "blender", "fonte": "Câmera R07_16_ARVORE_MOVIMENTADA · bases_blender_R07" }
+    ],
+    "estacao": [
+      { "src": "renders/03_ESTACAO.webp", "legenda": "Estação histórica e anexos de vidro", "tipo": "blender", "fonte": "Câmera EP_03_ESTACAO · bases_blender_R07" }
+    ]
+  }
+}

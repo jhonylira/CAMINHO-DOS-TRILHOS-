@@ -8,8 +8,15 @@ import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-
 import gsap from 'gsap';
 import { b2t, t2b, fmtUTM, worldToUV, uvToWorld, Extent } from './coords';
 import { upgradeMaterial } from './materials';
-import { buildTrees, buildPeople } from './humanize';
+import { buildTrees, buildLightPools } from './humanize';
+import { buildSilhouettes } from './people';
+import { buildVehicles } from './vehicles';
+import { loadSkyBackground } from './sky';
+import { loadAxis, pointAt, nearest, RailAxis } from './axis';
+import { loadRoteiro, roteiro, depth, initEditor, openEditor, closeEditor, editorOpen, selectStop, Stop } from './roteiro';
 import { SCENES, LAYER_COLORS, LAYER_LABELS, V3 } from './content';
+import { buildOrthoDrape, applyOrthoDrape, OrthoDrape } from './context';
+import { Post } from './post';
 
 // BVH: acelera raycasts (cliques, chao e colisoes da caminhada) de O(n) para O(log n)
 (THREE.BufferGeometry.prototype as any).computeBoundsTree = computeBoundsTree;
@@ -21,11 +28,14 @@ const $ = <T extends HTMLElement = HTMLElement>(s: string) => document.querySele
 const canvas = $<HTMLCanvasElement>('#c3d');
 
 // ------------------------------------------------------------------ renderer / cena
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, logarithmicDepthBuffer: true, powerPreference: 'high-performance' });
+// v0.2: sem logarithmicDepthBuffer (incompativel com a oclusao de ambiente GTAO). A precisao de
+// profundidade e garantida pelo plano "near" dinamico (proporcional a distancia da camera).
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+renderer.info.autoReset = false;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.8;
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap; // r186: PCFSoft foi removido (o PCF ja filtra as bordas)
 const scene = new THREE.Scene();
 const FOG = new THREE.Color(0xc7d5de);
 scene.fog = new THREE.Fog(FOG, 350, 2600);
@@ -60,7 +70,17 @@ let manifest: any, semantic: any, orthoMeta: any;
 const layerGroups = new Map<string, THREE.Object3D[]>();
 const modelMeshes: THREE.Mesh[] = [];
 let walkables: THREE.Mesh[] = [], colliders: THREE.Mesh[] = [];
-let trees: THREE.Group, people: THREE.Group;
+let trees: THREE.Group, people: THREE.Group = new THREE.Group();
+let axis: RailAxis;
+/** Galeria de imagens por trecho (public/data/galeria.json): onde o autor anexa renders cinematograficos. */
+interface GalItem { src: string; legenda: string; tipo: string; fonte?: string }
+let gallery: Record<string, GalItem[]> = {};
+let pools: THREE.InstancedMesh;
+let cars: THREE.Group | null = null;
+let drape: OrthoDrape | null = null;
+let post: Post | null = null;
+const ledMats: THREE.MeshStandardMaterial[] = [];
+let nightK = 0;
 const proxies: THREE.Object3D[] = [];
 let planExtent: Extent;
 let quality = localStorage.getItem('ct_quality') || 'padrao';
@@ -83,15 +103,42 @@ function sunDir(hour: number, doy = 349, lat = -26.4729, lon = -48.9923, tz = -3
   return { dir: new THREE.Vector3(Math.sin(A) * Math.cos(el), Math.sin(el), -Math.cos(A) * Math.cos(el)), elevDeg: el / d, azDeg: az };
 }
 let sunInfo = sunDir(9.5);
+const MOON = new THREE.Vector3(0.45, 0.8, -0.4).normalize(); // luz noturna difusa e fria (ilustrativa)
+const DAY_FOG = new THREE.Color(0xc7d5de), NIGHT_FOG = new THREE.Color(0x10161f);
+/**
+ * Ciclo dia -> noite. nightK vai de 0 (dia) a 1 (noite) conforme o sol se aproxima do horizonte:
+ * comeca a escurecer com o sol a +4 graus e fica totalmente noite a -6 graus (crepusculo civil).
+ */
 function applySun(h: number) {
   sunInfo = sunDir(h);
-  const e = Math.max(sunInfo.elevDeg, 2);
-  const warm = THREE.MathUtils.clamp((25 - e) / 25, 0, 1);
-  sun.color.setRGB(1, 0.95 - 0.25 * warm, 0.88 - 0.45 * warm);
-  sun.intensity = 2.7 * THREE.MathUtils.clamp(e / 18, 0.25, 1);
-  scene.environmentIntensity = 0.45 + 0.3 * THREE.MathUtils.clamp(e / 30, 0, 1);
+  const e = sunInfo.elevDeg;
+  nightK = THREE.MathUtils.clamp((4 - e) / 10, 0, 1);
+  const eL = Math.max(e, 2);
+  const warm = THREE.MathUtils.clamp((25 - eL) / 25, 0, 1);
+  if (nightK < 0.6) {
+    // a luz nunca vem "de baixo": limitamos a elevacao usada pela luz a 3 graus
+    const el = Math.max(e, 3) * Math.PI / 180, A = sunInfo.azDeg * Math.PI / 180;
+    sunInfo.dir.set(Math.sin(A) * Math.cos(el), Math.sin(el), -Math.cos(A) * Math.cos(el));
+    sun.color.setRGB(1, 0.95 - 0.3 * warm, 0.88 - 0.5 * warm);
+    sun.intensity = 2.7 * THREE.MathUtils.clamp(eL / 18, 0.25, 1) * (1 - nightK);
+  } else {
+    sunInfo.dir.copy(MOON);
+    sun.color.setRGB(0.62, 0.72, 1.0);
+    sun.intensity = 0.32 * nightK;
+  }
+  scene.environmentIntensity = THREE.MathUtils.lerp(0.45 + 0.3 * THREE.MathUtils.clamp(eL / 30, 0, 1), 0.05, nightK);
+  scene.backgroundIntensity = THREE.MathUtils.lerp(0.95, 0.06, Math.pow(nightK, 0.7));
+  hemi.intensity = THREE.MathUtils.lerp(0.5, 0.05, nightK);
+  (scene.fog as THREE.Fog).color.copy(DAY_FOG).lerp(NIGHT_FOG, nightK);
+  renderer.toneMappingExposure = THREE.MathUtils.lerp(0.8, 1.15, nightK);
+  // luminarias: difusores LED acendem e as "pocas" de luz aparecem no piso
+  ledMats.forEach((m) => (m.emissiveIntensity = 0.4 + 9 * nightK));
+  if (pools) { (pools.material as THREE.MeshBasicMaterial).opacity = 0.42 * nightK; pools.visible = nightK > 0.02; }
+  post?.setNight(nightK);
   const hh = Math.floor(h), mm = Math.round((h - hh) * 60);
-  $('#hourLbl').textContent = `${hh}h${String(mm).padStart(2, '0')} · elevação ${sunInfo.elevDeg.toFixed(0)}°`;
+  const tc = document.getElementById('timeChip'); if (tc) tc.textContent = `${hh}h${String(mm).padStart(2, '0')}`;
+  $('#hourLbl').textContent = `${hh}h${String(mm).padStart(2, '0')} · ${e > 0 ? `elevação ${e.toFixed(0)}°` : 'sol abaixo do horizonte'}`;
+  const hs = $<HTMLInputElement>('#hour'); if (hs && Math.abs(parseFloat(hs.value) - h) > 0.01) hs.value = String(h);
 }
 
 function updateShadowFrustum(center: THREE.Vector3, half: number) {
@@ -114,6 +161,7 @@ function applyQuality(q: string) {
   const ms = q === 'alta' ? 4096 : 2048;
   if (sun.shadow.mapSize.x !== ms) { sun.shadow.mapSize.set(ms, ms); sun.shadow.map?.dispose(); (sun.shadow as any).map = null; }
   scene.traverse((o: any) => { if (o.material) { (Array.isArray(o.material) ? o.material : [o.material]).forEach((m: any) => (m.needsUpdate = true)); } });
+  post?.setQuality(q);
   resize();
 }
 
@@ -121,6 +169,7 @@ function resize() {
   const w = innerWidth, h = innerHeight;
   renderer.setSize(w, h, false);
   camera.aspect = w / h; camera.updateProjectionMatrix();
+  post?.resize();
   updateOrtho();
 }
 
@@ -132,6 +181,11 @@ async function boot() {
   try {
     [manifest, semantic, orthoMeta] = await Promise.all([loadJSON('data/manifest.json'), loadJSON('data/semantic.json'), loadJSON('data/ortho.json')]);
     planExtent = manifest.plan;
+    // eixo central da ferrovia (extraido dos trilhos do R07) -> ancora exata das tags dos trechos
+    axis = await loadAxis(BASE);
+    for (const s of SCENES) if (s.hotspot) { const p = pointAt(axis, s.hotspot.s); s.hotspot.at = [p.x, p.y, 0.2]; }
+    try { gallery = (await loadJSON('data/galeria.json')).trechos || {}; } catch { gallery = {}; }
+    await loadRoteiro(BASE);
     setLoad(0.03, 'Carregando céu e iluminação…');
     const hdr = await new HDRLoader().loadAsync(BASE + 'env/ceu_parcialmente_nublado_2k.hdr');
     hdr.mapping = THREE.EquirectangularReflectionMapping;
@@ -139,6 +193,7 @@ async function boot() {
     scene.environment = pmrem.fromEquirectangular(hdr).texture;
     scene.background = hdr; scene.backgroundIntensity = 0.95;
     pmrem.dispose();
+    loadSkyBackground(BASE, renderer.capabilities.maxTextureSize).then((bg) => { if (bg) scene.background = bg; });
 
     setLoad(0.06, `Carregando modelo 3D R07 (${(manifest.stats.glb_bytes / 1e6).toFixed(0)} MB, geometria sem perdas)…`);
     const gltf = await new GLTFLoader().loadAsync(BASE + 'models/caminho_dos_trilhos_R07.glb', (e) => {
@@ -147,13 +202,21 @@ async function boot() {
     setLoad(0.92, 'Preparando materiais, colisões e humanização…');
     await new Promise((r) => setTimeout(r, 30));
     setupModel(gltf.scene);
+    setLoad(0.95, 'Aplicando ortofoto real ao entorno…');
+    await setupContext();
+    setLoad(0.97, 'Humanização: pessoas e veículos ilustrativos…');
+    people = await buildSilhouettes(semantic.people, BASE); scene.add(people);
+    const asphalt = modelMeshes.filter((m) => { const n = (m.material as THREE.Material).name; return n === 'EP_ASFALTO' || n === 'Cracked asphalt'; });
+    const blockers = modelMeshes.filter((m) => m.userData.layer !== 'vegetacao' && !asphalt.includes(m));
+    cars = buildVehicles(asphalt, blockers, axis); scene.add(cars);
+    post = new Post(renderer, scene, camera, () => [...trees.children.filter((o: any) => o.material?.alphaTest > 0), pools]);
     buildUI();
     applyQuality(quality);
     applySun(9.5);
     goHome(0);
     setLoad(1, 'Pronto');
     const L = $('#loader'); L.style.opacity = '0'; setTimeout(() => L.remove(), 800);
-    (window as any).__ct = { ready: true, scene, camera, controls, setMode, flyToScene, manifest, renderer, info: () => renderer.info };
+    (window as any).__ct = { ready: true, scene, camera, controls, setMode, flyToScene, manifest, renderer, applySun, post: () => post, info: () => renderer.info };
   } catch (err: any) {
     console.error(err);
     $('#loader').classList.add('err');
@@ -179,13 +242,27 @@ function setupModel(root: THREE.Object3D) {
     if (!layerGroups.has(layer)) layerGroups.set(layer, []);
     layerGroups.get(layer)!.push(o);
     if (matName === 'EP_COPA_PROXY' || matName === 'EP_TRONCO') proxies.push(o);
+    if ((o.material as THREE.Material).name.includes('LED')) ledMats.push(o.material);
     if (layer !== 'vegetacao' && !matName.includes('VIDRO') && !matName.includes('LED')) walkables.push(o);
     if (['estacao', 'cafes', 'quiosques', 'conceitual', 'entorno', 'mobiliario', 'iluminacao', 'floreiras'].includes(layer)) colliders.push(o);
   });
   scene.add(root);
   trees = buildTrees(semantic.trees); scene.add(trees);
-  people = buildPeople(semantic.people); scene.add(people);
+  // pessoas: silhuetas reais estilo SketchUp (billboards) carregadas em boot() -> buildSilhouettes
+  pools = buildLightPools(semantic.lamps); scene.add(pools);
   proxies.forEach((p) => (p.visible = false));
+}
+
+/** Ortofoto real nas faces horizontais do entorno (chao, quadras, telhados) e no chao de fundo. */
+async function setupContext() {
+  try {
+    drape = await buildOrthoDrape(orthoMeta, BASE, renderer.capabilities.maxTextureSize);
+    for (const m of layerGroups.get('entorno') || []) {
+      const mat = (m as THREE.Mesh).material as THREE.MeshStandardMaterial;
+      if (mat.name === 'ENTORNO' || mat.name === 'R10_BRANCO_QUENTE') applyOrthoDrape(mat, drape);
+    }
+    applyOrthoDrape(ground.material as THREE.MeshStandardMaterial, drape, { walls: false });
+  } catch (err) { console.warn('ortofoto no 3D indisponivel', err); }
 }
 
 // ------------------------------------------------------------------ UI: camadas, ajustes
@@ -194,7 +271,7 @@ function buildUI() {
   for (const l of manifest.layers) {
     if (!layerGroups.has(l.id)) continue;
     const lab = document.createElement('label');
-    lab.innerHTML = `<input type="checkbox" checked data-layer="${l.id}"><i style="background:${LAYER_COLORS[l.id] || '#999'}"></i>${LAYER_LABELS[l.id] || l.label}`;
+    lab.innerHTML = `<input type="checkbox" checked data-layer="${l.id}"><i style="background:${LAYER_COLORS[l.id] || '#999'}"></i><span>${LAYER_LABELS[l.id] || l.label}</span>`;
     list.appendChild(lab);
   }
   list.addEventListener('change', (e: any) => {
@@ -202,22 +279,36 @@ function buildUI() {
     const on = e.target.checked;
     layerGroups.get(id)!.forEach((m) => (m.visible = on && !(proxies.includes(m) && trees.visible)));
     if (id === 'vegetacao') { trees.visible = on && ($('#tTrees') as HTMLInputElement).checked; }
+    if (id === 'viario' && cars) cars.visible = on && $<HTMLInputElement>('#tCars').checked;
   });
+  if (innerWidth < 760) $('#layers').classList.add('closed');
   $('#layersToggle').onclick = () => $('#layers').classList.toggle('closed');
-  $('#btnSettings').onclick = () => $('#settings').classList.toggle('hidden');
+  const toggleSettings = () => { const s = $('#settings'); s.classList.toggle('hidden'); $('#btnSettings').setAttribute('aria-expanded', String(!s.classList.contains('hidden'))); };
+  $('#btnSettings').onclick = toggleSettings;
+  $('#btnTime').onclick = toggleSettings;
   $<HTMLSelectElement>('#quality').value = quality;
-  $<HTMLSelectElement>('#quality').onchange = (e: any) => applyQuality(e.target.value);
-  $<HTMLInputElement>('#hour').oninput = (e: any) => applySun(parseFloat(e.target.value));
+  const syncQ = () => document.querySelectorAll<HTMLButtonElement>('#qualitySeg button').forEach((b) => b.classList.toggle('active', b.dataset.q === quality));
+  document.querySelectorAll<HTMLButtonElement>('#qualitySeg button').forEach((b) => (b.onclick = () => { applyQuality(b.dataset.q!); syncQ(); }));
+  syncQ();
+  $<HTMLInputElement>('#hour').oninput = (e: any) => { hourTween?.kill(); applySun(parseFloat(e.target.value)); };
+  document.querySelectorAll<HTMLButtonElement>('#hourPresets button').forEach((b) => (b.onclick = () => animateHour(parseFloat(b.dataset.h!))));
+  $<HTMLInputElement>('#tOrtho').onchange = (e: any) => { if (drape) drape.uniforms.uOrthoOn.value = e.target.checked ? 1 : 0; };
   $<HTMLInputElement>('#tTrees').onchange = (e: any) => { trees.visible = e.target.checked; proxies.forEach((p) => (p.visible = !e.target.checked)); };
   $<HTMLInputElement>('#tPeople').onchange = (e: any) => (people.visible = e.target.checked);
+  $<HTMLInputElement>('#tCars').onchange = (e: any) => { if (cars) cars.visible = e.target.checked; };
   $<HTMLInputElement>('#tHotspots').onchange = (e: any) => ($('#labels').style.display = e.target.checked ? '' : 'none');
   $('#btnFull').onclick = toggleFull;
   $('#btnHome').onclick = () => { if (mode === 'plan') planHome(); else { setMode('orbit'); goHome(); } };
-  $('#infoClose').onclick = () => $('#info').classList.add('hidden');
+  $('#infoClose').onclick = () => { $('#info').classList.add('hidden'); hotspots.forEach((h) => h.el.classList.remove('active')); };
   document.querySelectorAll<HTMLButtonElement>('#modes button').forEach((b) => (b.onclick = () => setMode(b.dataset.mode as Mode)));
   document.querySelectorAll<HTMLButtonElement>('#planbar button').forEach((b) => (b.onclick = () => setPlanView(b.dataset.pv!)));
+  addEventListener('resize', () => moveThumb());
+  document.fonts?.ready.then(() => moveThumb());
+  moveThumb();
+  setupLightbox();
   buildHotspots();
   buildTourBar();
+  setupEditor();
   setupMinimap();
   setupPlanInput();
   setupWalkInput();
@@ -226,6 +317,14 @@ function buildUI() {
 }
 
 function toggleFull() { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+
+/** Transicao suave de horario (o sol "anda" em ~2,5 s em vez de pular). */
+let hourTween: gsap.core.Tween | null = null;
+function animateHour(h: number) {
+  const o = { h: parseFloat($<HTMLInputElement>('#hour').value) };
+  hourTween?.kill();
+  hourTween = gsap.to(o, { h, duration: 2.5, ease: 'power1.inOut', onUpdate: () => applySun(o.h) });
+}
 
 function onKey(e: KeyboardEvent) {
   if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'SELECT') return;
@@ -240,12 +339,74 @@ function onKey(e: KeyboardEvent) {
   }
 }
 
-// ------------------------------------------------------------------ info
-function showInfo(html: string) { $('#infoBody').innerHTML = html; $('#info').classList.remove('hidden'); }
+// ------------------------------------------------------------------ info + galeria cinematografica
+function showInfo(html: string) {
+  $('#infoBody').innerHTML = html; const el = $('#info'); el.classList.remove('hidden'); el.scrollTop = 0;
+  // reinicia a animacao de entrada do painel
+  el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+  wireGallery();
+}
+const TIPO: Record<string, string> = { blender: 'Render Blender · R07', tempo_real: 'Captura em tempo real', autor: 'Imagem do autor' };
+let lbList: GalItem[] = [], lbIdx = 0;
+function galleryHTML(id: string) {
+  const g = gallery[id];
+  if (!g?.length) return '';
+  const h = g[0];
+  return `<div class="gal" data-gal="${id}">
+    <button class="hero" data-i="0" aria-label="Ampliar imagem"><img src="${BASE}${h.src}" alt="${h.legenda}" loading="lazy" decoding="async"></button>
+    <span class="tag">${TIPO[h.tipo] || h.tipo}</span>
+    <div class="cap"><b>${h.legenda}</b>${h.fonte || ''}</div>
+    ${g.length > 1 ? `<div class="thumbs">${g.map((it, k) => `<button data-t="${k}" class="${k === 0 ? 'on' : ''}" aria-label="${it.legenda}"><img src="${BASE}${it.src}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+  </div>`;
+}
+function wireGallery() {
+  const gal = document.querySelector<HTMLElement>('#info .gal'); if (!gal) return;
+  const list = gallery[gal.dataset.gal!] || [];
+  let cur = 0;
+  const show = (k: number) => {
+    cur = k; const it = list[k];
+    const img = gal.querySelector<HTMLImageElement>('.hero img')!;
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = BASE + it.src; img.alt = it.legenda; img.onload = () => (img.style.opacity = '1'); }, 180);
+    gal.querySelector('.tag')!.textContent = TIPO[it.tipo] || it.tipo;
+    gal.querySelector('.cap')!.innerHTML = `<b>${it.legenda}</b>${it.fonte || ''}`;
+    gal.querySelectorAll('.thumbs button').forEach((b, j) => b.classList.toggle('on', j === k));
+  };
+  gal.querySelectorAll<HTMLButtonElement>('.thumbs button').forEach((b) => (b.onclick = () => show(+b.dataset.t!)));
+  gal.querySelector<HTMLButtonElement>('.hero')!.onclick = () => openLightbox(list, cur);
+}
+function openLightbox(list: GalItem[], i: number) { lbList = list; lbIdx = i; renderLightbox(); $('#lightbox').classList.remove('hidden'); }
+function renderLightbox() {
+  const it = lbList[lbIdx]; if (!it) return;
+  $<HTMLImageElement>('#lbImg').src = BASE + it.src; $<HTMLImageElement>('#lbImg').alt = it.legenda;
+  $('#lbCap').innerHTML = `<b>${it.legenda}</b> · ${TIPO[it.tipo] || it.tipo}${it.fonte ? ` · ${it.fonte}` : ''}`;
+  $('#lbPrev').classList.toggle('hidden', lbList.length < 2); $('#lbNext').classList.toggle('hidden', lbList.length < 2);
+}
+function setupLightbox() {
+  const lb = $('#lightbox');
+  const close = () => lb.classList.add('hidden');
+  $('#lbClose').onclick = close;
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  $('#lbPrev').onclick = () => { lbIdx = (lbIdx - 1 + lbList.length) % lbList.length; renderLightbox(); };
+  $('#lbNext').onclick = () => { lbIdx = (lbIdx + 1) % lbList.length; renderLightbox(); };
+  addEventListener('keydown', (e) => {
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') close(); if (e.key === 'ArrowRight') $('#lbNext').click(); if (e.key === 'ArrowLeft') $('#lbPrev').click();
+    e.stopPropagation();
+  }, true);
+}
 function sceneInfoHTML(i: number) {
   const s = SCENES[i];
-  return `<div class="kicker">${s.kicker}</div><h2>${s.title}</h2>${(s.chips || []).map(([t, k]) => `<span class="chip ${k}">${t}</span>`).join('')}${s.html}
-  <div class="src"><b>Fontes no projeto:</b><br>${s.sources.join('<br>')}</div>`;
+  return `${galleryHTML(s.id)}<div class="kicker">${s.kicker}</div><h2>${s.title}</h2>
+  ${s.chips?.length ? `<div class="chips">${s.chips.map(([t, k]) => `<span class="chip ${k}">${t}</span>`).join('')}</div>` : ''}${s.html}
+  <div class="src"><b>Fontes no projeto</b><br>${s.sources.join('<br>')}</div>`;
+}
+
+/** Desliza o "thumb" branco do controle segmentado ate o modo ativo (animacao estilo iOS). */
+function moveThumb() {
+  const nav = $('#modes'), th = nav.querySelector<HTMLElement>('.thumb'), act = nav.querySelector<HTMLElement>('button.active');
+  if (!th || !act) return;
+  th.style.width = `${act.offsetWidth}px`; th.style.transform = `translateX(${act.offsetLeft}px)`;
 }
 
 // ------------------------------------------------------------------ voos de camera
@@ -270,61 +431,128 @@ function flyTo(posB: V3, tgtB: V3, dur = 2.6) {
 function goHome(dur = 2.6) { const s = SCENES[0]; flyTo(s.cam.pos, s.cam.target, dur); }
 function flyToScene(i: number) { const s = SCENES[i]; flyTo(s.cam.pos, s.cam.target); showInfo(sceneInfoHTML(i)); }
 
-// ------------------------------------------------------------------ hotspots
-const hotspots: { el: HTMLElement; p: THREE.Vector3; idx: number }[] = [];
-function buildHotspots() {
-  let n = 0;
-  SCENES.forEach((s, idx) => {
-    if (!s.hotspot) return; n++;
-    const el = document.createElement('div'); el.className = 'hs';
-    el.innerHTML = `<b data-n="${n}">${s.hotspot.label}</b>`;
-    el.onclick = () => { if (mode === 'plan') { planFocus(s.hotspot!.at[0], s.hotspot!.at[1]); showInfo(sceneInfoHTML(idx) + `<button class="go" data-go="${idx}">Ver em 3D →</button>`); } else { if (mode === 'walk') setMode('orbit'); flyToScene(idx); } };
-    $('#labels').appendChild(el);
-    hotspots.push({ el, p: b2t(...s.hotspot.at), idx });
-  });
-  $('#info').addEventListener('click', (e: any) => { const g = e.target.dataset?.go; if (g !== undefined) { setMode('orbit'); flyToScene(+g); } });
+// ------------------------------------------------------------------ paradas do roteiro (tour + tags)
+function stopAnchor(p: Stop): V3 | null {
+  if (!p.anchor) return null;
+  if ('s' in p.anchor) { const q = pointAt(axis, p.anchor.s); return [q.x, q.y, 0.2]; }
+  return [p.anchor.x, p.anchor.y, 0.2];
 }
+function stopInfoHTML(i: number) {
+  const p = roteiro.paradas[i];
+  return `${p.galeria ? galleryHTML(p.galeria) : ''}<div class="kicker">${p.code} · ${p.kicker || ''}</div><h2>${p.title}</h2>
+  ${p.chips?.length ? `<div class="chips">${p.chips.map(([t, k]) => `<span class="chip ${k}">${t}</span>`).join('')}</div>` : ''}${p.html || ''}
+  ${p.sources?.length ? `<div class="src"><b>Fontes</b><br>${p.sources.join('<br>')}</div>` : ''}`;
+}
+function flyToStop(i: number) {
+  const p = roteiro.paradas[i]; if (!p) return;
+  if (p.cam) flyTo(p.cam.pos, p.cam.target); else toast('Esta parada ainda não tem enquadramento: defina no editor do roteiro.');
+  showInfo(stopInfoHTML(i));
+  hotspots.forEach((h) => h.el.classList.toggle('active', h.idx === i));
+  selectStop(i);
+}
+let toastT: any = null;
+function toast(msg: string) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3800); }
+let pickCb: ((x: number, y: number) => void) | null = null;
+function setupEditor() {
+  initEditor({
+    getView: () => { const p = t2b(camera.position), t = t2b(controls.target); const r = (v: number) => +v.toFixed(2); return { pos: [r(p.x), r(p.y), r(p.z)], target: [r(t.x), r(t.y), r(t.z)] }; },
+    goStop: (i) => { if (mode !== 'tour') setMode('tour'); pauseTour(); tourIdx = i; markTour(); flyToStop(i); },
+    pick: (cb) => { pickCb = cb; document.body.classList.add('picking'); },
+    nearestS: (x, y) => nearest(axis, x, y),
+    galleryKeys: () => Object.keys(gallery),
+    changed: () => { rebuildHotspots(); buildTourDots(); markTour(); },
+    toast,
+  });
+  $('#tEdit').onclick = () => { if (editorOpen()) closeEditor(); else { pauseTour(); openEditor(tourIdx); } };
+}
+
+// ------------------------------------------------------------------ tags do roteiro (ancoradas no eixo da ferrovia)
+const hotspots: { el: HTMLElement; p: THREE.Vector3; idx: number }[] = [];
+let hsInfoWired = false;
+/** Uma tag para cada parada do roteiro que tenha ancora. Numero = codigo do autor (1, 1.1, 1.2...). */
+function buildHotspots() {
+  roteiro.paradas.forEach((p, idx) => {
+    const at = stopAnchor(p); if (!at) return;
+    const el = document.createElement('div'); el.className = `hs${depth(p.code) > 0 ? ' sub' : ''}${p.sugerido ? ' sugg' : ''}`;
+    const g = p.galeria ? gallery[p.galeria]?.[0] : undefined;
+    const where = p.anchor && 's' in p.anchor ? `Eixo da ferrovia · estaca ${Math.round(p.anchor.s)} m` : 'Ponto definido pelo autor';
+    el.innerHTML = `<i class="stem"></i><span class="dot" title="${where}${p.sugerido ? ' · posição sugerida' : ''}"></span>
+      <button class="lab" aria-label="${p.code} ${p.title}"><span class="n">${p.code}</span>${p.title}</button>
+      ${g ? `<div class="prev"><img src="${BASE}${g.src}" alt="" loading="lazy"><span>${g.legenda}</span></div>` : ''}`;
+    el.querySelector<HTMLButtonElement>('.lab')!.onclick = () => {
+      if (pickCb) return;
+      if (mode === 'plan') { planFocus(at[0], at[1]); showInfo(stopInfoHTML(idx) + `<button class="go" data-go="${idx}">Ver em 3D</button>`); hotspots.forEach((h) => h.el.classList.toggle('active', h.el === el)); }
+      else { if (mode === 'walk') setMode('orbit'); tourIdx = idx; markTour(); flyToStop(idx); }
+    };
+    $('#labels').appendChild(el);
+    hotspots.push({ el, p: b2t(...at), idx });
+  });
+  if (!hsInfoWired) { hsInfoWired = true; $('#info').addEventListener('click', (e: any) => { const g = e.target.dataset?.go; if (g !== undefined) { setMode('orbit'); flyToStop(+g); } }); }
+}
+function rebuildHotspots() { hotspots.length = 0; $('#labels').innerHTML = ''; buildHotspots(); }
 const _v = new THREE.Vector3();
+/**
+ * Projeta a ancora (ponto exato do eixo) na tela. O ponto azul fica SEMPRE sobre o eixo;
+ * quando duas etiquetas colidem, so a HASTE cresce (a etiqueta sobe na mesma vertical),
+ * entao o alinhamento ancora -> haste -> etiqueta nunca se perde.
+ */
 function updateHotspots(cam: THREE.Camera) {
-  const w = innerWidth, h = innerHeight;
-  const placed: { x: number; y: number; w: number }[] = [];
+  const w = innerWidth, h = innerHeight, BASE_STEM = 46;
+  const placed: { x: number; top: number; w: number }[] = [];
   const items: { hs: typeof hotspots[0]; x: number; y: number }[] = [];
   for (const hs of hotspots) {
     _v.copy(hs.p).project(cam);
-    const vis = _v.z < 1 && _v.z > -1 && Math.abs(_v.x) < 1.05 && Math.abs(_v.y) < 1.05 && mode !== 'walk';
-    const far = cam === camera && camera.position.distanceTo(hs.p) > 1800;
+    const vis = _v.z < 1 && _v.z > -1 && Math.abs(_v.x) < 1.02 && Math.abs(_v.y) < 1.02 && mode !== 'walk';
+    const far = cam === camera && camera.position.distanceTo(hs.p) > 2200;
     hs.el.style.display = vis && !far ? '' : 'none';
-    if (vis && !far) items.push({ hs, x: (_v.x * 0.5 + 0.5) * w, y: (-_v.y * 0.5 + 0.5) * h });
+    if (vis && !far) items.push({ hs, x: Math.round((_v.x * 0.5 + 0.5) * w), y: Math.round((-_v.y * 0.5 + 0.5) * h) });
   }
-  // empilhamento: rotulos que se sobrepoem sobem em degraus de 34 px (todos continuam clicaveis)
   items.sort((a, b) => b.y - a.y);
   for (const it of items) {
-    const bw = (it.hs.el.firstElementChild as HTMLElement).offsetWidth || 120;
-    let y = it.y;
-    for (let k = 0; k < 8 && placed.some((p) => Math.abs(p.x - it.x) < (p.w + bw) / 2 + 6 && Math.abs(p.y - y) < 32); k++) y -= 34;
-    placed.push({ x: it.x, y, w: bw });
-    it.hs.el.style.transform = `translate(${it.x}px, ${y}px) translate(-50%, -100%)`;
-    it.hs.el.style.setProperty('--stem', `${22 + (it.y - y)}px`);
+    const lab = it.hs.el.querySelector<HTMLElement>('.lab')!;
+    const bw = lab.offsetWidth || 140;
+    let stem = BASE_STEM;
+    const top = () => it.y - stem - 32;
+    for (let k = 0; k < 10 && placed.some((p) => Math.abs(p.x - it.x) < (p.w + bw) / 2 + 8 && Math.abs(p.top - top()) < 36); k++) stem += 38;
+    placed.push({ x: it.x, top: top(), w: bw });
+    it.hs.el.style.transform = `translate3d(${it.x}px, ${it.y}px, 0)`;
+    it.hs.el.style.setProperty('--stem', `${stem}px`);
   }
 }
 
-// ------------------------------------------------------------------ apresentacao guiada
+// ------------------------------------------------------------------ apresentacao guiada (segue a ordem do roteiro)
+const TOUR_MS = 11000;
 let tourIdx = 0, tourPlaying = false, tourTimer: any = null;
 function buildTourBar() {
-  const d = $('#tDots');
-  SCENES.forEach((s, i) => { const sp = document.createElement('span'); sp.title = s.title; sp.onclick = () => tourGo(i); d.appendChild(sp); });
+  buildTourDots();
+  $('#tDots').style.setProperty('--dur', `${TOUR_MS / 1000}s`);
   $('#tPrev').onclick = () => tourStep(-1); $('#tNext').onclick = () => tourStep(1);
   $('#tPlay').onclick = toggleTourPlay; $('#tExit').onclick = () => setMode('orbit');
 }
+function buildTourDots() {
+  const d = $('#tDots'); d.innerHTML = '';
+  roteiro.paradas.forEach((p, i) => { const sp = document.createElement('span'); sp.title = `${p.code} ${p.title}`; sp.onclick = () => tourGo(i); d.appendChild(sp); });
+}
+/** Atualiza titulo e barra de progresso sem mover a camera. */
+function markTour() {
+  const n = roteiro.paradas.length; if (!n) return;
+  tourIdx = Math.min(tourIdx, n - 1); const p = roteiro.paradas[tourIdx];
+  $('#tTitle').textContent = `${p.code} · ${p.title}`;
+  document.querySelectorAll('#tDots span').forEach((s, k) => { s.classList.remove('on'); s.classList.toggle('done', k < tourIdx); });
+  const cur = document.querySelectorAll('#tDots span')[tourIdx] as HTMLElement | undefined; if (cur) { void cur.offsetWidth; cur.classList.add('on'); }
+}
 function tourGo(i: number) {
-  tourIdx = (i + SCENES.length) % SCENES.length; flyToScene(tourIdx);
-  document.querySelectorAll('#tDots span').forEach((s, k) => s.classList.toggle('on', k === tourIdx));
-  if (tourPlaying) { clearTimeout(tourTimer); tourTimer = setTimeout(() => tourStep(1), 11000); }
+  const n = roteiro.paradas.length; if (!n) return;
+  tourIdx = (i + n) % n; flyToStop(tourIdx); markTour();
+  if (tourPlaying) { clearTimeout(tourTimer); tourTimer = setTimeout(() => tourStep(1), roteiro.paradas[tourIdx].cam ? TOUR_MS : 2500); }
 }
 function tourStep(d: number) { tourGo(tourIdx + d); }
+function pauseTour() { if (tourPlaying) toggleTourPlay(); }
 function toggleTourPlay() {
   tourPlaying = !tourPlaying; $('#tPlay').textContent = tourPlaying ? '❚❚' : '▶';
-  clearTimeout(tourTimer); if (tourPlaying) tourTimer = setTimeout(() => tourStep(1), 11000);
+  $('#tourbar').classList.toggle('paused', !tourPlaying);
+  clearTimeout(tourTimer);
+  if (tourPlaying) { tourTimer = setTimeout(() => tourStep(1), TOUR_MS); markTour(); }
 }
 
 // ------------------------------------------------------------------ modos
@@ -339,9 +567,10 @@ function setMode(m: Mode) {
   const f = focusPoint();
   const prev = mode;
   if (prev === 'walk') exitWalk();
-  if (prev === 'tour') { tourPlaying = false; clearTimeout(tourTimer); }
+  if (prev === 'tour') { tourPlaying = false; clearTimeout(tourTimer); closeEditor(); }
   mode = m;
   document.querySelectorAll('#modes button').forEach((b: any) => b.classList.toggle('active', b.dataset.mode === m));
+  moveThumb();
   $('#planbar').classList.toggle('hidden', m !== 'plan');
   $('#splitter').classList.toggle('hidden', !(m === 'plan' && planView === 'comparar'));
   $('#tourbar').classList.toggle('hidden', m !== 'tour');
@@ -361,7 +590,7 @@ function setMode(m: Mode) {
   } else if (m === 'walk') {
     enterWalk(f.x, f.y);
   } else if (m === 'tour') {
-    tourPlaying = true; $('#tPlay').textContent = '❚❚'; tourGo(0);
+    tourPlaying = true; $('#tPlay').textContent = '❚❚'; $('#tourbar').classList.remove('paused'); tourGo(0);
   }
 }
 
@@ -468,6 +697,7 @@ function setupPicking() {
     const hit = ray.intersectObjects(modelMeshes.filter((m) => m.visible), false)[0];
     if (!hit) return;
     const b = t2b(hit.point); const layer = hit.object.userData.layer;
+    if (pickCb) { const cb = pickCb; pickCb = null; document.body.classList.remove('picking'); cb(b.x, b.y); return; }
     setPin(b.x, b.y);
     showInfo(`<div class="kicker">Elemento selecionado</div><h2>${LAYER_LABELS[layer] || layer}</h2>
       <p>Material no modelo: <code>${(hit.object as THREE.Mesh).name.split('__')[1] || ''}</code></p>
@@ -492,6 +722,7 @@ function setupMinimap() {
   });
 }
 function drawMinimap() {
+  if (!miniCtx) return; // ainda carregando (a UI e montada depois da ortofoto)
   const c = miniCtx.canvas, e = planExtent;
   miniCtx.clearRect(0, 0, c.width, c.height);
   if (miniImg.complete) miniCtx.drawImage(miniImg, 0, 0, c.width, c.height);
@@ -537,6 +768,10 @@ function findSpawn(x: number, z: number) {
       const a = (k / n) * Math.PI * 2, px = x + Math.cos(a) * r, pz = z + Math.sin(a) * r;
       const g = groundAt(px, pz, 40);
       if (g === null || g > 0.8 || g < -0.3) continue;      // telhado / fora do modelo
+      // v0.2: nao nascer DENTRO de edificios (piso interno da estacao tambem e "chao"):
+      // se houver cobertura acima da cabeca, o ponto e descartado
+      sideRay.set(new THREE.Vector3(px, g + 0.5, pz), new THREE.Vector3(0, 1, 0)); sideRay.far = 25;
+      if (sideRay.intersectObjects(colliders, false).length) continue;
       let free = true;
       for (const d of dirs) { sideRay.set(new THREE.Vector3(px, g + 0.6, pz), d); sideRay.far = 2.0; if (sideRay.intersectObjects(colliders, false).length) { free = false; break; } }
       if (free) return { x: px, z: pz, g };
@@ -633,33 +868,36 @@ function walkUpdate(dt: number) {
 }
 
 // ------------------------------------------------------------------ loop
-const clock = new THREE.Clock(); let fpsAcc = 0, fpsN = 0, fps = 0, miniT = 0;
+const timer = new THREE.Timer(); timer.connect(document); let fpsAcc = 0, fpsN = 0, fps = 0, miniT = 0;
 const statusEl = $('#status');
 function frame() {
   requestAnimationFrame(frame);
-  const dt = Math.min(clock.getDelta(), 0.1);
+  renderer.info.reset(); // contagem de draw calls do quadro inteiro (todas as passadas)
+  timer.update(); const dt = Math.min(timer.getDelta(), 0.1);
   if (!manifest || !modelMeshes.length) { renderer.render(scene, camera); return; }
   if (mode === 'walk') walkUpdate(dt);
   else if (mode !== 'plan' && controls.enabled) controls.update();
-  if (mode !== 'walk' && mode !== 'plan') { const d = camera.position.distanceTo(controls.target); camera.near = THREE.MathUtils.clamp(d * 0.002, 0.2, 4); camera.updateProjectionMatrix(); }
+  if (mode !== 'walk' && mode !== 'plan') { const d = camera.position.distanceTo(controls.target); camera.near = THREE.MathUtils.clamp(d * 0.003, 0.2, 5); camera.updateProjectionMatrix(); }
   const w = canvas.clientWidth, h = canvas.clientHeight;
   if (mode === 'plan') {
     updateShadowFrustum(new THREE.Vector3(plan.cx, 0, plan.cz), plan.half * 1.1);
     ensureTiles();
     renderer.setScissorTest(false);
     const fog = scene.fog; scene.fog = null; // a camera de planta fica a 1.500 m: sem nevoa atmosferica no 2D
+    const pv = people.visible; people.visible = false; // silhuetas verticais viram tracos vistas de cima
     if (planView === 'existente') renderer.render(orthoScene, orthoCam);
     else {
       renderer.render(scene, orthoCam);
       if (planView === 'comparar') { renderer.setScissorTest(true); renderer.setScissor(0, 0, w * splitX, h); renderer.render(orthoScene, orthoCam); renderer.setScissorTest(false); }
     }
-    scene.fog = fog;
+    scene.fog = fog; people.visible = pv;
     updateHotspots(orthoCam);
   } else {
     const tgt = mode === 'walk' ? camera.position : controls.target;
     const half = mode === 'walk' ? 45 : camera.position.distanceTo(controls.target) * 0.75;
     updateShadowFrustum(tgt, half);
-    renderer.render(scene, camera);
+    if (post?.enabled) { post.setScale(mode === 'walk' ? 40 : camera.position.distanceTo(controls.target)); post.render(); }
+    else renderer.render(scene, camera);
     updateHotspots(camera);
   }
   miniT += dt; if (miniT > 0.1) { miniT = 0; drawMinimap(); }

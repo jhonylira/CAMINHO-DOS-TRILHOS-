@@ -1,0 +1,213 @@
+{
+ "asphalt_04": {
+  "uso": "Asfalto novo (EP_ASFALTO)",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/asphalt_04",
+  "autores": [
+   "Jenelle van Heerden",
+   "Sergej Majboroda"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 4.04,
+  "media_linear": [
+   0.23733,
+   0.22158,
+   0.20976
+  ],
+  "bytes": 614138
+ },
+ "asphalt_02": {
+  "uso": "Asfalto existente/trincado (Cracked asphalt)",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/asphalt_02",
+  "autores": [
+   "Rob Tuytel"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 3.0,
+  "media_linear": [
+   0.10379,
+   0.10224,
+   0.09031
+  ],
+  "bytes": 1120978
+ },
+ "gravel_embedded_concrete": {
+  "uso": "Concreto fulget (agregado exposto) cinza e terroso",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/gravel_embedded_concrete",
+  "autores": [
+   "Charlotte Baglioni"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.0,
+  "media_linear": [
+   0.29932,
+   0.2728,
+   0.23013
+  ],
+  "bytes": 980722
+ },
+ "concrete_wall_008": {
+  "uso": "Concreto liso: guias e floreiras",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/concrete_wall_008",
+  "autores": [
+   "Dario Barresi",
+   "Charlotte Baglioni"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.71,
+  "media_linear": [
+   0.26581,
+   0.2365,
+   0.16133
+  ],
+  "bytes": 123494
+ },
+ "granular_concrete": {
+  "uso": "Concreto microagregado claro e faixa especial cimenticia",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/granular_concrete",
+  "autores": [
+   "Dario Barresi",
+   "Michael Jenkins"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.4,
+  "media_linear": [
+   0.15446,
+   0.13423,
+   0.10087
+  ],
+  "bytes": 663786
+ },
+ "farm_soil": {
+  "uso": "Solo organico / solo aerado",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/farm_soil",
+  "autores": [
+   "Amal Kumar"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.0,
+  "media_linear": [
+   0.09711,
+   0.05041,
+   0.02106
+  ],
+  "bytes": 726184
+ },
+ "gray_rocks": {
+  "uso": "Lastro ferroviario (brita)",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/gray_rocks",
+  "autores": [
+   "Dimitrios Savva"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 1.8,
+  "media_linear": [
+   0.19119,
+   0.16731,
+   0.13061
+  ],
+  "bytes": 804968
+ },
+ "red_brick": {
+  "uso": "Tijolinho aparente",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/red_brick",
+  "autores": [
+   "Rob Tuytel"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 1.4,
+  "media_linear": [
+   0.27374,
+   0.13591,
+   0.08233
+  ],
+  "bytes": 459628
+ },
+ "clay_roof_tiles_02": {
+  "uso": "Telha ceramica",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/clay_roof_tiles_02",
+  "autores": [
+   "Amal Kumar"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.5,
+  "media_linear": [
+   0.29562,
+   0.08192,
+   0.02496
+  ],
+  "bytes": 458118
+ },
+ "oak_veneer_01": {
+  "uso": "Madeira de bancos e ripados",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/oak_veneer_01",
+  "autores": [
+   "Jenelle van Heerden"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 1.83,
+  "media_linear": [
+   0.35817,
+   0.20948,
+   0.09677
+  ],
+  "bytes": 406292
+ },
+ "painted_plaster_wall": {
+  "uso": "Reboco pintado (entorno volumetrico e estacao)",
+  "fonte": "Poly Haven",
+  "url": "https://polyhaven.com/a/painted_plaster_wall",
+  "autores": [
+   "Amal Kumar"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.0,
+  "media_linear": [
+   0.4066,
+   0.36545,
+   0.35037
+  ],
+  "bytes": 412984
+ },
+ "Grass004": {
+  "uso": "Grama de canteiros / vegetacao baixa",
+  "fonte": "ambientCG",
+  "url": "https://ambientcg.com/a/Grass004",
+  "autores": [
+   "Lennart Demes (ambientCG)"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.0,
+  "media_linear": [
+   0.11836,
+   0.15215,
+   0.03021
+  ],
+  "bytes": 1213148
+ },
+ "Grass001": {
+  "uso": "Massa de vegetacao baixa (forracao densa)",
+  "fonte": "ambientCG",
+  "url": "https://ambientcg.com/a/Grass001",
+  "autores": [
+   "Lennart Demes (ambientCG)"
+  ],
+  "licenca": "CC0",
+  "tamanho_m": 2.0,
+  "media_linear": [
+   0.05815,
+   0.10603,
+   0.02161
+  ],
+  "bytes": 1077976
+ }
+}

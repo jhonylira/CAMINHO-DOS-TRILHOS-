@@ -5,92 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Caminho dos Trilhos · Experiência Urbana 2D + 3D</title>
   <meta name="description" content="Requalificação urbana do corredor ferroviário de Guaramirim/SC — apresentação interativa em tempo real." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23a0643c'/%3E%3Cpath d='M6 22h20M6 18h20M10 12v14M16 12v14M22 12v14' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d1d1f'/%3E%3Cpath d='M9 25 14 7M23 25 18 7M10.5 20h11M12 14.5h8' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <canvas id="c3d" aria-label="Visualização 3D do projeto"></canvas>
-  <div id="labels" aria-hidden="false"></div>
+  <div id="labels" aria-label="Trechos do projeto"></div>
 
-  <header id="topbar">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">▤</span>
-      <div><strong>Caminho dos Trilhos</strong><small>Guaramirim/SC · estudo preliminar · modelo R07</small></div>
-    </div>
-    <nav id="modes" aria-label="Modos de visualização">
-      <button data-mode="orbit" class="active" title="Masterplan 3D (1)">Masterplan 3D</button>
-      <button data-mode="plan" title="Implantação 2D (2)">Implantação 2D</button>
-      <button data-mode="walk" title="Caminhar em 1ª pessoa (3)">Caminhar</button>
-      <button data-mode="tour" title="Apresentação guiada (4)">Apresentação</button>
+  <!-- Barra superior: vidro fosco, marca, controle segmentado de modos e ferramentas -->
+  <header id="topbar" class="glass">
+    <a class="brand" href="./conceito.html" title="Página conceito do projeto">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M9 26 14 6M23 26 18 6M10.6 20h10.8M12.2 13.5h7.6" /></svg></span>
+      <span class="btxt"><strong>Caminho dos Trilhos</strong><small>Guaramirim · SC</small></span>
+    </a>
+    <nav id="modes" class="segmented" aria-label="Modos de visualização">
+      <span class="thumb" aria-hidden="true"></span>
+      <button data-mode="orbit" class="active" title="Masterplan 3D (1)"><span>Masterplan</span></button>
+      <button data-mode="plan" title="Implantação 2D (2)"><span>Planta</span></button>
+      <button data-mode="walk" title="Caminhar em 1ª pessoa (3)"><span>Caminhar</span></button>
+      <button data-mode="tour" title="Apresentação guiada (4)"><span>Apresentação</span></button>
     </nav>
     <div class="tools">
-      <button id="btnHome" title="Vista geral (H)">⌂ Vista geral</button>
-      <button id="btnSettings" title="Configurações" aria-expanded="false">⚙</button>
-      <button id="btnFull" title="Tela cheia (F)">⛶</button>
+      <button id="btnTime" class="pill" title="Hora do dia"><svg viewBox="0 0 24 24" class="ico"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><span id="timeChip">9h30</span></button>
+      <button id="btnHome" class="icon" title="Vista geral (H)" aria-label="Vista geral"><svg viewBox="0 0 24 24" class="ico"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5"/></svg></button>
+      <button id="btnSettings" class="icon" title="Ajustes" aria-label="Ajustes" aria-expanded="false"><svg viewBox="0 0 24 24" class="ico"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
+      <button id="btnFull" class="icon" title="Tela cheia (F)" aria-label="Tela cheia"><svg viewBox="0 0 24 24" class="ico"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <a id="btnConcept" class="pill dark" href="./conceito.html">Conceito</a>
     </div>
   </header>
 
-  <section id="settings" class="panel hidden" aria-label="Configurações">
-    <h3>Visualização</h3>
-    <label>Qualidade gráfica
-      <select id="quality"><option value="leve">Leve</option><option value="padrao" selected>Padrão</option><option value="alta">Alta</option></select>
-    </label>
-    <label>Hora do dia <span id="hourLbl"></span>
-      <input id="hour" type="range" min="6.5" max="18" step="0.25" value="9.5" />
-    </label>
-    <small class="muted">Sol calculado para Guaramirim (−26,47°, −48,99°) em 15/dez · ilustrativo, não é estudo de insolação.</small>
-    <label class="chk"><input type="checkbox" id="tTrees" checked /> Árvores humanizadas (posição e copa CAD)</label>
-    <label class="chk"><input type="checkbox" id="tPeople" checked /> Pessoas <em>(ilustrativo)</em></label>
-    <label class="chk"><input type="checkbox" id="tHotspots" checked /> Pontos de interesse</label>
+  <!-- Ajustes (popover) -->
+  <section id="settings" class="panel glass hidden" aria-label="Ajustes">
+    <h3>Luz</h3>
+    <label class="row">Hora do dia <span id="hourLbl" class="val"></span></label>
+    <input id="hour" type="range" min="6.5" max="20.5" step="0.25" value="9.5" aria-label="Hora do dia" />
+    <div class="presets segmented small" id="hourPresets">
+      <button data-h="9.5">Manhã</button><button data-h="15.5">Tarde</button><button data-h="18.75">Pôr do sol</button><button data-h="20.25">Noite</button>
+    </div>
+    <p class="note">Sol calculado para Guaramirim (−26,47°, −48,99°) em 15 de dezembro. Ilustrativo: não é estudo de insolação nem cálculo luminotécnico.</p>
+    <h3>Cena</h3>
+    <label class="sw"><span>Entorno com ortofoto real <em>existente · 5 cm</em></span><input type="checkbox" id="tOrtho" checked /></label>
+    <label class="sw"><span>Árvores <em>posição e copa CAD</em></span><input type="checkbox" id="tTrees" checked /></label>
+    <label class="sw"><span>Pessoas <em>ilustrativo</em></span><input type="checkbox" id="tPeople" checked /></label>
+    <label class="sw"><span>Veículos <em>ilustrativo</em></span><input type="checkbox" id="tCars" checked /></label>
+    <label class="sw"><span>Trechos e pontos de interesse</span><input type="checkbox" id="tHotspots" checked /></label>
+    <h3>Desempenho</h3>
+    <div class="segmented small" id="qualitySeg">
+      <button data-q="leve">Leve</button><button data-q="padrao">Padrão</button><button data-q="alta">Alta</button>
+    </div>
+    <select id="quality" hidden><option value="leve">Leve</option><option value="padrao" selected>Padrão</option><option value="alta">Alta</option></select>
   </section>
 
-  <aside id="layers" class="panel" aria-label="Camadas">
-    <button class="collapse" id="layersToggle" aria-expanded="true">Camadas ▾</button>
+  <!-- Camadas -->
+  <aside id="layers" class="panel glass" aria-label="Camadas">
+    <button class="collapse" id="layersToggle" aria-expanded="true"><span>Camadas</span><svg viewBox="0 0 24 24" class="ico chev"><path d="m7 10 5 5 5-5"/></svg></button>
     <div id="layerList"></div>
   </aside>
 
-  <aside id="info" class="panel hidden" aria-live="polite">
-    <button class="close" id="infoClose" aria-label="Fechar">×</button>
+  <!-- Ficha do trecho / informacoes (com galeria de imagens cinematograficas) -->
+  <aside id="info" class="panel glass hidden" aria-live="polite">
+    <button class="close" id="infoClose" aria-label="Fechar"><svg viewBox="0 0 24 24" class="ico"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <div id="infoBody"></div>
   </aside>
 
-  <div id="minimap" class="panel" title="Clique para levar a câmera ao ponto">
-    <canvas id="mini"></canvas>
-    <span class="north">N ↑</span>
+  <!-- Visualizador de imagem em tela cheia -->
+  <div id="lightbox" class="hidden" role="dialog" aria-modal="true" aria-label="Imagem do trecho">
+    <figure><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></figure>
+    <button class="lb-nav prev" id="lbPrev" aria-label="Anterior"><svg viewBox="0 0 24 24" class="ico"><path d="m15 6-6 6 6 6"/></svg></button>
+    <button class="lb-nav next" id="lbNext" aria-label="Próxima"><svg viewBox="0 0 24 24" class="ico"><path d="m9 6 6 6-6 6"/></svg></button>
+    <button class="lb-close" id="lbClose" aria-label="Fechar"><svg viewBox="0 0 24 24" class="ico"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
 
-  <div id="planbar" class="panel hidden">
-    <button data-pv="proposta" class="active">Proposta (modelo R07)</button>
-    <button data-pv="comparar">Comparar ⟷</button>
-    <button data-pv="existente">Existente (ortofoto 5 cm)</button>
+  <div id="minimap" class="panel glass" title="Clique para levar a câmera ao ponto">
+    <canvas id="mini"></canvas>
+    <span class="north">N</span>
+  </div>
+
+  <div id="planbar" class="panel glass hidden">
+    <div class="segmented">
+      <button data-pv="proposta" class="active">Proposta</button>
+      <button data-pv="comparar">Comparar</button>
+      <button data-pv="existente">Existente</button>
+    </div>
     <span id="scalebar"><i></i><b>50 m</b></span>
   </div>
-  <div id="splitter" class="hidden" aria-label="Arraste para comparar"><span>Existente ◂ ▸ Proposta</span></div>
+  <div id="splitter" class="hidden" aria-label="Arraste para comparar"><span>Existente · Proposta</span></div>
 
-  <div id="tourbar" class="panel hidden">
-    <button id="tPrev" title="Anterior (←)">◂</button>
-    <button id="tPlay" title="Reproduzir/pausar (espaço)">❚❚</button>
-    <button id="tNext" title="Próxima (→)">▸</button>
-    <div id="tDots"></div>
-    <button id="tExit" title="Sair da apresentação">Sair</button>
+  <div id="tourbar" class="panel glass hidden">
+    <button id="tPrev" class="icon" title="Anterior (←)" aria-label="Anterior"><svg viewBox="0 0 24 24" class="ico"><path d="m15 6-6 6 6 6"/></svg></button>
+    <button id="tPlay" class="icon play" title="Reproduzir/pausar (espaço)" aria-label="Reproduzir ou pausar">❚❚</button>
+    <button id="tNext" class="icon" title="Próxima (→)" aria-label="Próxima"><svg viewBox="0 0 24 24" class="ico"><path d="m9 6 6 6-6 6"/></svg></button>
+    <div class="tmeta"><span id="tTitle"></span><div id="tDots"></div></div>
+    <button id="tExit" class="pill" title="Sair da apresentação">Sair</button>
+    <button id="tEdit" class="pill dark" title="Criar e ordenar as paradas e tags do roteiro">Editar roteiro</button>
   </div>
 
+  <!-- Editor do roteiro: paradas, ordem, enquadramento, tags no eixo, imagens -->
+  <aside id="editor" class="panel glass hidden" aria-label="Editor do roteiro">
+    <header>
+      <div><h3>Roteiro</h3><small id="edLocal" class="hidden">Edição local · exporte para publicar</small></div>
+      <button id="edClose" class="icon" aria-label="Fechar editor"><svg viewBox="0 0 24 24" class="ico"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <ol id="edList"></ol>
+    <button id="edAdd" class="addbtn">＋ Nova parada com a vista atual</button>
+    <div id="edForm"></div>
+    <footer>
+      <button id="edExport" class="pill">Exportar</button>
+      <label class="pill" for="edImport">Importar<input id="edImport" type="file" accept="application/json,.json" hidden></label>
+      <button id="edReset" class="pill">Restaurar padrão</button>
+    </footer>
+  </aside>
+  <div id="toast" role="status" aria-live="polite"></div>
+
   <div id="walkhint" class="hidden">
-    <div class="card">
+    <div class="card glass">
       <h3>Caminhada em escala humana</h3>
-      <p><b>Clique</b> para começar · <b>W A S D</b> mover · <b>mouse</b> olhar · <b>Shift</b> acelerar · <b>ESC</b> liberar o mouse</p>
-      <p class="muted">Tablet: arraste à esquerda para andar e à direita para olhar · Controle Xbox suportado</p>
+      <div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>mover</span><kbd>Shift</kbd><span>acelerar</span><kbd>Esc</kbd><span>sair</span></div>
+      <p class="note">Clique para começar e use o mouse para olhar. No tablet, arraste à esquerda para andar e à direita para olhar. Controle Xbox suportado.</p>
     </div>
   </div>
   <div id="touchpad" class="hidden"><div id="stick"><i></i></div></div>
 
   <div id="status"></div>
+  <small class="study-notice">Estudo preliminar · humanização ilustrativa</small>
 
   <div id="loader">
     <div class="lcard">
+      <span class="logo big" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M9 26 14 6M23 26 18 6M10.6 20h10.8M12.2 13.5h7.6" /></svg></span>
       <h1>Caminho dos Trilhos</h1>
-      <p>Requalificação urbana do corredor ferroviário · Guaramirim/SC</p>
+      <p>Requalificação urbana do corredor ferroviário de Guaramirim</p>
       <div class="bar"><i id="lbar"></i></div>
       <small id="lmsg">Carregando modelo 3D do projeto (R07)…</small>
     </div>

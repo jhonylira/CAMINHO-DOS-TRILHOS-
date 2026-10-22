@@ -7,6 +7,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const APP = process.argv[2] || 'http://localhost:5173/';
+const roteiro = JSON.parse(fs.readFileSync(new URL('../public/data/roteiro.json', import.meta.url), 'utf8'));
+const station = roteiro.paradas.find((p) => p.galeria === 'estacao');
+if (!station?.cam) throw new Error('Roteiro sem enquadramento da estação');
 const OUT = path.join(path.dirname(fileURLToPath(import.meta.url)), 'capturas');
 fs.mkdirSync(OUT, { recursive: true });
 const errors = [], logs = [];
@@ -35,12 +38,14 @@ await shot('01_masterplan_vista_geral');
 // apresentacao: cenas
 await page.click('#modes button[data-mode="tour"]'); await wait(5500); await shot('02_tour_intro');
 await page.click('#tPlay'); // pausa auto
-for (const i of [3, 5, 6]) {
+const tourStops = roteiro.paradas.map((p, i) => p.cam ? i : null).filter((i) => i !== null).slice(-3);
+for (const i of tourStops) {
   await page.evaluate((k) => document.querySelectorAll('#tDots span')[k].click(), i); await wait(5200);
   await shot(`03_tour_cena_${i}`);
 }
 const tgt = await page.evaluate(() => { const t = window.__ct.controls.target; return [t.x, -t.z]; });
-ok('cena 6 (praça) posiciona câmera no alvo correto', Math.hypot(tgt[0] - 99.75, tgt[1] - 70.75) < 1, JSON.stringify(tgt.map((v) => v.toFixed(2))));
+const expected = roteiro.paradas[tourStops.at(-1)].cam.target;
+ok('apresentação posiciona câmera conforme roteiro', Math.hypot(tgt[0] - expected[0], tgt[1] - expected[1]) < 1, JSON.stringify(tgt.map((v) => v.toFixed(2))));
 await page.click('#tExit'); await wait(400);
 
 // planta 2D + sincronizacao
@@ -51,11 +56,11 @@ await page.click('#planbar button[data-pv="existente"]'); await wait(2500); awai
 await page.click('#planbar button[data-pv="proposta"]');
 // clique no hotspot da estacao na planta -> abrir em 3D
 await page.click('#infoClose');
-const hs = page.locator('.hs').nth(1); // hotspot 2 = estacao (ordem de content.ts)
+const hs = page.getByRole('button', { name: `${station.code} ${station.title}`, exact: true });
 await hs.click(); await wait(1500); await shot('07_planta_estacao_zoom');
 await page.locator('#info .go').click(); await wait(5000);
 const t2 = await page.evaluate(() => { const t = window.__ct.controls.target; return [t.x, -t.z]; });
-ok('sincronização 2D→3D: estação', Math.hypot(t2[0] - 108, t2[1] - 65) < 1.5, JSON.stringify(t2.map((v) => v.toFixed(1))));
+ok('sincronização 2D→3D: estação', Math.hypot(t2[0] - station.cam.target[0], t2[1] - station.cam.target[1]) < 1.5, JSON.stringify(t2.map((v) => v.toFixed(1))));
 await shot('08_estacao_3d');
 
 // caminhada (sem pointer lock em headless: simula teclas)

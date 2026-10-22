@@ -1,4 +1,10 @@
 node_modules/
 dist/
 *.log
-tests/capturas/*.png
+tests/capturas/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+MEMORANDO_CODEX_ASTRA.md
