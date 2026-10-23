@@ -79,15 +79,15 @@ Tecnologias: **Three.js, TypeScript, Vite, GSAP, three-mesh-bvh e Playwright**. 
 
 ## Fonte e rastreabilidade
 
-O [manifesto](public/data/manifest.json) identifica `CAMINHO_DOS_TRILHOS_EP_R00d_R07.blend`, seu SHA256 e a exportação de 21/10/2026. Essa identificação não implica aprovação integral das revisões autorais.
+O [manifesto](public/data/manifest.json) identifica `CAMINHO_DOS_TRILHOS_EP_R00d_R08.blend`, seu SHA256 (`be0d71785e7e643651850561a404699ff492878ca4f99760ec1d2adc9b604263`) e a exportação de 23/10/2026. Essa identificação não implica aprovação executiva.
 
-Segundo o manifesto: **10.714 objetos de origem**, **52 nós GLB** e **811.456 triângulos**. O GLB ocupa **45.691.036 bytes (aproximadamente 46 MB)**; o primeiro acesso pode demorar em redes lentas. Esses números descrevem o ativo, não a cena completa com humanização.
+Segundo o manifesto: **12.931 objetos de origem**, **56 nós GLB** e **713.972 triângulos**. O GLB ocupa **40.227.292 bytes (aproximadamente 40 MB)**; o primeiro acesso pode demorar em redes lentas. Esses números descrevem o ativo, não a cena completa com humanização.
 
 Conversão: `three(x, y, z) = blender(x, z, -y)`. Origem local: **E 700080 / N 7070350**, em metros. Os scripts do pipeline dependem de arquivos autorais e ferramentas locais externos ao repositório; não são executados na publicação. Não regenere ativos de versões anteriores sem conferir as decisões autorais e a vegetação arquivada.
 
 ## Limitações
 
-- Patamar da estação a +0,50 m e rampas estão identificados no conteúdo como pendências de compatibilização.
+- Patamar da estação a +0,50 m e rampas longitudinais estão modelados na R08 em nível de estudo preliminar (EP), sem certificação executiva de acessibilidade.
 - Copa mínima de 3,43 m é medição histórica do parecer R06; a exportação atual exige reconferência independente. A regra autoral é manter toda a copa fora da faixa de 3 m de cada lado do eixo.
 - Paradas marcadas como sugeridas no roteiro aguardam confirmação do autor.
 - Espécies e dimensões construtivas não confirmadas permanecem hipóteses EP; entorno e humanização são ilustrativos.

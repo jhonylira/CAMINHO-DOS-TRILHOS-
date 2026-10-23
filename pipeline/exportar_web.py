@@ -30,6 +30,11 @@ t0 = time.time()
 SRC = Path(bpy.data.filepath)
 sha = hashlib.sha256(SRC.read_bytes()).hexdigest()
 scene = bpy.context.scene
+# Revisao lida do nome do arquivo fonte (ex.: ..._R08.blend -> 'R08'); define os nomes dos ativos gerados.
+import re
+_m = re.search(r'_(R\d{2})\.blend$', SRC.name)
+REV = _m.group(1) if _m else 'R07'
+print('REVISAO', REV)
 
 # ---------------------------------------------------------------- visibilidade de render
 parents = defaultdict(list)
@@ -102,7 +107,19 @@ MAT_RULES = {
     'EP_R02_CONCRETO_BRANCO_FLOREIRA': 'floreiras', 'EP_R02_SOLO_ORGANICO_ESCUR0': 'floreiras',
     'EP_R02_VEGETACAO_BAIXA_MASSA': 'floreiras', 'R06_CONCRETO_CLARO_FOSCO_MICROAGREGADO': 'floreiras',
     'ENTORNO': 'entorno',
+    # R08: ciclovia vermelha unica e pinturas de sinalizacao reproduzidas do DWG R04
+    'R08_PISO_CICLO_VERMELHO_UNICO': 'ciclovia',
+    'R08_PINTURA_BRANCA': 'viario', 'R08_PINTURA_AMARELA': 'viario', 'R08_PINTURA_VERMELHA': 'viario',
 }
+# Regras FORCADAS por prefixo de nome: valem antes de qualquer regra de material.
+# Necessarias quando o material e compartilhado com outra camada (ex.: concreto R06 das floreiras
+# usado no patamar/rampas e nos bancos R08). Patamar e rampas precisam ser 'passeios' para serem
+# caminhaveis (floreiras sao colisores no modo caminhada).
+FORCE_RULES = [
+    (('R08_PATAMAR', 'R08_RAMPA'), 'passeios'),
+    (('R08_RIPA', 'R08_BASE_BANCO', 'R08_BLOCO_BANCO'), 'mobiliario'),
+    (('R08_FLANGE', 'R08_TAMPA_POSTE', 'R08_FIXACAO'), 'iluminacao'),
+]
 NAME_RULES = [
     (('R03_POSTE', 'R03_BRACO', 'R03_LED'), 'iluminacao'),
     (('R03_ANEXO', 'R10_CAFE', 'Base_tijolo'), 'cafes'),
@@ -133,6 +150,9 @@ COL_RULES = [
 ]
 
 def classify(o, mat_name, cols):
+    for prefixes, lay in FORCE_RULES:
+        if o.name.startswith(prefixes):
+            return lay
     for prefixes, lay in NAME_RULES:
         if o.name.startswith(prefixes):
             # Materiais de pavimento dentro de grupos de outros prefixos continuam no pavimento
@@ -316,7 +336,7 @@ def write_glb(path, groups, materials):
                                                                        objects=g['objects'], triangles=int(len(idx) // 3))))
     gltf = dict(asset=dict(version='2.0', generator='Caminho dos Trilhos pipeline exportar_web.py',
                            extras=dict(source=SRC.name, sha256=sha)),
-                scene=0, scenes=[dict(name='R07', nodes=list(range(len(nodes))))], nodes=nodes, meshes=meshes,
+                scene=0, scenes=[dict(name=REV, nodes=list(range(len(nodes))))], nodes=nodes, meshes=meshes,
                 materials=gl_mats, accessors=accessors, bufferViews=buffer_views, buffers=[dict(byteLength=offset)])
     js = json.dumps(gltf, separators=(',', ':')).encode('utf-8')
     js += b' ' * ((4 - len(js) % 4) % 4)
@@ -328,7 +348,7 @@ def write_glb(path, groups, materials):
         f.write(struct.pack('<II', len(binb), 0x004E4942)); f.write(binb)
     return len(nodes), total
 
-nn, size = write_glb(OUT / 'models' / 'caminho_dos_trilhos_R07.glb', groups, materials)
+nn, size = write_glb(OUT / 'models' / f'caminho_dos_trilhos_{REV}.glb', groups, materials)
 print('GLB', nn, 'nodes', round(size / 1e6, 1), 'MB')
 
 # ---------------------------------------------------------------- dados semanticos
@@ -356,7 +376,7 @@ for o in objs:
         lamps.append(dict(name=o.name, x=round((mn.x + mx.x) / 2, 3), y=round((mn.y + mx.y) / 2, 3), h=round(mx.z, 2)))
 benches = []
 for o in objs:
-    if o.name.startswith(('EP_BANCO', 'R05_BANCO')):
+    if o.name.startswith(('EP_BANCO', 'R05_BANCO', 'R08_RIPA', 'R08_BASE_BANCO', 'R08_BLOCO_BANCO')):
         mn, mx = world_bbox(o)
         benches.append(dict(name=o.name, x=round((mn.x + mx.x) / 2, 3), y=round((mn.y + mx.y) / 2, 3)))
 
@@ -448,7 +468,7 @@ W = px1 - px0; H = py1 - py0
 PLAN_H_PX = int(round(PLAN_W_PX * H / W))
 plan = dict(xmin=px0, ymin=py0, xmax=px1, ymax=py1, width_px=PLAN_W_PX, height_px=PLAN_H_PX,
             meters_per_px=W / PLAN_W_PX, layers=[],
-            note='Planta ortografica gerada do mesmo modelo R07, mesma origem local (E 700080 / N 7070350). '
+            note=f'Planta ortografica gerada do mesmo modelo {REV}, mesma origem local (E 700080 / N 7070350). '
                  'u=(x-xmin)/(xmax-xmin)*width_px ; v=(ymax-y)/(ymax-ymin)*height_px (coordenadas Blender).')
 
 if not SEM_PLANTA:
@@ -490,7 +510,7 @@ manifest = dict(
                 note='Arquivo fonte aberto somente para leitura; nenhuma gravacao realizada.'),
     frame=dict(origin_utm='E 700080 / N 7070350 (origem local do CAD, metros)',
                blender_to_three='three(x, y, z) = blender(x, z, -y)', units='metros'),
-    stats=dict(renderable_objects=n_obj, triangles=int(tris_total), glb_nodes=nn, glb_bytes=size),
+    revision=REV, stats=dict(renderable_objects=n_obj, triangles=int(tris_total), glb_nodes=nn, glb_bytes=size),
     layers=[dict(id=l, label=lab, order=o_, **lb[l]) for l, lab, o_ in LAYERS if l in lb],
     materials=materials,
     bounds_all=dict(min=all_mn.tolist(), max=all_mx.tolist()),

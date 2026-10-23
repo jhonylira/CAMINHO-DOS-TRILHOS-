@@ -1,9 +1,9 @@
 {
  "source": {
-  "file": "CAMINHO_DOS_TRILHOS_EP_R00d_R07.blend",
-  "path": "C:\\Users\\projetos2\\Documents\\caminho dos trilhos\\estudo_ep_r00d\\CAMINHO_DOS_TRILHOS_EP_R00d_R07.blend",
-  "sha256": "5a76f0309c3e7ca43129979db18df985a0353290e0c9e4501e8b192d042f7e74",
-  "exported_at": "2026-10-21 16:56:52",
+  "file": "CAMINHO_DOS_TRILHOS_EP_R00d_R08.blend",
+  "path": "C:\\Users\\projetos2\\Documents\\caminho dos trilhos\\estudo_ep_r00d\\R08\\CAMINHO_DOS_TRILHOS_EP_R00d_R08.blend",
+  "sha256": "be0d71785e7e643651850561a404699ff492878ca4f99760ec1d2adc9b604263",
+  "exported_at": "2026-10-23 16:34:46",
   "note": "Arquivo fonte aberto somente para leitura; nenhuma gravacao realizada."
  },
  "frame": {
@@ -11,11 +11,12 @@
   "blender_to_three": "three(x, y, z) = blender(x, z, -y)",
   "units": "metros"
  },
+ "revision": "R08",
  "stats": {
-  "renderable_objects": 10714,
-  "triangles": 811456,
-  "glb_nodes": 52,
-  "glb_bytes": 45691036
+  "renderable_objects": 12931,
+  "triangles": 713972,
+  "glb_nodes": 56,
+  "glb_bytes": 40227292
  },
  "layers": [
   {
@@ -32,7 +33,7 @@
     114.35,
     3.84
    ],
-   "objects": 17
+   "objects": 1296
   },
   {
    "id": "passeios",
@@ -46,9 +47,9 @@
    "max": [
     280.03,
     116.18,
-    0.45
+    0.5
    ],
-   "objects": 370
+   "objects": 268
   },
   {
    "id": "canteiros",
@@ -60,11 +61,11 @@
     -0.17
    ],
    "max": [
-    207.27,
+    207.14,
     90.19,
     0.35
    ],
-   "objects": 92
+   "objects": 103
   },
   {
    "id": "ciclovia",
@@ -77,10 +78,10 @@
    ],
    "max": [
     220.92,
-    77.28,
+    58.91,
     0.15
    ],
-   "objects": 14
+   "objects": 22
   },
   {
    "id": "ferrovia",
@@ -108,27 +109,27 @@
     -0.1
    ],
    "max": [
-    207.52,
+    207.4,
     90.19,
     0.85
    ],
-   "objects": 86
+   "objects": 76
   },
   {
    "id": "mobiliario",
    "label": "Mobiliario urbano",
    "order": 7,
    "min": [
-    59.38,
-    46.39,
-    0.18
+    57.57,
+    41.96,
+    -0.1
    ],
    "max": [
-    199.53,
-    71.17,
-    0.98
+    207.35,
+    77.28,
+    0.69
    ],
-   "objects": 181
+   "objects": 739
   },
   {
    "id": "iluminacao",
@@ -142,9 +143,9 @@
    "max": [
     204.87,
     85.5,
-    5.15
+    5.17
    ],
-   "objects": 395
+   "objects": 869
   },
   {
    "id": "quiosques",
@@ -217,12 +218,12 @@
    "min": [
     -856.91,
     -226.49,
-    -0.05
+    -0.22
    ],
    "max": [
     184.29,
     91.18,
-    6.5
+    6.64
    ],
    "objects": 140
   },
@@ -241,22 +242,6 @@
     9.0
    ],
    "objects": 8497
-  },
-  {
-   "id": "outros",
-   "label": "Outros elementos do modelo",
-   "order": 15,
-   "min": [
-    55.36,
-    32.36,
-    0.03
-   ],
-   "max": [
-    205.1,
-    53.07,
-    0.15
-   ],
-   "objects": 1
   }
  ],
  "materials": {
@@ -659,14 +644,14 @@
    "emission_strength": 0.0,
    "textured": false
   },
-  "EP_FAIXA_ESPECIAL_CIMENTICIO": {
-   "name": "EP_FAIXA_ESPECIAL_CIMENTICIO",
+  "R08_PISO_CICLO_VERMELHO_UNICO": {
+   "name": "R08_PISO_CICLO_VERMELHO_UNICO",
    "color": [
     0.49000000953674316,
-    0.15000000596046448,
-    0.11999999731779099
+    0.07999999821186066,
+    0.054999999701976776
    ],
-   "roughness": 0.8199999928474426,
+   "roughness": 0.8500000238418579,
    "metallic": 0.0,
    "alpha": 1.0,
    "transmission": 0.0,
@@ -700,9 +685,9 @@
   "Cracked asphalt": {
    "name": "Cracked asphalt",
    "color": [
-    0.800000011920929,
-    0.800000011920929,
-    0.800000011920929
+    0.12999999523162842,
+    0.15000000596046448,
+    0.1599999964237213
    ],
    "roughness": 0.4000000059604645,
    "metallic": 0.0,
@@ -1057,6 +1042,63 @@
    ],
    "emission_strength": 0.0,
    "textured": false
+  },
+  "R08_PINTURA_BRANCA": {
+   "name": "R08_PINTURA_BRANCA",
+   "color": [
+    0.8799999952316284,
+    0.8799999952316284,
+    0.8199999928474426
+   ],
+   "roughness": 0.800000011920929,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R08_PINTURA_AMARELA": {
+   "name": "R08_PINTURA_AMARELA",
+   "color": [
+    0.949999988079071,
+    0.6800000071525574,
+    0.014999999664723873
+   ],
+   "roughness": 0.800000011920929,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
+  },
+  "R08_PINTURA_VERMELHA": {
+   "name": "R08_PINTURA_VERMELHA",
+   "color": [
+    0.49000000953674316,
+    0.07999999821186066,
+    0.054999999701976776
+   ],
+   "roughness": 0.800000011920929,
+   "metallic": 0.0,
+   "alpha": 1.0,
+   "transmission": 0.0,
+   "emission": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emission_strength": 0.0,
+   "textured": false
   }
  },
  "bounds_all": {
@@ -1075,7 +1117,7 @@
   "min": [
    -903.02,
    -281.17,
-   -0.17
+   -0.22
   ],
   "max": [
    280.03,
@@ -1152,42 +1194,18 @@
   "floreiras_R06": {
    "min": [
     132.64500427246094,
-    57.41019821166992,
+    64.373291015625,
     -0.10000000149011612
    ],
    "max": [
-    207.51759338378906,
+    178.7581329345703,
     70.69650268554688,
     0.44999998807907104
    ],
-   "count": 12
+   "count": 9
   },
-  "floreiras_R07": {
-   "min": [
-    -109.91200256347656,
-    30.234699249267578,
-    -0.11999999731779099
-   ],
-   "max": [
-    126.21900177001953,
-    50.90570068359375,
-    0.15000000596046448
-   ],
-   "count": 15
-  },
-  "bancos_R05": {
-   "min": [
-    59.24580001831055,
-    46.248600006103516,
-    -0.10000000149011612
-   ],
-   "max": [
-    90.6488037109375,
-    58.512298583984375,
-    0.9800000190734863
-   ],
-   "count": 82
-  },
+  "floreiras_R07": null,
+  "bancos_R05": null,
   "grelhas_R04": {
    "min": [
     -855.0266723632812,
@@ -1195,11 +1213,11 @@
     0.12200000137090683
    ],
    "max": [
-    92.9157943725586,
-    83.9418716430664,
+    -226.03208923339844,
+    -23.41150665283203,
     0.15000000596046448
    ],
-   "count": 21
+   "count": 10
   },
   "ciclovia": {
    "min": [
@@ -1209,10 +1227,10 @@
    ],
    "max": [
     220.91888427734375,
-    77.28189849853516,
+    58.906898498535156,
     0.15000000596046448
    ],
-   "count": 14
+   "count": 22
   }
  },
  "plan": {
@@ -1224,7 +1242,7 @@
   "height_px": 1507,
   "meters_per_px": 0.30347900390625,
   "layers": [],
-  "note": "Planta ortografica gerada do mesmo modelo R07, mesma origem local (E 700080 / N 7070350). u=(x-xmin)/(xmax-xmin)*width_px ; v=(ymax-y)/(ymax-ymin)*height_px (coordenadas Blender).",
+  "note": "Planta ortografica gerada do mesmo modelo R08, mesma origem local (E 700080 / N 7070350). u=(x-xmin)/(xmax-xmin)*width_px ; v=(ymax-y)/(ymax-ymin)*height_px (coordenadas Blender).",
   "composite": "plan/00_completa.png"
  }
 }

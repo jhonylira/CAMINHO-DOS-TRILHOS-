@@ -943,5 +943,383 @@
    3840,
    2560
   ]
+ },
+ {
+  "name": "R08_06_PLATAFORMA_FUNDOS",
+  "type": "ORTHO",
+  "position": [
+   122.0,
+   16.0,
+   -43.0
+  ],
+  "forward": [
+   -0.502,
+   -0.563,
+   -0.656
+  ],
+  "up": [
+   -0.342,
+   0.826,
+   -0.447
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 67.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_07_RAMPA_OESTE",
+  "type": "ORTHO",
+  "position": [
+   75.0,
+   5.0,
+   -48.0
+  ],
+  "forward": [
+   0.677,
+   -0.289,
+   -0.677
+  ],
+  "up": [
+   0.205,
+   0.957,
+   -0.205
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 18.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_08_RAMPA_LESTE",
+  "type": "ORTHO",
+  "position": [
+   141.0,
+   5.0,
+   -54.0
+  ],
+  "forward": [
+   -0.735,
+   -0.314,
+   -0.601
+  ],
+  "up": [
+   -0.243,
+   0.949,
+   -0.199
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 18.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_09_FLOREIRA_BANCO_PONTA",
+  "type": "ORTHO",
+  "position": [
+   211.0,
+   11.0,
+   -47.0
+  ],
+  "forward": [
+   -0.53,
+   -0.515,
+   -0.674
+  ],
+  "up": [
+   -0.318,
+   0.857,
+   -0.405
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 27.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_10_ARVORES_CANTEIROS",
+  "type": "ORTHO",
+  "position": [
+   82.0,
+   17.0,
+   -89.0
+  ],
+  "forward": [
+   0.599,
+   -0.669,
+   0.439
+  ],
+  "up": [
+   0.54,
+   0.743,
+   0.396
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 65.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_11_CANTEIROS_UNIDOS",
+  "type": "ORTHO",
+  "position": [
+   -59.0,
+   12.0,
+   -31.0
+  ],
+  "forward": [
+   -0.289,
+   -0.57,
+   -0.769
+  ],
+  "up": [
+   -0.2,
+   0.822,
+   -0.534
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 66.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_12_CHANFROS_ESTACIONAMENTO",
+  "type": "ORTHO",
+  "position": [
+   -35.0,
+   18.0,
+   -19.0
+  ],
+  "forward": [
+   -0.076,
+   -0.684,
+   -0.726
+  ],
+  "up": [
+   -0.072,
+   0.73,
+   -0.68
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 180.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_13_SINALIZACAO_ESTACAO",
+  "type": "ORTHO",
+  "position": [
+   55.0,
+   100.0,
+   -10.0
+  ],
+  "forward": [
+   0.0,
+   -0.894,
+   -0.447
+  ],
+  "up": [
+   0.0,
+   0.447,
+   -0.894
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 330.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_14_UNIAO_DETALHE",
+  "type": "ORTHO",
+  "position": [
+   -117.0,
+   3.0,
+   -38.0
+  ],
+  "forward": [
+   0.516,
+   -0.423,
+   -0.745
+  ],
+  "up": [
+   0.241,
+   0.906,
+   -0.348
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 9.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_15_BANCO_CURVO_040",
+  "type": "ORTHO",
+  "position": [
+   56.0,
+   8.0,
+   -49.0
+  ],
+  "forward": [
+   0.489,
+   -0.471,
+   -0.734
+  ],
+  "up": [
+   0.261,
+   0.882,
+   -0.392
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 23.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_16_BANCO_CURVO_043",
+  "type": "ORTHO",
+  "position": [
+   62.0,
+   8.0,
+   -31.0
+  ],
+  "forward": [
+   0.531,
+   -0.409,
+   -0.743
+  ],
+  "up": [
+   0.237,
+   0.913,
+   -0.332
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 23.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_17_BANCO_CURVO_044",
+  "type": "ORTHO",
+  "position": [
+   81.0,
+   6.0,
+   -36.0
+  ],
+  "forward": [
+   0.466,
+   -0.38,
+   -0.799
+  ],
+  "up": [
+   0.191,
+   0.925,
+   -0.328
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 15.0,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_05_LUMINARIA",
+  "type": "ORTHO",
+  "position": [
+   176.0,
+   7.0,
+   -53.0
+  ],
+  "forward": [
+   0.618,
+   -0.362,
+   -0.698
+  ],
+  "up": [
+   0.24,
+   0.932,
+   -0.271
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 9.5,
+  "res": [
+   3840,
+   2560
+  ]
+ },
+ {
+  "name": "R08_18_BLOCOS_BANCOS_QUIOSQUE",
+  "type": "ORTHO",
+  "position": [
+   49.0,
+   22.0,
+   -51.0
+  ],
+  "forward": [
+   0.496,
+   -0.666,
+   -0.558
+  ],
+  "up": [
+   0.442,
+   0.746,
+   -0.498
+  ],
+  "lens": 50.0,
+  "sensor": 36.0,
+  "fov_h": null,
+  "ortho_scale": 45.0,
+  "res": [
+   3840,
+   2560
+  ]
  }
 ]

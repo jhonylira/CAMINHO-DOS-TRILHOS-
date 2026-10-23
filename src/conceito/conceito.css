@@ -480,3 +480,35 @@ figure { margin: 0; }
   :root { --wrap: 1320px; }
   body { font-size: 18px; }
 }
+
+/* =====================================================================
+   Ajustes de narrativa (22/10/2026) — apenas o que os blocos novos usam
+   ===================================================================== */
+.hero__notice {
+  display: inline-flex; align-items: flex-start; gap: 8px; margin: 22px auto 0; padding: 7px 14px; border-radius: 999px;
+  background: var(--ep-bg); color: var(--ep); font-size: 13px; font-weight: 600; line-height: 1.35; letter-spacing: 0; text-align: left;
+}
+.hero__notice::before { content: ""; flex: none; margin-top: 5px; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.src--est { color: #5f6b3a; }
+.dark .src--est { color: #b9c98a; }
+.dot--fut { background: #2c6aa8; }
+.tag--fut { color: #2c6aa8; background: #e8f1fa; }
+
+/* parametros do estudo: fundo claro (a secao anterior ja e cinza) */
+.stats--plain { background: var(--bg); border-top: 1px solid var(--line); }
+
+/* cartoes dos trechos 2 a 4 com foto do estado atual */
+.ncard--photo { padding-top: 0; }
+.ncard__img {
+  display: block; width: calc(100% + 60px); max-width: none; margin: 0 -30px 24px;
+  aspect-ratio: 16 / 10; object-fit: cover; background: #e4e6e3;
+}
+.ncard--photo h3 { margin-top: 28px; }
+.ncard--photo .ncard__note { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--ink-3); }
+.ncard--photo .ncard__rail { margin-top: auto; }
+@media (max-width: 640px) { .ncard--photo h3 { margin-top: 22px; } }
+
+/* cartoes de principios: titulos alinhados na mesma altura */
+.pcard { min-height: 0; }
+.pcard__i { margin-bottom: 26px; }
+.pcard h3 { margin: 0 0 10px; }

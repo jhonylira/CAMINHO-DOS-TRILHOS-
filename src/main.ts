@@ -195,8 +195,10 @@ async function boot() {
     pmrem.dispose();
     loadSkyBackground(BASE, renderer.capabilities.maxTextureSize).then((bg) => { if (bg) scene.background = bg; });
 
-    setLoad(0.06, `Carregando modelo 3D R07 (${(manifest.stats.glb_bytes / 1e6).toFixed(0)} MB, geometria sem perdas)…`);
-    const gltf = await new GLTFLoader().loadAsync(BASE + 'models/caminho_dos_trilhos_R07.glb', (e) => {
+    // revisao do modelo vem do manifesto gerado pelo pipeline (ex.: 'R08') -> nomes dos ativos
+    const rev: string = manifest.revision || 'R07';
+    setLoad(0.06, `Carregando modelo 3D ${rev} (${(manifest.stats.glb_bytes / 1e6).toFixed(0)} MB, geometria sem perdas)…`);
+    const gltf = await new GLTFLoader().loadAsync(BASE + `models/caminho_dos_trilhos_${rev}.glb`, (e) => {
       const tot = e.total || manifest.stats.glb_bytes; setLoad(0.06 + 0.84 * (e.loaded / tot));
     });
     setLoad(0.92, 'Preparando materiais, colisões e humanização…');
@@ -713,7 +715,7 @@ function setupMinimap() {
   const c = $<HTMLCanvasElement>('#mini'); const e = planExtent;
   c.width = 600; c.height = Math.round(600 * (e.ymax - e.ymin) / (e.xmax - e.xmin));
   miniCtx = c.getContext('2d')!;
-  miniImg = new Image(); miniImg.src = BASE + 'plan/planta_R07.webp';
+  miniImg = new Image(); miniImg.src = BASE + `plan/planta_${manifest.revision || 'R07'}.webp`;
   c.addEventListener('click', (ev) => {
     const r = c.getBoundingClientRect(); const w = uvToWorld((ev.clientX - r.left) / r.width, (ev.clientY - r.top) / r.height, e);
     if (mode === 'plan') planFocus(w.x, w.y);

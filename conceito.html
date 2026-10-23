@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Caminho dos Trilhos · Conceito</title>
-  <meta name="description" content="Conceito da requalificação urbana e paisagística do corredor ferroviário de Guaramirim/SC — estudo preliminar, modelo R07." />
+  <title>Caminho dos Trilhos · Trilhos de memória. Caminhos para o cotidiano.</title>
+  <meta name="description" content="Um percurso público que mantém a presença ferroviária como referência e propõe conectar lugares de caminhar, encontrar e permanecer em Guaramirim/SC — estudo preliminar." />
   <meta name="theme-color" content="#fbfbfd" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%239b5b33'/%3E%3Cpath d='M6 22h20M6 18h20M10 12v14M16 12v14M22 12v14' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,9 +24,10 @@
       </a>
       <button class="nav__menu" id="navMenu" aria-expanded="false" aria-controls="navLinks">Seções<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
       <ul class="nav__links" id="navLinks">
-        <li><a href="#conceito">Conceito</a></li>
+        <li><a href="#memoria">Memória</a></li>
+        <li><a href="#por-que">Por que aqui</a></li>
+        <li><a href="#conceito">A ideia</a></li>
         <li><a href="#percurso">Percurso</a></li>
-        <li><a href="#implantacao">Implantação</a></li>
         <li><a href="#trechos">Trechos</a></li>
         <li><a href="#experiencia">Experiência</a></li>
         <li><a href="#transparencia">Transparência</a></li>
@@ -39,12 +40,13 @@
     <!-- ===== Hero ===== -->
     <section class="hero" id="topo" aria-labelledby="hero-title">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>Guaramirim/SC · Estudo preliminar · Modelo R07</p>
-        <h1 id="hero-title" data-reveal style="--d:.08s">Caminho dos Trilhos.</h1>
-        <p class="hero__sub" data-reveal style="--d:.16s">Um percurso público contínuo ao longo dos trilhos. <span>Da antiga estação ferroviária, em quatro trechos.</span></p>
-        <div class="hero__cta" data-reveal style="--d:.24s">
+        <p class="eyebrow" data-reveal>Guaramirim/SC · Estudo preliminar</p>
+        <h1 id="hero-title" data-reveal style="--d:.08s">Trilhos de memória.<br />Caminhos para o cotidiano.</h1>
+        <p class="hero__sub" data-reveal style="--d:.16s">Um percurso público que mantém a presença ferroviária como referência <span>e propõe conectar lugares de caminhar, encontrar e permanecer.</span></p>
+        <div data-reveal style="--d:.2s"><span class="hero__notice">Estudo preliminar. Humanização, vegetação e materiais são ilustrativos.</span></div>
+        <div class="hero__cta" data-reveal style="--d:.26s">
           <a class="btn" href="./index.html">Explorar em 3D</a>
-          <a class="link-more" href="#conceito">Conhecer o conceito</a>
+          <a class="link-more" href="#memoria">Conhecer a história</a>
         </div>
       </div>
       <div class="hero__media" data-reveal style="--d:.3s">
@@ -54,55 +56,68 @@
               width="1600" height="900" fetchpriority="high" decoding="async"
               alt="Vista aérea em tempo real da estação ferroviária histórica com telhado cerâmico, o anexo envidraçado do café numa extremidade, os trilhos preservados em faixa gramada e a praça com floreiras e árvores." />
           </div>
-          <figcaption class="cap cap--in wrap"><span class="src src--rt">Tempo real</span> Captura do explorador 3D — modelo R07. Pessoas e vegetação humanizada são ilustrativas.</figcaption>
+          <figcaption class="cap cap--in wrap"><span class="src src--rt">Tempo real</span> Captura do explorador 3D. Pessoas, vegetação e iluminação são ilustrativas.</figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- ===== Declaracao ===== -->
-    <section class="statement" id="conceito" aria-labelledby="conceito-title">
+    <!-- ===== Memoria ===== -->
+    <section class="statement" id="memoria" aria-labelledby="memoria-title">
       <div class="wrap">
-        <h2 id="conceito-title" class="sr-only">Conceito</h2>
-        <p class="big" data-reveal><em>Estação, praça, corredor verde, passeios, iluminação e arborização.</em> Um só percurso público, costurado ao longo dos trilhos.</p>
-        <p class="lead" data-reveal style="--d:.1s">Requalificação urbana e paisagística do corredor ferroviário público de Guaramirim/SC. <b>O eixo ferroviário existente é preservado</b> e, ao seu redor, o estudo organiza passeios, canteiros, floreiras, mobiliário e iluminação, sempre sobre a <b>implantação CAD</b>, nas mesmas coordenadas do projeto.</p>
+        <p class="kicker" data-reveal>O trilho que formou a cidade</p>
+        <h2 id="memoria-title" class="sr-only">O trilho que formou a cidade</h2>
+        <p class="big" data-reveal><em>A ferrovia ajudou a formar Guaramirim.</em> A estação permaneceu como referência dessa memória.</p>
+        <p class="lead" data-reveal style="--d:.1s">O estudo parte desse eixo existente para imaginar um novo percurso público no centro da cidade. <b>A implantação da estação é preservada</b>; fachadas e alturas são estimadas por fotografias <span class="ep">EP</span>.</p>
       </div>
+      <figure class="chapter__media bleed" data-reveal>
+        <div class="frame frame--wide">
+          <img src="/conceito/ex_estacao_hoje-1600.webp" srcset="/conceito/ex_estacao_hoje-900.webp 900w, /conceito/ex_estacao_hoje-1600.webp 1600w" sizes="100vw"
+            width="1600" height="900" loading="lazy" decoding="async"
+            alt="Fotografia atual dos trilhos junto à estação ferroviária, com o edifício histórico de telhado cerâmico à direita, árvores e a praça ao fundo." />
+        </div>
+        <figcaption class="cap"><span class="src src--est">Estado atual</span> Trilhos e estação hoje. Levantamento fotográfico AMVALI, 16/06/2026.</figcaption>
+      </figure>
     </section>
 
-    <!-- ===== Numeros com fonte ===== -->
-    <section class="stats" aria-labelledby="stats-title">
+    <!-- ===== Por que este lugar ===== -->
+    <section class="section section--alt" id="por-que" aria-labelledby="porque-title">
       <div class="wrap">
-        <h2 class="stats__head" id="stats-title" data-reveal>Parâmetros que desenham o lugar.</h2>
-        <div class="stats__grid">
-          <div class="stat" data-reveal>
-            <span class="stat__n">≈1,2<small>km</small></span>
-            <span class="stat__t">de corredor ao longo do eixo ferroviário preservado.</span>
-            <span class="stat__s">Medido no modelo R07 (eixo ≈ 1,15 km).</span>
-          </div>
-          <div class="stat" data-reveal style="--d:.08s">
-            <span class="stat__n">3<small>m</small></span>
-            <span class="stat__t">de faixa livre de copas para cada lado do eixo ferroviário.</span>
-            <span class="stat__s">Decisão do autor, 15/10/2026.</span>
-          </div>
-          <div class="stat" data-reveal style="--d:.16s">
-            <span class="stat__n">3,43<small>m</small></span>
-            <span class="stat__t">distância mínima histórica entre as copas e o eixo (R06).</span>
-            <span class="stat__s">Reconferência da exportação atual pendente.</span>
-          </div>
-          <div class="stat" data-reveal style="--d:.24s">
-            <span class="stat__n">+0,15<small>m</small></span>
-            <span class="stat__t">passeios acima da via (0,00); canteiros a −0,05 m.</span>
-            <span class="stat__s">Níveis do estudo — modelo integral.</span>
-          </div>
+        <p class="kicker" data-reveal>Por que este lugar?</p>
+        <h2 class="h2" id="porque-title" data-reveal>De espaço subutilizado <span>a percurso público.</span></h2>
+        <p class="intro" data-reveal>Trechos seccionados, espaços pouco ativos e conexões incompletas. O projeto propõe <b>costurá-los em um percurso legível</b>, com os trilhos como referência contínua.</p>
+      </div>
+      <figure class="chapter__media bleed" data-reveal>
+        <div class="frame frame--wide">
+          <img src="/conceito/ex_estacionamento_prefeitura-1600.webp" srcset="/conceito/ex_estacionamento_prefeitura-900.webp 900w, /conceito/ex_estacionamento_prefeitura-1600.webp 1600w" sizes="100vw"
+            width="1600" height="900" loading="lazy" decoding="async"
+            alt="Fotografia atual da faixa ao longo dos trilhos nos fundos da Prefeitura, ocupada por carros estacionados, com brita e vegetação rasteira junto à linha." />
+        </div>
+        <figcaption class="cap"><span class="src src--est">Estado atual</span> Fundos da Prefeitura: a margem dos trilhos ocupada por estacionamento. Levantamento AMVALI, 16/06/2026.</figcaption>
+      </figure>
+      <div class="wrap">
+        <div class="duo">
+          <figure class="tile" data-reveal>
+            <img src="/conceito/ex_praca_subutilizada-1600.webp" srcset="/conceito/ex_praca_subutilizada-900.webp 900w, /conceito/ex_praca_subutilizada-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw"
+              width="1600" height="900" loading="lazy" decoding="async"
+              alt="Fotografia atual da praça dos Expedicionários: gramado aberto com poucas árvores aparadas e um galpão ao fundo, sem mobiliário de permanência." />
+            <figcaption class="cap"><span class="src src--est">Estado atual</span> <b>Espaços pouco ativos.</b> Praça dos Expedicionários, gramado sem mobiliário de permanência.</figcaption>
+          </figure>
+          <figure class="tile" data-reveal style="--d:.08s">
+            <img src="/conceito/ex_trilhos_fundos-1600.webp" srcset="/conceito/ex_trilhos_fundos-900.webp 900w, /conceito/ex_trilhos_fundos-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw"
+              width="1600" height="900" loading="lazy" decoding="async"
+              alt="Fotografia atual dos trilhos entre muros e fundos de lotes, no trecho da Praça Central, com casas e edifícios ao fundo." />
+            <figcaption class="cap"><span class="src src--est">Estado atual</span> <b>Bordas voltadas às costas.</b> Trilhos entre fundos de lotes, no trecho da Praça Central.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
     <!-- ===== Principios ===== -->
-    <section class="section" id="principios" aria-labelledby="principios-title">
+    <section class="section" id="conceito" aria-labelledby="principios-title">
       <div class="wrap">
-        <p class="kicker" data-reveal>Princípios</p>
-        <h2 class="h2" id="principios-title" data-reveal>Preservar. Caminhar. <span>Permanecer.</span></h2>
-        <p class="intro" data-reveal>Seis ideias simples conduzem todas as decisões do estudo — do traçado das floreiras ao desenho de uma grelha.</p>
+        <p class="kicker" data-reveal>A ideia do projeto</p>
+        <h2 class="h2" id="principios-title" data-reveal>Preservar a memória. Conectar o cotidiano. <span>Criar lugares para permanecer.</span></h2>
+        <p class="intro" data-reveal>Seis ideias conduzem as decisões do estudo, do traçado das floreiras ao desenho de uma grelha.</p>
         <div class="principles">
           <article class="pcard" data-reveal>
             <span class="pcard__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></span>
@@ -117,17 +132,17 @@
           <article class="pcard" data-reveal style="--d:.12s">
             <span class="pcard__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.8"/><path d="M10 21l2-6 3 3v3M12 15l-1-5 4 1 2 3M11 10l-3 2-1 3"/></svg></span>
             <h3>Caminhar</h3>
-            <p><b>Circulação contínua de pedestres e ciclistas.</b> Árvores em calçada sobre grelhas metálicas vazadas, niveladas ao passeio.</p>
+            <p><b>Circulação contínua de pedestres e ciclistas</b>, com árvores em grelhas niveladas ao passeio e postes de dois braços, a 3 m e 5 m.</p>
           </article>
           <article class="pcard" data-reveal>
-            <span class="pcard__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h18M5 14v5M19 14v5M4 10.5h16M6 7h12"/></svg></span>
-            <h3>Permanecer</h3>
-            <p>Floreiras orgânicas com <b>mureta de 30 cm</b> e bancos integrados de madeira ripada nas áreas de permanência.</p>
+            <span class="pcard__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M8.5 12h7"/></svg></span>
+            <h3>Conectar</h3>
+            <p>Estação, praça, Prefeitura, centro e entrada da cidade, ligados por um <b>percurso contínuo</b> ao longo dos trilhos.</p>
           </article>
           <article class="pcard" data-reveal style="--d:.06s">
-            <span class="pcard__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3v18M12 5h6M12 11H6M18 5v2M6 11v2M9 21h6"/></svg></span>
-            <h3>Iluminar</h3>
-            <p>Postes metálicos escuros, quadrados, com <b>dois braços opostos a 3 m e a 5 m</b> do piso, preservando os pontos do CAD.</p>
+            <span class="pcard__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 14h18M5 14v5M19 14v5M4 10.5h16M6 7h12"/></svg></span>
+            <h3>Permanecer</h3>
+            <p>Floreiras orgânicas com <b>mureta de 30 cm</b>, bancos integrados de madeira ripada, cafés e quiosques nas áreas de permanência.</p>
           </article>
           <article class="pcard" data-reveal style="--d:.12s">
             <span class="pcard__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg></span>
@@ -143,7 +158,7 @@
       <div class="wrap">
         <p class="kicker" data-reveal>O percurso</p>
         <h2 class="h2" id="percurso-title" data-reveal>Quatro trechos. <span>Uma só linha.</span></h2>
-        <p class="intro" data-reveal>O corredor acompanha o eixo ferroviário existente por cerca de 1,2 km. A apresentação segue a estrutura definida pelo autor: começa pela implantação geral, junto à estação, e avança trecho a trecho.</p>
+        <p class="intro" data-reveal>O corredor acompanha o eixo ferroviário existente por cerca de 1,2 km e muda de caráter sem perder continuidade: da estação à entrada da cidade, em quatro trechos.</p>
       </div>
       <figure class="plan bleed" data-reveal>
         <div class="plan__frame">
@@ -161,7 +176,7 @@
             <a class="route__head" href="#implantacao">
               <small>01</small>
               <span>Implantação geral</span>
-              <em class="status status--on">Em estudo · modelo R07</em>
+              <em class="status status--on">Em estudo</em>
             </a>
             <ul class="route__sub">
               <li><a href="#estacao"><small>1.1</small><span>Trecho Estação Ferroviária e Praça Expedicionário</span></a></li>
@@ -280,6 +295,7 @@
           <div class="specs__text" data-reveal>
             <p>A referência de estufa orienta <b>apenas a linguagem construtiva do fechamento</b>, não o programa: os anexos não são jardim de inverno nem equipamento ferroviário.</p>
             <p>Volume de vidro completo, com cobertura em duas águas, oitões e laterais envidraçados sobre uma <b>base baixa de tijolinho aparente</b>.</p>
+            <p>Em escala municipal, o Masterplan apresenta como <b>visão futura</b> a possível reativação da estação como hub modal e cultural — com estudos próprios, distinta dos cafés deste estudo.</p>
             <div class="tags">
               <span class="tag tag--ok">Implantação da estação preservada</span>
               <span class="tag tag--ep">Altura da base de tijolo: hipótese EP</span>
@@ -559,32 +575,92 @@
       </div>
     </section>
 
-    <!-- ===== Trechos 2 a 4: em desenvolvimento (sem conteudo de projeto ainda) ===== -->
+    <!-- ===== Numeros com fonte ===== -->
+    <section class="stats stats--plain" aria-labelledby="stats-title">
+      <div class="wrap">
+        <h2 class="stats__head" id="stats-title" data-reveal>Parâmetros do estudo.</h2>
+        <div class="stats__grid">
+          <div class="stat" data-reveal>
+            <span class="stat__n">≈1,2<small>km</small></span>
+            <span class="stat__t">de corredor ao longo do eixo ferroviário preservado.</span>
+            <span class="stat__s">Medido no modelo R07 (eixo ≈ 1,15 km).</span>
+          </div>
+          <div class="stat" data-reveal style="--d:.08s">
+            <span class="stat__n">3<small>m</small></span>
+            <span class="stat__t">de faixa livre de copas para cada lado do eixo ferroviário.</span>
+            <span class="stat__s">Decisão do autor, 15/10/2026.</span>
+          </div>
+          <div class="stat" data-reveal style="--d:.16s">
+            <span class="stat__n">3,43<small>m</small></span>
+            <span class="stat__t">distância mínima histórica entre as copas e o eixo (R06).</span>
+            <span class="stat__s">Reconferência da exportação atual pendente.</span>
+          </div>
+          <div class="stat" data-reveal style="--d:.24s">
+            <span class="stat__n">+0,15<small>m</small></span>
+            <span class="stat__t">passeios acima da via (0,00); canteiros a −0,05 m.</span>
+            <span class="stat__s">Níveis do estudo — modelo integral.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Trechos 2 a 4: em desenvolvimento (fotos do estado atual) ===== -->
     <section class="section next" id="trechos" aria-labelledby="trechos-title">
       <div class="wrap">
         <p class="kicker" data-reveal>Próximos trechos</p>
         <h2 class="h2" id="trechos-title" data-reveal>O percurso continua. <span>Em desenvolvimento.</span></h2>
-        <p class="intro" data-reveal>Os trechos seguintes já fazem parte da estrutura de apresentação definida pelo autor. O conteúdo de projeto será incorporado quando estiver desenvolvido — por isso, aqui ainda não há imagens nem descrições.</p>
+        <p class="intro" data-reveal>Cada trecho tem um papel na jornada. A solução de projeto entra quando for confirmada pelo autor. As fotos mostram o <b>estado atual</b>, não a proposta.</p>
         <div class="next__grid">
-          <article class="ncard" id="trecho-prefeitura" data-reveal>
+          <article class="ncard ncard--photo" id="trecho-prefeitura" data-reveal>
+            <img class="ncard__img" src="/conceito/ex_prefeitura_trecho-1600.webp" srcset="/conceito/ex_prefeitura_trecho-900.webp 900w, /conceito/ex_prefeitura_trecho-1600.webp 1600w" sizes="(max-width: 640px) 100vw, 33vw" width="1600" height="900" loading="lazy" decoding="async" alt="Fotografia atual dos fundos da Prefeitura: rua de saibro com carros estacionados sob uma árvore, ao lado dos trilhos." />
             <div class="ncard__top"><span class="ncard__n">02</span><span class="status"><i aria-hidden="true"></i>Em desenvolvimento</span></div>
             <h3>Trecho Fundos da Prefeitura</h3>
-            <p>Conteúdo de projeto a incorporar.</p>
+            <p>Continuidade junto aos equipamentos públicos e reorganização de um espaço hoje voltado a serviço.</p>
+            <p class="ncard__note"><span class="src src--est">Estado atual</span> Levantamento AMVALI, 16/06/2026.</p>
             <svg class="ncard__rail" viewBox="0 0 320 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8H320M0 20H320"/><path class="ties" d="M0 14H320"/></svg>
           </article>
-          <article class="ncard" id="trecho-praca-central" data-reveal style="--d:.08s">
+          <article class="ncard ncard--photo" id="trecho-praca-central" data-reveal style="--d:.08s">
+            <img class="ncard__img" src="/conceito/ex_praca_central_trecho-1600.webp" srcset="/conceito/ex_praca_central_trecho-900.webp 900w, /conceito/ex_praca_central_trecho-1600.webp 1600w" sizes="(max-width: 640px) 100vw, 33vw" width="1600" height="900" loading="lazy" decoding="async" alt="Fotografia atual do trecho da Praça Central: trilhos ladeados por vegetação e edificações, com um prédio branco ao fundo." />
             <div class="ncard__top"><span class="ncard__n">03</span><span class="status"><i aria-hidden="true"></i>Em desenvolvimento</span></div>
             <h3>Trecho Praça Central</h3>
-            <p>Conteúdo de projeto a incorporar.</p>
+            <p>Conexão entre o percurso ferroviário e um espaço público existente no centro.</p>
+            <p class="ncard__note"><span class="src src--est">Estado atual</span> Levantamento AMVALI, 16/06/2026.</p>
             <svg class="ncard__rail" viewBox="0 0 320 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8H320M0 20H320"/><path class="ties" d="M0 14H320"/></svg>
           </article>
-          <article class="ncard" id="trecho-hotel" data-reveal style="--d:.16s">
+          <article class="ncard ncard--photo" id="trecho-hotel" data-reveal style="--d:.16s">
+            <img class="ncard__img" src="/conceito/ex_hotel_entrada-1600.webp" srcset="/conceito/ex_hotel_entrada-900.webp 900w, /conceito/ex_hotel_entrada-1600.webp 1600w" sizes="(max-width: 640px) 100vw, 33vw" width="1600" height="900" loading="lazy" decoding="async" alt="Fotografia atual da via paralela no trecho do Hotel Andardac, com palmeiras e árvores ao fundo." />
             <div class="ncard__top"><span class="ncard__n">04</span><span class="status"><i aria-hidden="true"></i>Em desenvolvimento</span></div>
             <h3>Trecho Hotel</h3>
-            <p>Conteúdo de projeto a incorporar.</p>
-            <p class="ncard__note">Nome indicado pelo autor: “Hotel Andardac” — <b>nome a confirmar</b>.</p>
+            <p>Continuidade do eixo e transição de chegada à cidade.</p>
+            <p class="ncard__note">Nome indicado pelo autor: “Hotel Andardac” — <b>nome a confirmar</b>. No estudo-base, “Entrada da Cidade”.</p>
+            <p class="ncard__note"><span class="src src--est">Estado atual</span> Levantamento AMVALI, 16/06/2026.</p>
             <svg class="ncard__rail" viewBox="0 0 320 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8H320M0 20H320"/><path class="ties" d="M0 14H320"/></svg>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Masterplan ===== -->
+    <section class="section section--alt" id="masterplan" aria-labelledby="masterplan-title">
+      <div class="wrap">
+        <p class="kicker" data-reveal>Visão de cidade</p>
+        <h2 class="h2" id="masterplan-title" data-reveal>Uma peça <span>do Masterplan.</span></h2>
+        <p class="intro" data-reveal>O Caminho dos Trilhos <b>dialoga</b> com a visão do Masterplan: conectar centralidades por percursos caminháveis e espaços de convivência.</p>
+        <div class="duo">
+          <div class="tile" data-reveal>
+            <div class="tile__body" style="padding-bottom:28px">
+              <h3>Este estudo desenha o corredor</h3>
+              <p>Passeios, grelhas, luminárias, cafés e bistrô, floreiras, quiosques e estacionamento do Trecho 1.</p>
+              <div class="tags"><span class="tag tag--ok">Modelado no estudo</span></div>
+            </div>
+          </div>
+          <div class="tile" data-reveal style="--d:.08s">
+            <div class="tile__body" style="padding-bottom:28px">
+              <h3>O Masterplan aponta o horizonte</h3>
+              <p>Cidade Parque, centralidades e mobilidade ativa. VLT, Ecovias, drenagem e hub da estação são <b>visão futura</b>, com projetos próprios.</p>
+              <div class="tags"><span class="tag tag--fut">Não são entregas deste estudo</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -688,13 +764,17 @@
               <li>Uso das faixas especiais<small>Não equivalem automaticamente à ciclovia</small></li>
               <li>Contagem de vagas de estacionamento</li>
               <li>Programa e detalhamento dos quiosques panorâmicos</li>
-              <li>Trechos 2, 3 e 4: conteúdo de projeto em desenvolvimento<small>Nome do Trecho Hotel a confirmar</small></li>
+              <li>Trechos 2, 3 e 4: nomes, limites e solução de projeto<small>“Entrada da Cidade” × “Trecho Hotel Andardac”: equivalência a confirmar</small></li>
             </ul>
           </div>
         </div>
+        <div class="note" data-reveal style="margin-bottom:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+          <p style="margin:0"><b>Visão futura.</b> Hub modal e cultural na estação, VLT, Ecovias e macrodrenagem pertencem ao Masterplan e exigem projetos próprios. Segurança, turismo e valorização são objetivos de planejamento, não resultados garantidos.</p>
+        </div>
         <div class="note" data-reveal>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-8 8"/></svg>
-          <p style="margin:0"><b>Sobre as imagens.</b> Todas são renders de referência do Blender (modelo R07), capturas do explorador em tempo real ou a planta gerada do próprio modelo, identificadas em cada legenda. Nenhuma imagem desta página foi gerada por inteligência artificial.</p>
+          <p style="margin:0"><b>Sobre as imagens.</b> Todas são renders de referência do Blender (modelo R07), capturas do explorador em tempo real, a planta gerada do próprio modelo ou fotografias do estado atual (levantamento AMVALI, 16/06/2026), identificadas em cada legenda. Nenhuma imagem desta página foi gerada por inteligência artificial.</p>
         </div>
       </div>
     </section>
@@ -703,7 +783,7 @@
   <footer class="foot">
     <div class="wrap">
       <div class="foot__top">
-        <div><strong>Caminho dos Trilhos</strong><br />Requalificação urbana do corredor ferroviário · Guaramirim/SC · Estudo preliminar · Modelo R07</div>
+        <div><strong>Caminho dos Trilhos</strong><br />Requalificação urbana do corredor ferroviário · Guaramirim/SC · Estudo preliminar</div>
         <a class="btn btn--sm" href="./index.html">Explorar em 3D</a>
       </div>
       <p style="margin:0">Fontes dos textos desta página:</p>
@@ -715,6 +795,9 @@
         <li><code>pranchas_intervencoes/R05/MEMORIAL_QUANTITATIVOS_R05.md</code> — pendências de quantitativos</li>
         <li><code>public/data/renders.json</code> — origem dos renders Blender R07</li>
         <li><code>public/data/cameras.json</code> — câmeras originais usadas nas capturas</li>
+        <li><code>Estudo base preliminar</code> (AMVALI) e <code>Caderno do Masterplan de Guaramirim</code> — histórico, diagnóstico e visão urbana</li>
+        <li><code>Imagens existente do local</code> — levantamento fotográfico AMVALI, 16/06/2026</li>
+        <li><code>docs/RELATORIO_NARRATIVA_COMPLEMENTAR_EP.md</code> — narrativa e rastreabilidade</li>
         <li>Informação do autor — estrutura de apresentação em trechos (1 a 4)</li>
       </ol>
     </div>

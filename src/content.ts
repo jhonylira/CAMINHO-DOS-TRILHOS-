@@ -21,9 +21,9 @@ export const SCENES: Scene[] = [
   {
     id: 'intro', kicker: 'Visão geral', title: 'Caminho dos Trilhos',
     html: `<p>Requalificação urbana e paisagística do corredor ferroviário público de Guaramirim/SC, da antiga estação ferroviária ao trecho oeste.</p>
-      <p>Esta experiência mostra o <b>modelo 3D do estudo preliminar (R07)</b> em tempo real, na mesma geometria e nas mesmas coordenadas da implantação CAD.</p>`,
+      <p>Esta experiência mostra o <b>modelo 3D do estudo preliminar (R08)</b> em tempo real, na mesma geometria e nas mesmas coordenadas da implantação CAD.</p>`,
     chips: [['Implantação CAD preservada', 'ok'], ['Estudo preliminar', 'ep']],
-    sources: ['modelo_integral/FLUXO_HIBRIDO_IA.md', 'estudo_ep_r00d/CAMINHO_DOS_TRILHOS_EP_R00d_R07.blend'],
+    sources: ['modelo_integral/FLUXO_HIBRIDO_IA.md', 'estudo_ep_r00d/R08/CAMINHO_DOS_TRILHOS_EP_R00d_R08.blend'],
     cam: { pos: [-170, -590, 400], target: [-250, -40, 0] },
   },
   {
@@ -48,7 +48,7 @@ export const SCENES: Scene[] = [
     id: 'estacao', kicker: 'Cena 3 · Patrimônio ferroviário', title: 'Estação ferroviária histórica',
     html: `<p>A estação histórica é <b>preservada na implantação</b>. Nas duas extremidades ficam <b>anexos envidraçados</b> com cobertura em duas águas, perfis metálicos escuros delgados e base baixa de tijolinho aparente.</p>
       <p>Os anexos abrigam <b>cafés e bistrô</b>. A linguagem de estufa orienta só o fechamento, não o programa.</p>`,
-    chips: [['Implantação da estação preservada', 'ok'], ['Altura da base de tijolo: hipótese EP', 'ep'], ['Patamar +0,50 m e rampas: pendente', 'pend']],
+    chips: [['Implantação da estação preservada', 'ok'], ['Altura da base de tijolo: hipótese EP', 'ep'], ['Patamar +0,50 m e rampas longitudinais: modelados no R08 (EP)', 'ep']],
     sources: ['AGENTS.md — revisões autorais de 19 e 20/10/2026', 'estudo_ep_r00d/FISCAL_R06.md — ressalvas mantidas', 'modelo_integral/LEIA_ME.md (alturas e fachada estimadas por fotografias)'],
     cam: { pos: [58, 18, 30], target: [108, 65, 2] },
     hotspot: { label: 'Estação e cafés', s: 1055 },

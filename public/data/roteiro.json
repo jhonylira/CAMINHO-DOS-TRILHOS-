@@ -4,18 +4,18 @@
   "nota": "Sequência definida pelo autor em 22/10/2026. Âncoras 'sugerido: true' foram propostas a partir da geometria do R07 (quiosques, floreiras, estacionamento) e devem ser confirmadas pelo autor no editor. Estaca = metros ao longo do eixo da ferrovia a partir da ponta oeste.",
   "paradas": [
     {
-      "id": "p1", "code": "1", "title": "Implantação geral", "kicker": "Visão geral",
-      "html": "<p>Requalificação urbana e paisagística do corredor ferroviário público de Guaramirim/SC. O eixo ferroviário existente é <b>preservado</b> ao longo de todo o percurso.</p><p>O modelo 3D do estudo preliminar (R07) é exibido em tempo real, na mesma geometria e nas mesmas coordenadas da implantação CAD.</p>",
-      "chips": [["Implantação CAD preservada", "ok"], ["Estudo preliminar", "ep"]],
-      "sources": ["modelo_integral/FLUXO_HIBRIDO_IA.md", "estudo_ep_r00d/CAMINHO_DOS_TRILHOS_EP_R00d_R07.blend"],
+      "id": "p1", "code": "1", "title": "Implantação geral", "kicker": "Trilhos de memória · Caminhos para o cotidiano",
+      "html": "<p>A ferrovia ajudou a formar Guaramirim. O <b>Caminho dos Trilhos</b> parte desse eixo existente como referência para propor uma sequência legível de passeios, áreas verdes e lugares de permanência no centro da cidade.</p><p>Como proposta local em estudo preliminar, dialoga com a visão do Masterplan de conectar centralidades por percursos mais caminháveis. Operação e gabarito ferroviário permanecem pendentes.</p>",
+      "chips": [["Implantação CAD preservada", "ok"], ["Estudo preliminar · humanização ilustrativa", "ep"]],
+      "sources": ["Estudo preliminar AMVALI (p. 7–15)", "Masterplan de Guaramirim (p. 139–142)", "modelo_integral/FLUXO_HIBRIDO_IA.md"],
       "cam": { "pos": [-170, -590, 400], "target": [-250, -40, 0] },
       "anchor": null
     },
     {
-      "id": "p1_1", "code": "1.1", "title": "Trecho Estação Ferroviária e Praça Expedicionário", "kicker": "Trecho 1 · Patrimônio ferroviário",
-      "html": "<p>A estação histórica é <b>preservada na implantação</b>. Nas duas extremidades ficam <b>anexos envidraçados</b> com cobertura em duas águas, perfis metálicos escuros delgados e base baixa de tijolinho aparente, destinados a <b>cafés e bistrô</b>.</p>",
-      "chips": [["Implantação da estação preservada", "ok"], ["Altura da base de tijolo: hipótese EP", "ep"], ["Patamar +0,50 m e rampas: pendente", "pend"]],
-      "sources": ["AGENTS.md — revisões autorais de 19 e 20/10/2026", "estudo_ep_r00d/FISCAL_R06.md", "Nome da praça: informado pelo autor (22/10/2026)"],
+      "id": "p1_1", "code": "1.1", "title": "Trecho Estação Ferroviária e Praça Expedicionário", "kicker": "Trecho 1 · Memória, chegada e encontro",
+      "html": "<p>A estação é o ponto de chegada da experiência. O estudo <b>preserva sua implantação</b> (fachadas e alturas estimadas por fotografias) e propõe aproximar novos usos cotidianos por meio dos dois anexos envidraçados de <b>cafés e bistrô</b> (duas águas, perfis escuros e base baixa de tijolinho aparente) e da praça em fulget terroso.</p><p class=\"muted\">Em escala municipal, o Masterplan investiga como visão futura a possível reativação do local como hub modal e cultural, sujeita a estudos específicos.</p>",
+      "chips": [["Implantação da estação preservada", "ok"], ["Altura da base de tijolo: hipótese EP", "ep"], ["Patamar +0,50 m e rampas longitudinais: modelados no R08 (EP)", "ep"]],
+      "sources": ["AGENTS.md — revisões autorais de 19 e 20/10/2026", "Estudo preliminar AMVALI (p. 7, 16)", "Masterplan (p. 74)"],
       "cam": { "pos": [58, 18, 30], "target": [108, 65, 2] },
       "anchor": { "s": 1055 }, "galeria": "estacao"
     },
@@ -52,21 +52,21 @@
       "anchor": { "s": 1132 }, "sugerido": true
     },
     {
-      "id": "p2", "code": "2", "title": "Trecho Fundos da Prefeitura", "kicker": "Trecho 2",
-      "html": "<p class=\"muted\">Conteúdo e posição a definir pelo autor no editor do roteiro.</p>",
-      "chips": [["Aguardando posicionamento", "pend"]], "sources": ["Estrutura do roteiro informada pelo autor (22/10/2026)"],
+      "id": "p2", "code": "2", "title": "Trecho Fundos da Prefeitura", "kicker": "Trecho 2 · Articulação institucional",
+      "html": "<p><b>Papel narrativo proposto:</b> continuidade pretendida do percurso junto aos equipamentos públicos e reorganização de um espaço hoje voltado a serviço.</p><p class=\"muted\">Conteúdo detalhado, limites e enquadramento a definir pelo autor no editor do roteiro.</p>",
+      "chips": [["Conteúdo, limites e solução não confirmados", "pend"]], "sources": ["Estudo preliminar AMVALI (p. 15, 28–30)", "Estrutura do roteiro informada pelo autor (22/10/2026)"],
       "cam": null, "anchor": null
     },
     {
-      "id": "p3", "code": "3", "title": "Trecho Praça Central", "kicker": "Trecho 3",
-      "html": "<p class=\"muted\">Conteúdo e posição a definir pelo autor no editor do roteiro.</p>",
-      "chips": [["Aguardando posicionamento", "pend"]], "sources": ["Estrutura do roteiro informada pelo autor (22/10/2026)"],
+      "id": "p3", "code": "3", "title": "Trecho Praça Central", "kicker": "Trecho 3 · Costura urbana",
+      "html": "<p><b>Papel narrativo proposto:</b> conexão pretendida entre o percurso ferroviário e um espaço público existente no centro da cidade.</p><p class=\"muted\">Conteúdo detalhado, limites e enquadramento a definir pelo autor no editor do roteiro.</p>",
+      "chips": [["Conteúdo, limites e solução não confirmados", "pend"]], "sources": ["Estudo preliminar AMVALI (p. 15, 28–30)", "Estrutura do roteiro informada pelo autor (22/10/2026)"],
       "cam": null, "anchor": null
     },
     {
-      "id": "p4", "code": "4", "title": "Trecho Hotel Andardac", "kicker": "Trecho 4 · nome a confirmar",
-      "html": "<p class=\"muted\">Conteúdo e posição a definir pelo autor no editor do roteiro.</p>",
-      "chips": [["Aguardando posicionamento", "pend"], ["Grafia do nome a confirmar", "ep"]], "sources": ["Estrutura do roteiro informada pelo autor (22/10/2026)"],
+      "id": "p4", "code": "4", "title": "Entrada da Cidade / Trecho Hotel", "kicker": "Trecho 4 · Transição de chegada",
+      "html": "<p><b>Papel narrativo proposto:</b> continuidade pretendida do eixo ferroviário e transição de chegada urbana.</p><p class=\"muted\">Equivalência entre os nomes (“Entrada da Cidade” e “Trecho Hotel Andardac”), limites e solução de projeto a confirmar pelo autor.</p>",
+      "chips": [["Equivalência de nomes, limites e solução a confirmar", "pend"]], "sources": ["Estudo preliminar AMVALI (p. 15)", "Estrutura do roteiro informada pelo autor (22/10/2026)"],
       "cam": null, "anchor": null
     }
   ]
