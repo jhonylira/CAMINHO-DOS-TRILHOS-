@@ -24,7 +24,7 @@ catch (e) {
   console.log('TIMEOUT', await page.evaluate(() => document.querySelector('#lmsg')?.textContent), JSON.stringify(errors.slice(0, 10)));
   await page.screenshot({ path: path.join(OUT, '_timeout.png') }); await browser.close(); process.exit(1);
 }
-await page.addStyleTag({ content: `#topbar,#layers,#minimap,#status,#info,#labels,#tourbar,#walkhint,#planbar,#settings,#splitter,#touchpad,#loader{display:none!important}` });
+await page.addStyleTag({ content: `#topbar,#layers,#minimap,#status,#info,#labels,#tourbar,#walkhint,#planbar,#settings,#splitter,#touchpad,#loader,.study-notice{display:none!important}` });
 await wait(3000);
 const plan = [[0, 'rt_geral'], [2, 'rt_corredor'], [3, 'rt_estacao'], [4, 'rt_estacionamento'], [5, 'rt_oeste'], [6, 'rt_cafe'], [7, 'rt_consolidado']];
 for (const [i, n] of plan) {

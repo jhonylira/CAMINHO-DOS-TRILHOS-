@@ -348,7 +348,7 @@ function showInfo(html: string) {
   el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
   wireGallery();
 }
-const TIPO: Record<string, string> = { blender: 'Render Blender · R07', tempo_real: 'Captura em tempo real', autor: 'Imagem do autor' };
+const TIPO: Record<string, string> = { blender: 'Render Blender · R08', tempo_real: 'Captura em tempo real', autor: 'Imagem do autor' };
 let lbList: GalItem[] = [], lbIdx = 0;
 function galleryHTML(id: string) {
   const g = gallery[id];

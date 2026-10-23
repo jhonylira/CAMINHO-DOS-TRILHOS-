@@ -1,4 +1,4 @@
-﻿// Captura limpa do explorador no enquadramento da camera original R10_VARIANTE_PEDESTRE_QUIOSQUE (cameras.json, coords three).
+// Captura limpa do explorador no enquadramento da camera original R10_VARIANTE_PEDESTRE_QUIOSQUE (cameras.json, coords three).
 // Uso: node tests/conceito_quiosque.mjs
 import { chromium } from 'playwright';
 import path from 'node:path';
@@ -8,9 +8,10 @@ const browser = await chromium.launch({ channel: 'msedge', headless: true, args:
 const page = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 1.25 });
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message));
-await page.goto('http://localhost:5173/');
+const APP = process.argv[2] || 'http://localhost:5173/';
+await page.goto(APP);
 await page.waitForFunction(() => window.__ct?.ready, null, { timeout: 240000 });
-await page.addStyleTag({ content: `#topbar,#layers,#minimap,#status,#info,#labels,#tourbar,#walkhint,#planbar,#settings,#splitter,#touchpad,#loader{display:none!important}` });
+await page.addStyleTag({ content: `#topbar,#layers,#minimap,#status,#info,#labels,#tourbar,#walkhint,#planbar,#settings,#splitter,#touchpad,#loader,.study-notice{display:none!important}` });
 await page.waitForTimeout(3000);
 const views = [
   ['rt_quiosque_pedestre', [153, 1.85, -61.5], [153 + 0.852 * 20, 1.85 - 0.046 * 20, -61.5 + 0.522 * 20]],
