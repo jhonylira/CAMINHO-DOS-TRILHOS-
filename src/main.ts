@@ -17,6 +17,7 @@ import { loadRoteiro, roteiro, depth, initEditor, openEditor, closeEditor, edito
 import { SCENES, LAYER_COLORS, LAYER_LABELS, V3 } from './content';
 import { buildOrthoDrape, applyOrthoDrape, OrthoDrape } from './context';
 import { Post } from './post';
+import { createFlight } from './flight';
 
 // BVH: acelera raycasts (cliques, chao e colisoes da caminhada) de O(n) para O(log n)
 (THREE.BufferGeometry.prototype as any).computeBoundsTree = computeBoundsTree;
@@ -37,7 +38,7 @@ renderer.toneMappingExposure = 0.8;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap; // r186: PCFSoft foi removido (o PCF ja filtra as bordas)
 const scene = new THREE.Scene();
-const FOG = new THREE.Color(0xc7d5de);
+const FOG = new THREE.Color(0xeeeef0);
 scene.fog = new THREE.Fog(FOG, 350, 2600);
 
 const camera = new THREE.PerspectiveCamera(42, 1, 0.2, 9000);
@@ -55,12 +56,12 @@ const sun = new THREE.DirectionalLight(0xfff3e2, 3.2);
 sun.castShadow = true;
 sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.04;
 scene.add(sun, sun.target);
-const hemi = new THREE.HemisphereLight(0xdfeaf5, 0x6f7a5a, 0.35);
+const hemi = new THREE.HemisphereLight(0xdfeaf5, 0xc8c8c7, 0.35);
 scene.add(hemi);
 
 // plano neutro de fundo (fora do modelo), evita "vazio" no horizonte. Nao faz parte do projeto.
 const ground = new THREE.Mesh(new THREE.CircleGeometry(7000, 48).rotateX(-Math.PI / 2),
-  new THREE.MeshStandardMaterial({ color: 0x7f8b6c, roughness: 1 }));
+  new THREE.MeshStandardMaterial({ color: 0xe4e4e3, roughness: 1 }));
 ground.position.y = -1.0; ground.receiveShadow = true; scene.add(ground);
 
 // ------------------------------------------------------------------ estado
@@ -79,6 +80,7 @@ let pools: THREE.InstancedMesh;
 let cars: THREE.Group | null = null;
 let drape: OrthoDrape | null = null;
 let post: Post | null = null;
+let flight: ReturnType<typeof createFlight> | null = null;
 const ledMats: THREE.MeshStandardMaterial[] = [];
 let nightK = 0;
 const proxies: THREE.Object3D[] = [];
@@ -104,7 +106,7 @@ function sunDir(hour: number, doy = 349, lat = -26.4729, lon = -48.9923, tz = -3
 }
 let sunInfo = sunDir(9.5);
 const MOON = new THREE.Vector3(0.45, 0.8, -0.4).normalize(); // luz noturna difusa e fria (ilustrativa)
-const DAY_FOG = new THREE.Color(0xc7d5de), NIGHT_FOG = new THREE.Color(0x10161f);
+const DAY_FOG = new THREE.Color(0xeeeef0), NIGHT_FOG = new THREE.Color(0x10161f);
 /**
  * Ciclo dia -> noite. nightK vai de 0 (dia) a 1 (noite) conforme o sol se aproxima do horizonte:
  * comeca a escurecer com o sol a +4 graus e fica totalmente noite a -6 graus (crepusculo civil).
@@ -127,7 +129,7 @@ function applySun(h: number) {
     sun.intensity = 0.32 * nightK;
   }
   scene.environmentIntensity = THREE.MathUtils.lerp(0.45 + 0.3 * THREE.MathUtils.clamp(eL / 30, 0, 1), 0.05, nightK);
-  scene.backgroundIntensity = THREE.MathUtils.lerp(0.95, 0.06, Math.pow(nightK, 0.7));
+  scene.background = new THREE.Color(0xeeeef0).lerp(new THREE.Color(0x161b25),nightK);
   hemi.intensity = THREE.MathUtils.lerp(0.5, 0.05, nightK);
   (scene.fog as THREE.Fog).color.copy(DAY_FOG).lerp(NIGHT_FOG, nightK);
   renderer.toneMappingExposure = THREE.MathUtils.lerp(0.8, 1.15, nightK);
@@ -191,9 +193,9 @@ async function boot() {
     hdr.mapping = THREE.EquirectangularReflectionMapping;
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromEquirectangular(hdr).texture;
-    scene.background = hdr; scene.backgroundIntensity = 0.95;
+    scene.background = new THREE.Color(0xeeeef0); scene.backgroundIntensity = 1;
     pmrem.dispose();
-    loadSkyBackground(BASE, renderer.capabilities.maxTextureSize).then((bg) => { if (bg) scene.background = bg; });
+    // Minimal neutral horizon: no invented hills or heavyweight panorama.
 
     // revisao do modelo vem do manifesto gerado pelo pipeline (ex.: 'R08') -> nomes dos ativos
     const rev: string = manifest.revision || 'R07';
@@ -213,12 +215,13 @@ async function boot() {
     cars = buildVehicles(asphalt, blockers, axis); scene.add(cars);
     post = new Post(renderer, scene, camera, () => [...trees.children.filter((o: any) => o.material?.alphaTest > 0), pools]);
     buildUI();
+    flight=createFlight(scene,camera,controls,axis,()=>{setMode('orbit');pauseTour();flying?.kill();flying=null;$('#info').classList.add('hidden');});
     applyQuality(quality);
     applySun(9.5);
     goHome(0);
     setLoad(1, 'Pronto');
     const L = $('#loader'); L.style.opacity = '0'; setTimeout(() => L.remove(), 800);
-    (window as any).__ct = { ready: true, scene, camera, controls, setMode, flyToScene, manifest, renderer, applySun, post: () => post, info: () => renderer.info };
+    (window as any).__ct = { ready: true, scene, camera, controls, setMode, flyToScene, manifest, renderer, applySun, post: () => post, flight: () => flight, info: () => renderer.info };
   } catch (err: any) {
     console.error(err);
     $('#loader').classList.add('err');
@@ -257,14 +260,11 @@ function setupModel(root: THREE.Object3D) {
 
 /** Ortofoto real nas faces horizontais do entorno (chao, quadras, telhados) e no chao de fundo. */
 async function setupContext() {
-  try {
-    drape = await buildOrthoDrape(orthoMeta, BASE, renderer.capabilities.maxTextureSize);
-    for (const m of layerGroups.get('entorno') || []) {
-      const mat = (m as THREE.Mesh).material as THREE.MeshStandardMaterial;
-      if (mat.name === 'ENTORNO' || mat.name === 'R10_BRANCO_QUENTE') applyOrthoDrape(mat, drape);
-    }
-    applyOrthoDrape(ground.material as THREE.MeshStandardMaterial, drape, { walls: false });
-  } catch (err) { console.warn('ortofoto no 3D indisponivel', err); }
+  for (const object of layerGroups.get('entorno') || []) {
+    const mesh=object as THREE.Mesh;
+    const mat=new THREE.MeshStandardMaterial({color:0xf0efeb,roughness:.92,metalness:0});
+    mat.name='Entorno off-white';mesh.material=mat;
+  }
 }
 
 // ------------------------------------------------------------------ UI: camadas, ajustes
@@ -348,33 +348,44 @@ function showInfo(html: string) {
   el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
   wireGallery();
 }
-const TIPO: Record<string, string> = { blender: 'Render Blender · R08', tempo_real: 'Captura em tempo real', autor: 'Imagem do autor' };
+const TIPO: Record<string, string> = { blender: 'Render de estudo · versão indicada na fonte', tempo_real: 'Captura em tempo real', autor: 'Imagem do autor', ia: 'Humanização diurna · IA', ia_noite: 'Humanização noturna · IA' };
 let lbList: GalItem[] = [], lbIdx = 0;
 function galleryHTML(id: string) {
   const g = gallery[id];
   if (!g?.length) return '';
   const h = g[0];
+  const compare = h.tipo === 'ia' && g[1] ? g[1] : null;
   return `<div class="gal" data-gal="${id}">
-    <button class="hero" data-i="0" aria-label="Ampliar imagem"><img src="${BASE}${h.src}" alt="${h.legenda}" loading="lazy" decoding="async"></button>
+    <button class="hero" data-i="0" aria-label="Ampliar imagem"><img src="${BASE}${h.src}" alt="${h.legenda}" loading="lazy" decoding="async">${compare ? `<img class="compare-base" src="${BASE}${compare.src}" alt="Base original para comparação" style="clip-path:inset(0 100% 0 0)">` : ''}</button>
+    ${compare ? '<label class="render-compare">Humanizada <input type="range" min="0" max="100" value="0" aria-label="Comparar humanização com base original"> Base original</label>' : ''}
     <span class="tag">${TIPO[h.tipo] || h.tipo}</span>
     <div class="cap"><b>${h.legenda}</b>${h.fonte || ''}</div>
     ${g.length > 1 ? `<div class="thumbs">${g.map((it, k) => `<button data-t="${k}" class="${k === 0 ? 'on' : ''}" aria-label="${it.legenda}"><img src="${BASE}${it.src}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+    ${g.length>1 ? '<div class="gallery-nav"><button type="button" data-gallery-prev aria-label="Imagem anterior">←</button><span data-gallery-count>1 / '+g.length+'</span><button type="button" data-gallery-next aria-label="Próxima imagem">→</button></div>' : ''}
   </div>`;
 }
 function wireGallery() {
   const gal = document.querySelector<HTMLElement>('#info .gal'); if (!gal) return;
   const list = gallery[gal.dataset.gal!] || [];
   let cur = 0;
+  const compareRange=gal.querySelector<HTMLInputElement>('.render-compare input');
+  const compareBase=gal.querySelector<HTMLImageElement>('.compare-base');
+  compareRange?.addEventListener('input',()=>{if(compareBase)compareBase.style.clipPath=`inset(0 ${100-Number(compareRange.value)}% 0 0)`});
   const show = (k: number) => {
-    cur = k; const it = list[k];
+    k=(k+list.length)%list.length;cur = k; const it = list[k];
+    const counter=gal.querySelector('[data-gallery-count]');if(counter)counter.textContent=`${k+1} / ${list.length}`;
+    const compareLabel=gal.querySelector<HTMLElement>('.render-compare');if(compareLabel)compareLabel.hidden=k!==0;
+    if(compareBase)compareBase.hidden=k!==0;
     const img = gal.querySelector<HTMLImageElement>('.hero img')!;
     img.style.opacity = '0';
-    setTimeout(() => { img.src = BASE + it.src; img.alt = it.legenda; img.onload = () => (img.style.opacity = '1'); }, 180);
+    setTimeout(() => { img.onload = () => (img.style.opacity = '1'); img.src = BASE + it.src; img.alt = it.legenda; if(img.complete)img.style.opacity='1'; }, 180);
     gal.querySelector('.tag')!.textContent = TIPO[it.tipo] || it.tipo;
     gal.querySelector('.cap')!.innerHTML = `<b>${it.legenda}</b>${it.fonte || ''}`;
     gal.querySelectorAll('.thumbs button').forEach((b, j) => b.classList.toggle('on', j === k));
   };
   gal.querySelectorAll<HTMLButtonElement>('.thumbs button').forEach((b) => (b.onclick = () => show(+b.dataset.t!)));
+  gal.querySelector<HTMLButtonElement>('[data-gallery-prev]')?.addEventListener('click',()=>show(cur-1));
+  gal.querySelector<HTMLButtonElement>('[data-gallery-next]')?.addEventListener('click',()=>show(cur+1));
   gal.querySelector<HTMLButtonElement>('.hero')!.onclick = () => openLightbox(list, cur);
 }
 function openLightbox(list: GalItem[], i: number) { lbList = list; lbIdx = i; renderLightbox(); $('#lightbox').classList.remove('hidden'); }
@@ -430,7 +441,7 @@ function flyTo(posB: V3, tgtB: V3, dur = 2.6) {
     onComplete: () => { controls.enabled = true; controls.update(); flying = null; },
   });
 }
-function goHome(dur = 2.6) { const s = SCENES[0]; flyTo(s.cam.pos, s.cam.target, dur); }
+function goHome(dur = 2.6) { if(flight?.active)flight.stop(); const s = SCENES[0]; flyTo(s.cam.pos, s.cam.target, dur); }
 function flyToScene(i: number) { const s = SCENES[i]; flyTo(s.cam.pos, s.cam.target); showInfo(sceneInfoHTML(i)); }
 
 // ------------------------------------------------------------------ paradas do roteiro (tour + tags)
@@ -443,9 +454,10 @@ function stopInfoHTML(i: number) {
   const p = roteiro.paradas[i];
   return `${p.galeria ? galleryHTML(p.galeria) : ''}<div class="kicker">${p.code} · ${p.kicker || ''}</div><h2>${p.title}</h2>
   ${p.chips?.length ? `<div class="chips">${p.chips.map(([t, k]) => `<span class="chip ${k}">${t}</span>`).join('')}</div>` : ''}${p.html || ''}
-  ${p.sources?.length ? `<div class="src"><b>Fontes</b><br>${p.sources.join('<br>')}</div>` : ''}`;
+  ${p.sources?.length ? `<details class="src"><summary>Base do estudo</summary>${p.sources.join('<br>')}</details>` : ''}`;
 }
 function flyToStop(i: number) {
+  if(flight?.active)flight.stop();
   const p = roteiro.paradas[i]; if (!p) return;
   if (p.cam) flyTo(p.cam.pos, p.cam.target); else toast('Esta parada ainda não tem enquadramento: defina no editor do roteiro.');
   showInfo(stopInfoHTML(i));
@@ -504,7 +516,7 @@ function updateHotspots(cam: THREE.Camera) {
   const items: { hs: typeof hotspots[0]; x: number; y: number }[] = [];
   for (const hs of hotspots) {
     _v.copy(hs.p).project(cam);
-    const vis = _v.z < 1 && _v.z > -1 && Math.abs(_v.x) < 1.02 && Math.abs(_v.y) < 1.02 && mode !== 'walk';
+    const vis = _v.z < 1 && _v.z > -1 && Math.abs(_v.x) < 1.02 && Math.abs(_v.y) < 1.02 && mode !== 'walk' && !flight?.active;
     const far = cam === camera && camera.position.distanceTo(hs.p) > 2200;
     hs.el.style.display = vis && !far ? '' : 'none';
     if (vis && !far) items.push({ hs, x: Math.round((_v.x * 0.5 + 0.5) * w), y: Math.round((-_v.y * 0.5 + 0.5) * h) });
@@ -565,6 +577,7 @@ function focusPoint(): { x: number; y: number } {
 }
 
 function setMode(m: Mode) {
+  if(flight?.active)flight.stop();
   if (m === mode && m !== 'tour') return;
   const f = focusPoint();
   const prev = mode;
@@ -877,7 +890,8 @@ function frame() {
   renderer.info.reset(); // contagem de draw calls do quadro inteiro (todas as passadas)
   timer.update(); const dt = Math.min(timer.getDelta(), 0.1);
   if (!manifest || !modelMeshes.length) { renderer.render(scene, camera); return; }
-  if (mode === 'walk') walkUpdate(dt);
+  if (flight?.active) flight.update(dt);
+  else if (mode === 'walk') walkUpdate(dt);
   else if (mode !== 'plan' && controls.enabled) controls.update();
   if (mode !== 'walk' && mode !== 'plan') { const d = camera.position.distanceTo(controls.target); camera.near = THREE.MathUtils.clamp(d * 0.003, 0.2, 5); camera.updateProjectionMatrix(); }
   const w = canvas.clientWidth, h = canvas.clientHeight;

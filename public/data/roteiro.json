@@ -1,73 +1,305 @@
 {
-  "versao": 1,
+  "versao": 2,
   "titulo": "Caminho dos Trilhos — roteiro de apresentação",
-  "nota": "Sequência definida pelo autor em 22/10/2026. Âncoras 'sugerido: true' foram propostas a partir da geometria do R07 (quiosques, floreiras, estacionamento) e devem ser confirmadas pelo autor no editor. Estaca = metros ao longo do eixo da ferrovia a partir da ponta oeste.",
+  "nota": "Roteiro conceitual oeste–leste. Marcos principais projetados no eixo ferroviário a partir do KML autoral. Tags complementares ancoradas no alvo das câmeras existentes, sujeitas à revisão visual autoral. Galerias existentes R07 são ilustrativas e não comprovam atualização ao R08.",
   "paradas": [
     {
-      "id": "p1", "code": "1", "title": "Implantação geral", "kicker": "Trilhos de memória · Caminhos para o cotidiano",
-      "html": "<p>A ferrovia ajudou a formar Guaramirim. O <b>Caminho dos Trilhos</b> parte desse eixo existente como referência para propor uma sequência legível de passeios, áreas verdes e lugares de permanência no centro da cidade.</p><p>Como proposta local em estudo preliminar, dialoga com a visão do Masterplan de conectar centralidades por percursos mais caminháveis. Operação e gabarito ferroviário permanecem pendentes.</p>",
-      "chips": [["Implantação CAD preservada", "ok"], ["Estudo preliminar · humanização ilustrativa", "ep"]],
-      "sources": ["Estudo preliminar AMVALI (p. 7–15)", "Masterplan de Guaramirim (p. 139–142)", "modelo_integral/FLUXO_HIBRIDO_IA.md"],
-      "cam": { "pos": [-170, -590, 400], "target": [-250, -40, 0] },
-      "anchor": null
+      "id": "p1",
+      "code": "0",
+      "title": "O corredor como um todo",
+      "kicker": "Memória que conecta o cotidiano",
+      "html": "<p>A ferrovia é o fio condutor desta proposta: conectar lugares que já fazem parte de Guaramirim por um percurso de aproximadamente 1,2 km. Caminhar, pedalar e permanecer passam a compor uma mesma experiência urbana.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI"
+      ],
+      "cam": {
+        "pos": [
+          -170,
+          -590,
+          400
+        ],
+        "target": [
+          -250,
+          -40,
+          0
+        ]
+      },
+      "anchor": null,
+      "galeria": "humanizado-geral"
     },
     {
-      "id": "p1_1", "code": "1.1", "title": "Trecho Estação Ferroviária e Praça Expedicionário", "kicker": "Trecho 1 · Memória, chegada e encontro",
-      "html": "<p>A estação é o ponto de chegada da experiência. O estudo <b>preserva sua implantação</b> (fachadas e alturas estimadas por fotografias) e propõe aproximar novos usos cotidianos por meio dos dois anexos envidraçados de <b>cafés e bistrô</b> (duas águas, perfis escuros e base baixa de tijolinho aparente) e da praça em fulget terroso.</p><p class=\"muted\">Em escala municipal, o Masterplan investiga como visão futura a possível reativação do local como hub modal e cultural, sujeita a estudos específicos.</p>",
-      "chips": [["Implantação da estação preservada", "ok"], ["Altura da base de tijolo: hipótese EP", "ep"], ["Patamar +0,50 m e rampas longitudinais: modelados no R08 (EP)", "ep"]],
-      "sources": ["AGENTS.md — revisões autorais de 19 e 20/10/2026", "Estudo preliminar AMVALI (p. 7, 16)", "Masterplan (p. 74)"],
-      "cam": { "pos": [58, 18, 30], "target": [108, 65, 2] },
-      "anchor": { "s": 1055 }, "galeria": "estacao"
+      "id": "p4",
+      "code": "1",
+      "title": "Chegada · Hotel Andardac",
+      "kicker": "Reconhecer o início do percurso",
+      "html": "<p>Na região do Hotel Andardac, o caminho apresenta sua identidade. Passeios, vegetação e continuidade cicloviária propõem uma chegada mais legível e acolhedora, conectada aos próximos lugares do corredor.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI",
+        "KML de referência fornecido pelo autor · outubro/2026"
+      ],
+      "cam": {
+        "pos": [
+          -941.77,
+          -343.91,
+          85
+        ],
+        "target": [
+          -876.77,
+          -233.91,
+          0
+        ]
+      },
+      "anchor": {
+        "s": 12.58
+      },
+      "galeria": "humanizado-oeste"
     },
     {
-      "id": "p1_2", "code": "1.2", "title": "Calçadão", "kicker": "Trecho 1 · Caminhabilidade",
-      "html": "<p>Percurso contínuo de pedestres junto à estação, em concreto fulget, com piso de permanência em fulget terroso. Níveis do estudo: via 0,00 · passeio +0,15 m.</p>",
-      "chips": [["Posição da tag sugerida — confirmar", "ep"]],
-      "sources": ["modelo_integral/LEIA_ME.md (níveis)", "Materiais EP_CONCRETO_FULGET_CINZA / EP_PERMANENCIA_FULGET_TERROSO no R07"],
-      "cam": { "pos": [79, 57, 1.85], "target": [99.75, 70.75, 0.85] },
-      "anchor": { "s": 1018 }, "sugerido": true, "galeria": "convivencia"
+      "id": "p3",
+      "code": "2",
+      "title": "Praça Central",
+      "kicker": "O caminho encontra a vida do centro",
+      "html": "<p>A Praça Central aproxima o corredor dos encontros e deslocamentos cotidianos. A proposta é dar continuidade aos percursos e criar oportunidades de pausa, fazendo a praça e os trilhos participarem de uma mesma experiência de espaço público.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI",
+        "KML de referência fornecido pelo autor · outubro/2026"
+      ],
+      "cam": {
+        "pos": [
+          -484.22,
+          -185.57,
+          85
+        ],
+        "target": [
+          -419.22,
+          -75.57,
+          0
+        ]
+      },
+      "anchor": {
+        "s": 504.11
+      },
+      "galeria": "humanizado-praca"
     },
     {
-      "id": "p1_3", "code": "1.3", "title": "Quiosques panorâmicos", "kicker": "Trecho 1 · Comércio e permanência",
-      "html": "<p>Quiosques panorâmicos completam a praça junto à estação, com fechamento em madeira ripada e toldo listrado sálvia e creme, conforme os materiais do modelo.</p>",
-      "chips": [["Posição da tag sugerida — confirmar", "ep"]],
-      "sources": ["Camada quiosques do R07 (R15_MADEIRA_RIPADO_SUAVE, R15_TOLDO_LISTRADO_SALVIA_CREME)"],
-      "cam": { "pos": [146, 22, 24], "target": [168, 57, 1] },
-      "anchor": { "s": 1114 }, "sugerido": true
+      "id": "p2",
+      "code": "3",
+      "title": "Junto à Prefeitura",
+      "kicker": "Conectar a cidade aos espaços públicos",
+      "html": "<p>O trecho junto à Prefeitura aproxima o percurso dos equipamentos públicos e da vida cotidiana do centro. O conceito valoriza conexões para pedestres, paisagem e permanência, tornando essa borda parte de um caminho reconhecível.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI",
+        "KML de referência fornecido pelo autor · outubro/2026"
+      ],
+      "cam": {
+        "pos": [
+          -215.18,
+          -80.25,
+          85
+        ],
+        "target": [
+          -150.18,
+          29.75,
+          0
+        ]
+      },
+      "anchor": {
+        "s": 794.31
+      },
+      "galeria": "humanizado-prefeitura"
     },
     {
-      "id": "p1_4", "code": "1.4", "title": "Estacionamento 45°", "kicker": "Trecho 1 · Circulação e estacionamento",
-      "html": "<p>As novas floreiras do estacionamento têm laterais <b>chanfradas em planta</b>, afunilando a frente voltada à via para favorecer o balizamento e a manobra.</p><p>Troncos e vagas seguem a posição CAD. Dimensões não cotadas são hipóteses de estudo preliminar.</p>",
-      "chips": [["Troncos CAD preservados", "ok"], ["Dimensões não cotadas: hipótese EP", "ep"]],
-      "sources": ["AGENTS.md — novas floreiras no estacionamento (21/10/2026)", "estudo_ep_r00d/modelar_R07.py (vista 14_NOVAS_FLOREIRAS)"],
-      "cam": { "pos": [-20, -8, 38], "target": [-37, 38, 0] },
-      "anchor": { "s": 908 }, "galeria": "mobilidade"
+      "id": "p1_1",
+      "code": "4",
+      "title": "Estação e praça",
+      "kicker": "Patrimônio, encontro e permanência",
+      "html": "<p>A estação é a referência de memória do percurso. O estudo propõe valorizar sua presença e aproximar espaços de encontro, descanso e atividades de apoio. A praça amplia as possibilidades de permanecer e viver o patrimônio no cotidiano.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI",
+        "KML de referência fornecido pelo autor · outubro/2026"
+      ],
+      "cam": {
+        "pos": [
+          42.88,
+          -51.52,
+          85
+        ],
+        "target": [
+          107.88,
+          58.48,
+          0
+        ]
+      },
+      "anchor": {
+        "s": 1054.2
+      },
+      "galeria": "humanizado-estacao"
     },
     {
-      "id": "p1_5", "code": "1.5", "title": "Floreiras", "kicker": "Trecho 1 · Paisagismo e convivência",
-      "html": "<p>Floreiras orgânicas com mureta de 30 cm (topo +0,45 m). Em segmentos selecionados, recebem <b>bancos integrados</b>: base de concreto, assento de madeira ripada e encosto onde há espaço.</p>",
-      "chips": [["Contorno externo dos canteiros preservado", "ok"], ["Dimensões de conforto: hipótese EP", "ep"], ["Posição da tag sugerida — confirmar", "ep"]],
-      "sources": ["AGENTS.md — complementações de 19 e 21/10/2026", "estudo_ep_r00d/FISCAL_R06.md (muretas R06, bancos R05)"],
-      "cam": { "pos": [150, 38, 14], "target": [166, 66, 0.5] },
-      "anchor": { "s": 1132 }, "sugerido": true
+      "id": "p1_2",
+      "code": "4.1",
+      "title": "Passeio da estação",
+      "kicker": "Caminhar também é permanecer",
+      "html": "<p>Um passeio contínuo aproxima a estação dos espaços de convivência. A proposta combina deslocamento e pausa, convidando a percorrer o lugar com mais conforto e atenção à paisagem.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI"
+      ],
+      "cam": {
+        "pos": [
+          79,
+          57,
+          1.85
+        ],
+        "target": [
+          99.75,
+          70.75,
+          0.85
+        ]
+      },
+      "anchor": {
+        "x": 99.75,
+        "y": 70.75
+      },
+      "sugerido": true,
+      "galeria": "humanizado-jardins"
     },
     {
-      "id": "p2", "code": "2", "title": "Trecho Fundos da Prefeitura", "kicker": "Trecho 2 · Articulação institucional",
-      "html": "<p><b>Papel narrativo proposto:</b> continuidade pretendida do percurso junto aos equipamentos públicos e reorganização de um espaço hoje voltado a serviço.</p><p class=\"muted\">Conteúdo detalhado, limites e enquadramento a definir pelo autor no editor do roteiro.</p>",
-      "chips": [["Conteúdo, limites e solução não confirmados", "pend"]], "sources": ["Estudo preliminar AMVALI (p. 15, 28–30)", "Estrutura do roteiro informada pelo autor (22/10/2026)"],
-      "cam": null, "anchor": null
+      "id": "p1_3",
+      "code": "4.2",
+      "title": "Quiosques e encontro",
+      "kicker": "Pequenos usos, mais vida cotidiana",
+      "html": "<p>Os quiosques propostos acrescentam pontos de apoio e encontro à praça. A ideia é associar pequenas atividades à permanência, fortalecendo o uso cotidiano do espaço junto à estação.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI"
+      ],
+      "cam": {
+        "pos": [
+          146,
+          22,
+          24
+        ],
+        "target": [
+          168,
+          57,
+          1
+        ]
+      },
+      "anchor": {
+        "x": 168,
+        "y": 57
+      },
+      "sugerido": true,
+      "galeria": "humanizado-quiosques"
     },
     {
-      "id": "p3", "code": "3", "title": "Trecho Praça Central", "kicker": "Trecho 3 · Costura urbana",
-      "html": "<p><b>Papel narrativo proposto:</b> conexão pretendida entre o percurso ferroviário e um espaço público existente no centro da cidade.</p><p class=\"muted\">Conteúdo detalhado, limites e enquadramento a definir pelo autor no editor do roteiro.</p>",
-      "chips": [["Conteúdo, limites e solução não confirmados", "pend"]], "sources": ["Estudo preliminar AMVALI (p. 15, 28–30)", "Estrutura do roteiro informada pelo autor (22/10/2026)"],
-      "cam": null, "anchor": null
+      "id": "p1_4",
+      "code": "4.3",
+      "title": "Acessos e paisagem",
+      "kicker": "Chegar sem perder a escala humana",
+      "html": "<p>O espaço de chegada articula estacionamento, caminhos e vegetação. O conceito busca integrar o acesso de veículos à experiência de quem caminha e permanece, preservando a leitura do conjunto.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI"
+      ],
+      "cam": {
+        "pos": [
+          -20,
+          -8,
+          38
+        ],
+        "target": [
+          -37,
+          38,
+          0
+        ]
+      },
+      "anchor": {
+        "x": -37,
+        "y": 38
+      },
+      "galeria": "humanizado-acessos",
+      "sugerido": true
     },
     {
-      "id": "p4", "code": "4", "title": "Entrada da Cidade / Trecho Hotel", "kicker": "Trecho 4 · Transição de chegada",
-      "html": "<p><b>Papel narrativo proposto:</b> continuidade pretendida do eixo ferroviário e transição de chegada urbana.</p><p class=\"muted\">Equivalência entre os nomes (“Entrada da Cidade” e “Trecho Hotel Andardac”), limites e solução de projeto a confirmar pelo autor.</p>",
-      "chips": [["Equivalência de nomes, limites e solução a confirmar", "pend"]], "sources": ["Estudo preliminar AMVALI (p. 15)", "Estrutura do roteiro informada pelo autor (22/10/2026)"],
-      "cam": null, "anchor": null
+      "id": "p1_5",
+      "code": "4.4",
+      "title": "Jardins e descanso",
+      "kicker": "A paisagem como convite à pausa",
+      "html": "<p>Canteiros e bancos integrados criam lugares para descansar e observar a vida da praça. A vegetação participa da identidade do percurso e aproxima os espaços de passagem dos lugares de encontro.</p><p class=\"muted\">Proposta conceitual em estudo preliminar. Implantação e usos sujeitos à compatibilização técnica e às autorizações pertinentes.</p>",
+      "chips": [
+        [
+          "Estudo preliminar",
+          "ep"
+        ]
+      ],
+      "sources": [
+        "Estudo preliminar Caminho dos Trilhos · AMVALI"
+      ],
+      "cam": {
+        "pos": [
+          150,
+          38,
+          14
+        ],
+        "target": [
+          166,
+          66,
+          0.5
+        ]
+      },
+      "anchor": {
+        "x": 166,
+        "y": 66
+      },
+      "sugerido": true,
+      "galeria": "humanizado-jardins"
     }
   ]
 }

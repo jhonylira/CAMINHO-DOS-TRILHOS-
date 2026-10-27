@@ -13,6 +13,7 @@ export default defineConfig({
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
         conceito: resolve(import.meta.dirname, 'conceito.html'),
+        conceitoDetalhes: resolve(import.meta.dirname, 'conceito-detalhes.html'),
       },
     },
   },
