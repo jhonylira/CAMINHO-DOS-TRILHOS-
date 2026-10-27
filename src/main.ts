@@ -186,7 +186,7 @@ async function boot() {
     // eixo central da ferrovia (extraido dos trilhos do R07) -> ancora exata das tags dos trechos
     axis = await loadAxis(BASE);
     for (const s of SCENES) if (s.hotspot) { const p = pointAt(axis, s.hotspot.s); s.hotspot.at = [p.x, p.y, 0.2]; }
-    try { gallery = (await loadJSON('data/galeria.json')).trechos || {}; } catch { gallery = {}; }
+    try { gallery = (await loadJSON('data/galeria.json?rev=20261027-renders')).trechos || {}; } catch { gallery = {}; }
     await loadRoteiro(BASE);
     setLoad(0.03, 'Carregando céu e iluminação…');
     const hdr = await new HDRLoader().loadAsync(BASE + 'env/ceu_parcialmente_nublado_2k.hdr');

@@ -294,3 +294,4 @@ body.picking #c3d { cursor: crosshair; }
 @media(max-width:760px){#flight-panel{bottom:12px;width:calc(100vw - 24px);gap:8px;padding:12px}#flight-panel strong{width:100%;text-align:center}#btnFlight{font-size:10px;padding:8px}#flight-panel input[type=range]{width:80px}}
 
 .gallery-nav{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;font-size:12px;color:var(--ink2)}.gallery-nav button{min-width:44px;min-height:44px;border-radius:22px;background:#e8e8ed}.gal .thumbs button{height:48px;width:76px}
+@media(max-width:720px){body:has(#tourbar:not(.hidden)) #info{bottom:88px;max-height:52vh}#tourbar{bottom:24px;z-index:18}}

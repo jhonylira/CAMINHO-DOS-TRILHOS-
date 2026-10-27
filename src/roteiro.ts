@@ -24,13 +24,14 @@ export interface Stop {
 }
 export interface Roteiro { versao: number; titulo: string; nota?: string; paradas: Stop[] }
 
-const KEY = 'ct_roteiro_v1';
+// New presentation revision; previous local drafts remain preserved under ct_roteiro_v1.
+const KEY = 'ct_roteiro_v2_renders_20261027';
 let defaults: Roteiro;
 export let roteiro: Roteiro;
 export const isLocal = () => !!localStorage.getItem(KEY);
 
 export async function loadRoteiro(base: string): Promise<Roteiro> {
-  const r = await fetch(base + 'data/roteiro.json');
+  const r = await fetch(base + 'data/roteiro.json?rev=20261027-renders', { cache: 'no-cache' });
   defaults = await r.json();
   try { const loc = localStorage.getItem(KEY); roteiro = loc ? JSON.parse(loc) : structuredClone(defaults); }
   catch { roteiro = structuredClone(defaults); }
