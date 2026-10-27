@@ -58,7 +58,7 @@ export async function buildOrthoDrape(orthoMeta: any, base: string, maxTex: numb
  * - paredes                     -> reboco com leve variacao por edificio e escurecimento junto ao chao
  * - fora da cobertura da foto   -> cor de fallback (verde-acinzentado discreto)
  */
-export function applyOrthoDrape(mat: THREE.MeshStandardMaterial, drape: OrthoDrape, opts: { walls?: boolean; fallback?: THREE.Color } = {}) {
+export function applyOrthoDrape(mat: THREE.MeshStandardMaterial, drape: OrthoDrape, opts: { walls?: boolean; groundOnly?: boolean; fallback?: THREE.Color } = {}) {
   const fb = opts.fallback ?? new THREE.Color(0x8c917c);
   mat.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, drape.uniforms, { uFallback: { value: fb } });
@@ -82,7 +82,7 @@ float hash21(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); r
   // de perto (< ~35 m) a foto de 0,4 m/px fica borrada: trocamos pela MEDIA de cor da regiao
   // (mipmap bem baixo) com o microdetalhe procedural do material -> superficie neutra, sem "borrao"
   float camD = distance(cameraPosition, vWP);
-  float nearK = 1.0 - smoothstep(14.0, 40.0, camD);
+  float nearK = ${opts.walls === false ? '0.0' : '1.0 - smoothstep(14.0, 40.0, camD)'};
   vec4 oAvg = texture2D(uOrtho, tuv, 5.0);
   vec3 photo = mix(o.rgb, oAvg.rgb * (0.85 + 0.3 * diffuseColor.g), nearK);
   // a foto ja traz luz e sombra do voo: compensamos levemente para nao "dobrar" a sombra
@@ -99,9 +99,9 @@ float hash21(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); r
   vec3 wall = diffuseColor.rgb * (0.9 + 0.16 * h) * vec3(1.0, 0.985 - 0.03*h, 0.95 + 0.02*h);
   wall *= mix(0.75, 1.0, smoothstep(0.0, 2.5, vWP.y + 0.9));
   diffuseColor.rgb = mix(wall, ground, up);`}
-  ${opts.walls === false ? 'diffuseColor.rgb = ground;' : ''}
+  ${opts.walls === false ? (opts.groundOnly ? 'diffuseColor.rgb = mix(diffuseColor.rgb, ground, step(vWP.y, 0.01) * step(0.85, abs(vWN.y)));' : 'diffuseColor.rgb = ground;') : ''}
 }`);
   };
-  mat.customProgramCacheKey = () => `ortho_${opts.walls === false ? 0 : 1}`;
+  mat.customProgramCacheKey = () => `ortho_${opts.walls === false ? 0 : 1}_${opts.groundOnly ? 1 : 0}`;
   mat.needsUpdate = true;
 }

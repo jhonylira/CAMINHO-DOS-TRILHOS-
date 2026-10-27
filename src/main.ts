@@ -258,12 +258,18 @@ function setupModel(root: THREE.Object3D) {
   proxies.forEach((p) => (p.visible = false));
 }
 
-/** Ortofoto real nas faces horizontais do entorno (chao, quadras, telhados) e no chao de fundo. */
+/** Ortofoto no piso; volumes e coberturas do entorno permanecem off-white. */
 async function setupContext() {
   for (const object of layerGroups.get('entorno') || []) {
     const mesh=object as THREE.Mesh;
     const mat=new THREE.MeshStandardMaterial({color:0xf0efeb,roughness:.92,metalness:0});
     mat.name='Entorno off-white';mesh.material=mat;
+  }
+  drape = await buildOrthoDrape(orthoMeta, BASE, renderer.capabilities.maxTextureSize);
+  applyOrthoDrape(ground.material as THREE.MeshStandardMaterial, drape, { walls: false, fallback: new THREE.Color(0xe4e4e3) });
+  for (const object of layerGroups.get('entorno') || []) {
+    const mesh = object as THREE.Mesh;
+    applyOrthoDrape(mesh.material as THREE.MeshStandardMaterial, drape, { walls: false, groundOnly: true, fallback: new THREE.Color(0xf0efeb) });
   }
 }
 
@@ -294,7 +300,7 @@ function buildUI() {
   syncQ();
   $<HTMLInputElement>('#hour').oninput = (e: any) => { hourTween?.kill(); applySun(parseFloat(e.target.value)); };
   document.querySelectorAll<HTMLButtonElement>('#hourPresets button').forEach((b) => (b.onclick = () => animateHour(parseFloat(b.dataset.h!))));
-  $<HTMLInputElement>('#tOrtho').onchange = (e: any) => { if (drape) drape.uniforms.uOrthoOn.value = e.target.checked ? 1 : 0; };
+  // A ortofoto permanece ativa no piso em todos os modos 3D.
   $<HTMLInputElement>('#tTrees').onchange = (e: any) => { trees.visible = e.target.checked; proxies.forEach((p) => (p.visible = !e.target.checked)); };
   $<HTMLInputElement>('#tPeople').onchange = (e: any) => (people.visible = e.target.checked);
   $<HTMLInputElement>('#tCars').onchange = (e: any) => { if (cars) cars.visible = e.target.checked; };
